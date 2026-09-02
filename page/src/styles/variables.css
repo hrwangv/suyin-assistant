@@ -1,0 +1,31 @@
+:root {
+  /* Brand colors */
+  --color-primary: #409eff;
+  --color-primary-light: #66b1ff;
+  --color-primary-dark: #337ecc;
+
+  /* Sidebar */
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 64px;
+  --sidebar-bg: #304156;
+  --sidebar-text: #bfcbd9;
+  --sidebar-active-text: #409eff;
+  --sidebar-hover-bg: #263445;
+
+  /* Topbar */
+  --topbar-height: 56px;
+  --topbar-bg: #fff;
+  --topbar-border: #e6e6e6;
+
+  /* Content */
+  --content-bg: #f0f2f5;
+  --card-bg: #fff;
+  --card-radius: 8px;
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  /* Text */
+  --text-primary: #303133;
+  --text-regular: #606266;
+  --text-secondary: #909399;
+  --text-placeholder: #c0c4cc;
+}
