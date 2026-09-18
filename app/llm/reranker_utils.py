@@ -24,9 +24,21 @@ RERANK_MODEL = os.getenv("RERANK_MODEL")
 DEBUG_EMBEDDING = False
 
 
-def text_rerank(query:str, chunks_list:List, top_n: int = 10):
+def text_rerank(query: str, chunks_list: List, top_n: int):
     '''
     入参
+    - query: 查询问题
+    - chunks_list: 候选文档列表（召回池里的全部候选）
+    - top_n: **返回多少条**结果，由调用方显式传入
+
+    关于 top_n（很重要）：
+    - 它只控制「返回几条」，不是「给几条打分」。传进来的 documents 会全部送进模型参与打分，
+      计费也按全部文档的输入 token 算（见返回体的 usage.total_tokens）。
+      所以想用 top_n 省成本是省不掉的，只会少拿结果、白花钱。
+    - 传 len(chunks_list) 表示「全部候选都要分数」，最终保留几条由调用方自己的
+      截断逻辑（node_rerank 里是「断崖 + 上限」）决定。
+    - 这里故意不给默认值：不同调用点的候选规模不同（正文检索要吃下整个召回池，
+      记忆检索只要几条），默认值会让调用方在不知情的情况下被截断。漏传直接 TypeError。
     '''
     # ---- 1. 入参校验 ----
     if not isinstance(query, str) or len(query) == 0:
@@ -78,11 +90,11 @@ def text_rerank(query:str, chunks_list:List, top_n: int = 10):
 
 
 if __name__ == '__main__':
-    text_rerank("什么是文本排序模型",[
-            "文本排序模型广泛用于搜索引擎和推荐系统中，它们根据文本相关性对候选文本进行排序",
-            "量子计算是计算科学的一个前沿领域",
-            "预训练语言模型的发展给文本排序模型带来了新的进展"
-        ],)
-
-
+    demo_docs = [
+        "文本排序模型广泛用于搜索引擎和推荐系统中，它们根据文本相关性对候选文本进行排序",
+        "量子计算是计算科学的一个前沿领域",
+        "预训练语言模型的发展给文本排序模型带来了新的进展",
+    ]
+    # top_n 传全部候选：全部参与打分，交由调用方决定最终保留几条
+    text_rerank("什么是文本排序模型", demo_docs, top_n=len(demo_docs))
 

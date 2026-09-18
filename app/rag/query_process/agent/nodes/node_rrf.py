@@ -2,13 +2,17 @@ import sys
 from typing import List, Dict, Any
 from app.utils.task_utils import add_running_task, add_done_task
 from app.core.logger import logger
+from app.conf.retrieval_config import retrieval_config
 
 
-def step_3_reciprocal_rank_fusion(source_with_weight,top_k:int =5):
+def step_3_reciprocal_rank_fusion(source_with_weight, top_k: int = retrieval_config.merge_top_k):
     """
     进行同源数据排名+权重处理
     :param source_with_weight:  [(集合,权重),(集合,权重)]
     :return: [{},{},{}]  排序后的前top k个元素
+
+    top_k 走配置（默认 20）：主路 + HyDE 路合并后要保留足够多的候选交给 rerank，
+    rerank 才有挑选余地；最终进 prompt 的条数另有 token 总控兜底。
     """
     # 1. 准备两个容器 记录历史得分
     score_dict = {}  # key ：id（chunk_id）   value：计算后的得分
@@ -32,18 +36,19 @@ def step_3_reciprocal_rank_fusion(source_with_weight,top_k:int =5):
             # 计算得分 rrf权重版本的公式 = 1/k + rank * weight
             # rank从1开始，即为排名，传入的source已经是排名后的，第一个就是排名为1的向量块
             # 当有两个源时，第二个源会覆盖前一个，因此要将分数累加
+            # 分数累加
             score_dict[chunk_id] = score_dict.get(chunk_id,0.0) + (1.0/(60 + rank)) * weight
             # chunk_dict[chunk_id] = chunk  #   新来的就覆盖前一份  保留一份
-            chunk_dict.setdefault(chunk_id,chunk) # 没有的时候才会添加，先判断有没有，有的话就不动，没有就保留
+            chunk_dict.setdefault(chunk_id,chunk) # 用chunkid作为键，没有的时候才会添加，先判断有没有，有的话就不动，没有就保留
             # 效果上没有区别！ 每个chunk值保留一遍！
     # 4. 分和chunk的融合+排序
     merged = []  # 列表，里面存重排序之后的分数元组
     for chunk_id, score  in score_dict.items(): #  【key】chunk_id,【value】score
         chunk = chunk_dict.get(chunk_id) # 获取chunk内容
         merged.append((chunk,score))  # 将内容和分数放到元组里面
-        # [(chunk,score) , (chunk,score)]
+        # [(chunk1,score) , (chunk2,score)]
     merged.sort(key = lambda x:x[1],reverse=True) # 使用x里面的第二个元素排序也就是score
-    # 5. 切指定的topk
+    # 5. 切指定的topk，取出前top_k个元素
     merged = merged[:top_k]
     # 6. 获取chunk的排名数据
     rank_chunks = [chunk  for chunk,score in merged]
@@ -91,7 +96,6 @@ if __name__ == "__main__":
         "is_stream": False,
         "original_query": "HAK 180 烫金机怎么操作？",
         "rewritten_query": "HAK 180 烫金机的具体操作步骤是什么？",
-        "item_names": ["HAK 180 烫金机"]
     }
 
     try:

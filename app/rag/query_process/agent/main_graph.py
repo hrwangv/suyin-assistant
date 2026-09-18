@@ -23,13 +23,12 @@ builder.add_node("node_answer_output",node_answer_output)
 # 添加边
 builder.set_entry_point("node_item_name_confirm")
 
-# node_item_name_confirm 可能出现，没有明确的主体 item_name 我们会提前结束返回用户提示，让他明确内容！！
-# node_item_name_confirm -> (answer: str  # 最终生成的答案) -》答案生成 给前端反馈  || 多路召回
+# node_item_name_confirm 只负责提取主体并重写问题，不再根据 item_name 置信度提前结束。
+# 是否值得回答、是否需要澄清，交给后续检索、rerank 和答案生成节点处理。
 # 条件边！！！ conditional_edges
 
 def route_after_node_item_name_confirm(state: QueryGraphState):
-    if state.get('answer'):
-        return "node_answer_output"
+    # 不再用 state 中的 answer 做入口短路，统一进入多路召回。
     return "node_search_embedding","node_search_embedding_hyde","node_web_search_mcp"
 
 builder.add_conditional_edges("node_item_name_confirm"

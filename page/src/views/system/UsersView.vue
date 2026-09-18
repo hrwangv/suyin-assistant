@@ -164,9 +164,13 @@ function handleToggleStatus(row, val) {
 
 function handleDelete(row) {
   ElMessageBox.confirm(`确定删除用户 "${row.username}" 吗？`, '确认删除', { type: 'warning' }).then(async () => {
-    await deleteUser(row.id)
-    userList.value = userList.value.filter((u) => u.id !== row.id)
-    ElMessage.success('删除成功')
+    try {
+      await deleteUser(row.id)
+      userList.value = userList.value.filter((u) => u.id !== row.id)
+      ElMessage.success('删除成功')
+    } catch (e) {
+      ElMessage.error('删除失败')
+    }
   }).catch(() => {})
 }
 </script>

@@ -64,9 +64,13 @@ onMounted(async () => {
 })
 
 async function handleToggle(row, val) {
-  await toggleToolStatus(row.id, val)
-  row.status = val
-  ElMessage.success(`${row.name} 已${val ? '开启' : '关闭'}`)
+  try {
+    await toggleToolStatus(row.id, val)
+    row.status = val
+    ElMessage.success(`${row.name} 已${val ? '开启' : '关闭'}`)
+  } catch (e) {
+    ElMessage.error('操作失败')
+  }
 }
 
 function handleEdit(row) {

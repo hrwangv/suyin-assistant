@@ -3,13 +3,10 @@ from agents.mcp import MCPServerStreamableHttp
 from app.conf.mcp_config import mcp_config
 
 
-
-QCC_API_KEY = mcp_config.qcc_api_key
-
 async def test_qcc():
 
     headers = {
-        "Authorization": f"Bearer {QCC_API_KEY}"
+        "Authorization": f"Bearer {mcp_config.qcc_api_key}"
     }
 
     print("发送Header:")

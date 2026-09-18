@@ -1,21 +1,12 @@
-// News mock API
+// 新闻中心后端接口尚未提供，先返回空数据。
 
 export function getTodayNewsCount() {
-  return Promise.resolve({ code: 200, data: { count: 25 } })
+  return Promise.resolve({ code: 200, data: { count: 0 } })
 }
 
 export function getNewsList() {
   return Promise.resolve({
     code: 200,
-    data: [
-      { id: 1, title: '行业龙头企业发布年度财报，营收突破千亿', source: '财经网', time: '2026-07-28 10:30', summary: '据最新财报显示，该公司2026年上半年实现营业收入520亿元，同比增长18%，超出市场预期...' },
-      { id: 2, title: '新能源汽车市场持续增长，政策利好不断', source: '经济日报', time: '2026-07-28 09:15', summary: '随着国家新一轮新能源汽车补贴政策出台，预计下半年市场将迎来新一轮增长...' },
-      { id: 3, title: '人工智能技术在金融风控领域取得突破', source: '科技日报', time: '2026-07-28 08:00', summary: '多家金融机构开始大规模应用AI技术进行风险评估，有效降低了不良贷款率...' },
-      { id: 4, title: '国务院发布关于促进中小企业发展新政策', source: '新华社', time: '2026-07-27 16:45', summary: '新政策从税收优惠、融资支持、技术创新等多个维度提出具体措施...' },
-      { id: 5, title: '2026年第二季度GDP数据公布，经济稳中向好', source: '国家统计局', time: '2026-07-27 14:20', summary: '二季度国内生产总值同比增长5.2%，经济运行保持在合理区间...' },
-      { id: 6, title: '数字化转型推动制造业提质增效', source: '工信部', time: '2026-07-27 11:00', summary: '制造业数字化转型取得显著成效，智能化改造示范项目超过500个...' },
-      { id: 7, title: '供应链金融创新助力实体经济发展', source: '金融时报', time: '2026-07-26 15:30', summary: '银行业通过供应链金融产品创新，为上下游中小企业提供更便捷的融资服务...' },
-      { id: 8, title: '光伏产业出口额创历史新高', source: '能源报', time: '2026-07-26 14:00', summary: '上半年光伏组件出口总额突破300亿美元，同比增长35%...' },
-    ],
+    data: [],
   })
 }

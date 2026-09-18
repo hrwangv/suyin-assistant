@@ -3,8 +3,8 @@
     <div class="login-card">
       <div class="login-header">
         <el-icon :size="48" color="#409eff"><OfficeBuilding /></el-icon>
-        <h1 class="login-title">企业AI办公平台</h1>
-        <p class="login-subtitle">Enterprise AI Office Platform</p>
+        <h1 class="login-title">苏银助手</h1>
+        <p class="login-subtitle">SuYin Assistant</p>
       </div>
 
       <el-form
@@ -46,7 +46,7 @@
       </el-form>
 
       <div class="login-tips">
-        <span>提示：输入任意用户名密码即可登录（admin为管理员）</span>
+        <span>内测账号：admin / admin123（管理员），user / user123（普通用户）</span>
       </div>
     </div>
   </div>

@@ -6,13 +6,15 @@ import sys
 from app.llm.reranker_utils import text_rerank
 from app.core.logger import logger
 from app.utils.task_utils import add_running_task
+from app.conf.retrieval_config import retrieval_config
 
 load_dotenv()
 # -----------------------------
 # Rerank / TopK 全局常量（不从 state 读取）
 # -----------------------------
-# 动态 TopK 硬上限：最多取前 N 条（<=10）
-RERANK_MAX_TOPK: int = 10
+# 动态 TopK 硬上限：最多取前 N 条，默认 12，走配置
+# （召回阶段已经放到 20 条候选，这里再挑出最相关的若干条进 prompt）
+RERANK_MAX_TOPK: int = retrieval_config.rerank_max_topk
 # 最小 TopK：至少保留前 N 条（>=1，且 <= RERANK_MAX_TOPK）
 RERANK_MIN_TOPK: int = 1
 # 断崖阈值（相对）
@@ -35,18 +37,25 @@ def step_1_merge_rrf_mcp(state):
     # 3. 循环进行数据添加
     # 3.1 local rrf
     for chunk in rrf_chunks:
-        # chunk {id,distance,entity}
-        # chunk.get("entity") if "entity" in chunk else chunk
-        payload = chunk.get('payload') 
+        # chunk {id,score,payload}
+        payload = chunk.get('payload') or {}
         id = chunk.get('id')
-        content  = payload.get('content')
+        content = payload.get('content')
         title = payload.get('title')
         chunks_list.append({
+            # 先把 payload 里的元数据整体透传（content 除外：正文走 text 字段，
+            # 避免同一份内容在 dict 里存两遍）。
+            # 为什么不能只挑 title/content：news_date / file_title / section / item_name
+            # 这些字段在入库时就构建好了、检索阶段还用于过滤，之前在这一步被丢掉，
+            # 导致回答阶段既看不到日期也看不到出处，答案无法标注时间、也无法溯源。
+            **{key: value for key, value in payload.items() if key != "content"},
             "chunk_id": id,
             "text": content,
-            "title":title,
-            "source":"local",
-            "category":" "
+            "title": title,
+            "source": "local",
+            # 这里过去硬编码成 " "，而联网块带真实 category，两路信息量不对称；
+            # 现在用 payload 里的真实值（没有就留空字符串）
+            "category": payload.get("category") or "",
         })
     # 3.2 web   mcp
     for doc in web_search_docs:
@@ -54,11 +63,15 @@ def step_1_merge_rrf_mcp(state):
         category  = doc.get("category")
         title = doc.get("title")
         chunks_list.append({
+            # 同本地块：整体透传（summary 走 text，避免重复）。
+            # 以前这里只保留 title/category，date（资讯时间）和 company_name（主体）
+            # 都被丢掉了，模型因此无法判断联网资讯的时效性。
+            **{key: value for key, value in doc.items() if key != "summary"},
             "chunk_id": " ",
             "text": text,
-            "title":title,
-            "source":"web",
-            "category":category
+            "title": title,
+            "source": "web",
+            "category": category
         })
 
     logger.info(f"多路数据融合，最终结果为:{chunks_list}")
@@ -78,7 +91,13 @@ def step_2_rerank_doc_list(doc_list, state):
     text_list = [ doc['text'] for doc in doc_list]
 
     # 3. 使用rerank模型,重新打分排序，两个必填入参分别是要查询的问题。以及需要重排序备选的文档
-    result= text_rerank(rewritten_query,text_list)
+    # top_n 传「全部候选」：让召回池里每一条都拿到真实分数。
+    # 为什么必须传全部：top_n 只控制返回条数，不控制打分范围（成本也是按全部文档算的）。
+    # 如果只取前 N 条，池子里第 N+1 名之后会被赋 0 分沉底，
+    # step_3_topk_and_gap 就会在「已打分 / 未打分」的边界上误判一次断崖，
+    # 等于把「按分数分布截断」退化成「硬切 N 条」，宽召回也白做了。
+    # 最终进 prompt 的条数由 step_3_topk_and_gap 的「断崖 + RERANK_MAX_TOPK 上限」决定。
+    result = text_rerank(rewritten_query, text_list, top_n=len(text_list))
     '''
     "results": 
     [
@@ -89,6 +108,7 @@ def step_2_rerank_doc_list(doc_list, state):
     '''
 
     # 建立索引到分数的映射
+    # {index,score}
     score_map = {item.index: item.relevance_score for item in result}
 
     # 为每个原始文档添加分数（按其在 doc_list 中的位置索引）
@@ -126,14 +146,14 @@ def step_3_topk_and_gap(rerank_score_list):
 
     max_topk  = RERANK_MAX_TOPK   # 至多获取的元素的数量
     min_topk  = RERANK_MIN_TOPK   # 至少获取的元素数量，怎么都要获取，防断崖也要获取
-    gap_abs   = RERANK_GAP_ABS    # 断崖的分差    0.9  0.64 =》 0.26 （分）
-    gap_ratio = RERANK_GAP_RATIO  # 断崖的百分比  （1-2）/ 1  =》 0.25 保留
+    gap_abs   = RERANK_GAP_ABS    # 绝对差阈值：断崖的分差    0.9  0.64 =》 0.26 （分）
+    gap_ratio = RERANK_GAP_RATIO  # 绝对比阈值：断崖的百分比  （1-2）/ 1  =》 0.25 保留
     # 思路： 两个对比 1 2    2 3  3 4  4 5 （双指针）
     # 1.思考最大截取数量
     # topk不应该大于列表长度
     topk = min(max_topk, len(rerank_score_list))
     # 2.循环处理数据列表，进行双指针处理和比较，比较分值
-    if topk > min_topk:  # 正常情况，要得到的topk 大于最小要求，也就是需要
+    if topk > min_topk:  # 正常情况，要得到的topk 大于最小要求，也就是需要防断崖处理
         # min-1 , topk -1
         for index in range(min_topk - 1, topk - 1): # 只需要在最小输出条数和最大输出条数之间循环即可
             # 双指针 【前，后】
@@ -156,7 +176,7 @@ def step_3_topk_and_gap(rerank_score_list):
         # min_topk = topk  不用管，正好数量对上
         # min_topk 3 > topk 0  list 0 
 
-    # 3.截取确定的数量topk
+    # 3.截取确定的数量topk，断崖后，取出topK的数量大大减少
     topk_doc_list = rerank_score_list[:topk]
     # 4.打印日志处理
     logger.info(f"最终截取的长度：{topk},截取的内容:{topk_doc_list}")

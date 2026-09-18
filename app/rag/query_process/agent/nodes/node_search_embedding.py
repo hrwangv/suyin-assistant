@@ -2,9 +2,16 @@ import sys
 import os
 
 from app.conf.qdrant_config import qdrant_config
+from app.conf.retrieval_config import retrieval_config
 from app.utils.task_utils import add_running_task,add_done_task
 from app.llm.qwen_embedding_utils import generate_embeddings
 from app.utils.qdrant_utils import get_qdrant_client, rrf_hybrid_search
+# 结构化过滤条件 → Qdrant Filter：这一层必须由 Python 完成，
+# 大模型只负责在 state['retrieval_filters'] 里给出条件（见 node_item_name_confirm）
+from app.rag.query_process.retrieval.qdrant_filter_builder import (
+    build_qdrant_filter,
+    describe_filters,
+)
 from app.core.logger import logger
 from dotenv import load_dotenv,find_dotenv
 load_dotenv(find_dotenv())
@@ -17,7 +24,6 @@ def node_search_embedding(state):
     需要参数：
             {
                rewritten_query : 重写的问题  -》 根据他查询
-               item_names : []  -》 明确的主体
             }
     """
     print("---内容检索 开始处理---")
@@ -26,7 +32,6 @@ def node_search_embedding(state):
     # 搜索假设性答案
     # 1. 先从state获取参数数据
     rewritten_query = state.get("rewritten_query")
-    item_names = state.get("item_names")
     # 2. 将重写问题生成对应的向量【稠密和稀疏】
     embeddings = generate_embeddings([rewritten_query])
     # 3. 进行向量数据库的混合查询
@@ -34,13 +39,45 @@ def node_search_embedding(state):
     sparse_vector = embeddings["sparse"][0] # Dict{int: float}
     qdrant_client = get_qdrant_client()
 
+    # 3.1 把 Query Analyzer 抽出的结构化条件翻译成 Qdrant Filter。
+    # 没有任何条件时返回 None，此时就是改造前的纯语义检索。
+    retrieval_filters = state.get("retrieval_filters") or {}
+    qdrant_filter = build_qdrant_filter(retrieval_filters)
+    logger.info(
+        f"[内容检索] 语义查询：{rewritten_query} | 结构化过滤条件：{describe_filters(retrieval_filters)}"
+    )
+
     # 混合查询
+    # 只取了前5个
     response = rrf_hybrid_search(
                         client=qdrant_client,
                         collection_name=qdrant_config.chunks_collection,
                         dense_vector=dense_vector,
-                        sparse_vector=sparse_vector    
+                        sparse_vector=sparse_vector,
+                        # 召回池大小由调用方决定，取值统一来自 retrieval_config
+                        limit=retrieval_config.fused_limit, # 20
+                        dense_limit=retrieval_config.prefetch_limit, # 50
+                        sparse_limit=retrieval_config.prefetch_limit, # 50
+                        query_filter=qdrant_filter,
+                        
                         )
+
+    # 3.2 兜底：带了过滤条件却一条都没召回时，去掉过滤重查一次。
+    # 否则「模型把条件抽错了」会被误判成「知识库里没有相关资料」，
+    # 而且从下游完全看不出是过滤造成的。
+    if not (response.points or []) and qdrant_filter is not None:
+        logger.warning(
+            f"[内容检索] 带过滤条件检索为空，放宽条件重查。过滤条件：{describe_filters(retrieval_filters)}"
+        )
+        response = rrf_hybrid_search(
+                            client=qdrant_client,
+                            collection_name=qdrant_config.chunks_collection,
+                            dense_vector=dense_vector,
+                            sparse_vector=sparse_vector,
+                            limit=retrieval_config.fused_limit,
+                            dense_limit=retrieval_config.prefetch_limit,
+                            sparse_limit=retrieval_config.prefetch_limit,
+                            )
 
     # print(response.points)
 
@@ -76,7 +113,6 @@ if __name__ == "__main__":
     test_state = {
         "session_id": "test_search_embedding_001",
         "rewritten_query": "上海电气做了什么",  # 模拟改写后的查询
-        "item_names": ["经营晨报20260310"],  # 模拟已确认的商品名
         "is_stream": True
     }
 

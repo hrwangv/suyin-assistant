@@ -11,6 +11,7 @@ from app.utils.qdrant_utils import get_qdrant_client, ensure_item_name_collectio
 from langchain_core.messages import SystemMessage, HumanMessage
 
 from app.conf.qdrant_config import qdrant_config
+from app.conf.item_name_config import item_name_config
 # 导入自定义模块：
 # 1. 流程状态载体：ImportGraphState为LangGraph流程的统一状态管理对象
 from app.rag.import_process.agent.state import ImportGraphState, state_summary
@@ -25,14 +26,6 @@ from app.utils.task_utils import add_running_task, add_done_task
 from app.core.logger import logger
 # 7. 提示词工具：加载本地prompt模板，实现提示词与代码解耦
 from app.core.load_prompt import load_prompt
-
-# --- 配置参数 (Configuration) ---
-# 大模型识别商品名称的上下文切片数：取前5个切片，避免上下文过长导致大模型输入超限
-DEFAULT_ITEM_NAME_CHUNK_K = 5
-# 单个切片内容截断长度：防止单切片内容过长，占满大模型上下文
-SINGLE_CHUNK_CONTENT_MAX_LEN = 800
-# 大模型上下文总字符数上限：适配主流大模型输入限制，默认2500
-CONTEXT_TOTAL_MAX_CHARS = 2500
 
 """
   主要目标：
@@ -86,22 +79,22 @@ def step_2_build_context(chunks):
     parts = [] # 存储处理后的切片：{1}，标题:{title},内容：{content} \n\n
     total_chars = 0  # 记录已经加入列表的字符串数量
     # 循环处理 content + 判断
-    for index,chunk in enumerate(chunks[:DEFAULT_ITEM_NAME_CHUNK_K], start=1):
+    for index,chunk in enumerate(chunks[:item_name_config.item_name_chunk_k], start=1):
         chunk_title = chunk['title']
         chunk_content = chunk['content']
         # 先处理一下！！
-        # if len(chunk_content) + total_chars > SINGLE_CHUNK_CONTENT_MAX_LEN:
-        #     chunk_content = chunk_content[:SINGLE_CHUNK_CONTENT_MAX_LEN-total_chars]
+        # if len(chunk_content) + total_chars > item_name_config.single_chunk_content_max_len:
+        #     chunk_content = chunk_content[:item_name_config.single_chunk_content_max_len-total_chars]
         data = f"切片：{index}，标题:{chunk_title},内容：{chunk_content}"
         parts.append(data)
         total_chars += len(data)
         # 第一次的content已经超标了但是完成了拼接！！！
-        if total_chars >= CONTEXT_TOTAL_MAX_CHARS:
+        if total_chars >= item_name_config.context_total_max_chars:
             logger.info(f"已经达到最大字符数:{total_chars}，停止拼接！")
             break
     # 结果的转化
     context = "\n\n".join(parts)
-    final_context = context[:SINGLE_CHUNK_CONTENT_MAX_LEN]
+    final_context = context[:item_name_config.single_chunk_content_max_len]
     # 返回结果
     return final_context
 
@@ -170,7 +163,14 @@ def step_5_generate_embeddings(item_name):
     return dense_vector,sparse_vector
 
 
-def step_6_save_to_vector_db(file_title, item_name, dense_vector, sparse_vector):
+def step_6_save_to_vector_db(
+    file_title,
+    item_name,
+    dense_vector,
+    sparse_vector,
+    file_id="",
+    task_id="",
+):
     """
     将向量和对应的字段保存到 Qdrant 向量数据库中
     :param file_title:
@@ -193,6 +193,8 @@ def step_6_save_to_vector_db(file_title, item_name, dense_vector, sparse_vector)
         item_name=item_name,
         dense_vector=dense_vector,
         sparse_vector=sparse_vector,
+        file_id=file_id,
+        task_id=task_id,
     )
     logger.info(f"保存了item_name:{item_name}的数据到 Qdrant 向量数据库中！！")
 
@@ -206,6 +208,12 @@ def node_item_name_recognition(state: ImportGraphState) -> ImportGraphState:
     1. 取文档前几段内容。
     2. 调用 LLM 识别这篇文档讲的是什么东西 (如: "Fluke 17B+ 万用表")。
     3. 存入 state["item_name"] 用于后续数据幂等性清理。
+
+    当前行为（可通过配置开关切换）：
+    - ITEM_NAME_RECOGNITION_ENABLED=true  → 走完整流程：LLM 识别 + 向量化 + 写 kb_item_name；
+    - ITEM_NAME_RECOGNITION_ENABLED=false（默认）→ 跳过上面两步（省一次大模型调用和一次写库），
+      直接用文件名兜底当 item_name，保证下游按 item_name 做的幂等删除/写入照常工作。
+    各步骤函数（step_2 ~ step_6）全部保留，随时可以打开开关恢复。
     """
     # 1. 进入的日志和任务状态的配置
     function_name = sys._getframe().f_code.co_name
@@ -215,16 +223,37 @@ def node_item_name_recognition(state: ImportGraphState) -> ImportGraphState:
         # 1. 验和取值 （file_title,chunks）
         # 获取前置的材料 file_title = 为了兜底，没有item_name
         chunks , file_title = step_1_get_chunks(state)
-        # 2. 构建上下文环境  chunks -> top 5 -> 拼接成context文本
-        context = step_2_build_context(chunks)
-        # 3. 调用模型，拼接提示词，识别chunks对应item_name
-        item_name = step_3_call_llm(context,file_title)
-        # 4. 修改state chunks -》 item_name -> chunks [{title parent_title context part item_name [没有值]}]
+
+        if item_name_config.enabled:
+            # 2. 构建上下文环境  chunks -> top 5 -> 拼接成context文本
+            context = step_2_build_context(chunks)
+            # 3. 调用模型，拼接提示词，识别chunks对应item_name
+            item_name = step_3_call_llm(context,file_title)
+            # 4. item_name生成向量（稠密/稀疏）
+            dense_vector, sparse_vector = step_5_generate_embeddings(item_name)
+            # 5. 将向量存储到向量数据库 kb_item_name (id / file_title / item_name / 稠密 和 稀疏)
+            step_6_save_to_vector_db(
+                file_title,
+                item_name,
+                dense_vector,
+                sparse_vector,
+                file_id=state.get("file_id", ""),
+                task_id=state.get("task_id", ""),
+            )
+        else:
+            # 识别关闭：不做大模型调用，也不写 kb_item_name。
+            # 用文件名兜底，是因为下游节点依赖 item_name 这个字段存在：
+            # 导入前按 item_name 删旧数据、写入时把它放进 payload，缺了会直接报错。
+            item_name = file_title
+            logger.info(
+                f"[{function_name}] 主体识别已关闭（ITEM_NAME_RECOGNITION_ENABLED=false），"
+                f"跳过 LLM 识别与 kb_item_name 写入，用文件名兜底：{item_name}"
+            )
+
+        # 6. 把 item_name 写回 chunks 和 state
+        # 注意这一步无论开关状态都要执行：chunks 上的 item_name 会进入 payload，
+        # 也是导入时「按 item_name 幂等删除旧数据」的依据
         step_4_update_chunks_and_state(state,item_name,chunks)
-        # 5. item_name生成向量（稠密/稀疏）
-        dense_vector, sparse_vector = step_5_generate_embeddings(item_name)
-        # 6. 将向量存储到向量数据库 kb_item_name (id / file_title / item_name / 稠密 和 稀疏)
-        step_6_save_to_vector_db(file_title,item_name,dense_vector,sparse_vector)
     except Exception as e:
         # 处理异常
         logger.error(f">>> [{function_name}]主体识别发生了异常，异常信息：{e}")
@@ -313,5 +342,3 @@ def test_node_item_name_recognition():
 if __name__ == "__main__":
     # 执行本地测试
     test_node_item_name_recognition()
-
-

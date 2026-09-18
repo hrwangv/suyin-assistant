@@ -150,7 +150,7 @@ async function handleGenerate() {
 }
 
 function handleDownload() {
-  ElMessage.success('开始下载（模拟）')
+  ElMessage.warning('下载功能待接入后端')
 }
 </script>
 

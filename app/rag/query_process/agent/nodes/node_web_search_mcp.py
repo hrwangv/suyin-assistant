@@ -1,19 +1,11 @@
 import asyncio
-import os
 import json
 import sys
-from agents.mcp import MCPServerSse # pip install openai-agents
 from agents.mcp import MCPServerStreamableHttp # pip install openai-agents
 from app.core.logger import  logger
 
 from app.conf.mcp_config import mcp_config
 from app.utils.task_utils import add_running_task,add_done_task
-
-DASHSCOPE_BASE_URL_STREAMABLE = mcp_config.mcp_base_url
-DASHSCOPE_API_KEY = mcp_config.api_key
-
-YJT_BASE_URL = mcp_config.yjt_base_url
-YJT_API_KEY =mcp_config.yjt_api_key
 
 
 async def mcp_call_streamable(query):
@@ -27,9 +19,9 @@ async def mcp_call_streamable(query):
         params={
             # 核心参数
             # "name": "qcc-company",
-            "url": YJT_BASE_URL,
-            "headers": {"x-api-key": YJT_API_KEY}, # 企业预警通采用的请求头
-            # "headers": {"Authorization": f"Bearer {YJT_API_KEY}"}, # 企查查采用的请求头
+            "url": mcp_config.yjt_base_url,
+            "headers": {"x-api-key": mcp_config.yjt_api_key}, # 企业预警通采用的请求头
+            # "headers": {"Authorization": f"Bearer {mcp_config.qcc_api_key}"}, # 企查查采用的请求头
             # "timeout": 10, #连接超时时间
         }
     )
@@ -66,6 +58,58 @@ async def mcp_call_streamable(query):
         await search_mcp.cleanup()
 
 
+def _extract_web_search_docs(result_json: dict) -> list[dict]:
+    """从新版 MCP 返回结构中提取资讯列表。
+
+    新版 data.records.data 中每条记录为数组，字段顺序：
+    0 news_id, 1 title, 2 date, 3 source, 4 summary,
+    5 original_url, 6 related_companies, 7 etime
+    """
+    records_data = result_json.get("data", {}).get("records", {}).get("data", [])
+    if not isinstance(records_data, list):
+        return []
+
+    docs = []
+    for row in records_data:
+        if not isinstance(row, list):
+            continue
+
+        title = row[1] if len(row) > 1 else ""
+        date = row[2] if len(row) > 2 else ""
+        source = row[3] if len(row) > 3 else ""
+        summary = row[4] if len(row) > 4 else ""
+        original_url = row[5] if len(row) > 5 else ""
+        related_companies = row[6] if len(row) > 6 else []
+
+        company_name = ""
+        category = ""
+        if (
+            isinstance(related_companies, list)
+            and related_companies
+            and isinstance(related_companies[0], list)
+        ):
+            company_item = related_companies[0]
+            if company_item:
+                company_name = company_item[0] or ""
+            if len(company_item) > 1:
+                category = company_item[1] or ""
+
+        summary = (summary or "（暂无摘要）").replace("\n", " ").replace("\r", " ")
+        summary = " ".join(summary.split())
+
+        docs.append({
+            "date": date,
+            "category": category,
+            "title": title,
+            "summary": summary,
+            # "source": source,
+            # "original_url": original_url,
+            "company_name": company_name,
+        })
+
+    return docs
+
+
 def node_web_search_mcp(state):
     """
     节点功能，调用外部搜索引擎补充信息
@@ -82,45 +126,26 @@ def node_web_search_mcp(state):
     # 来执行一个名为 mcp_call_streamable 的异步协程，并等待它彻底完成后，把返回值赋给 result。
     # 因为 mcp_call_streamable 是一个异步函数
     # 它可能会在等待网络响应时暂停执行，而 asyncio.run 会确保整个过程在一个事件循环中顺利进行。
-    result = asyncio.run(mcp_call_streamable(query))
-  
-    # 将mcp的返回转化成json格式
-    result_json = json.loads(result.content[0].text)
-    data_rows = result_json["data"]["records"]["data"]
-    print(data_rows)
-    # 提取与格式处理
     docs = []
-    for row in data_rows:
-        title = row[1]
-        summary = row[5] or "（暂无摘要）"
-        date = row[2]  # 提取日期
-        company_name = row[7][0][0]  # 公司全称
-        category = row[7][0][1] # 新闻类别大类
+    try:
+        result = asyncio.run(mcp_call_streamable(query))
+        if not result:
+            raise ValueError("MCP 返回结果为空")
 
-        # 去除摘要中的换行符，替换为空格
-        summary_clean = summary.replace('\n', ' ').replace('\r', ' ')
-        # 清理多余空格（将连续多个空格合并为一个）
-        summary_clean = ' '.join(summary_clean.split())
+        # 将mcp的返回转化成json格式
+        result_json = json.loads(result.content[0].text)
+        docs = _extract_web_search_docs(result_json)
+    except Exception as exc:
+        # MCP 格式或网络可能发生变化，兜底返回空列表，保证后续 RRF/rerank 不受影响。
+        logger.error(f"MCP搜索报错：{exc}")
+        docs = []
 
-        # 组成字典
-        doc = {
-            "date": date,
-            "category": category,
-            "title": title,
-            "summary": summary_clean
-        # 如需要可添加 company_name = row[7][0][0]
-        }
-        docs.append(doc)
-
-    # 字典转为 JSON 字符串
-    final_json = json.dumps(docs,ensure_ascii=False)
-
-    logger.info(f"mcp搜索的结果为:{final_json}")
+    logger.info(f"mcp搜索的结果为:{json.dumps(docs, ensure_ascii=False)}")
     print("---node-web-search-mcp处理结束---")
     add_done_task(state["session_id"], sys._getframe().f_code.co_name, state["is_stream"])
     # 并行的 不要直接返回state
     return {
-        "web_search_docs":final_json
+        "web_search_docs": docs
     }
 
 

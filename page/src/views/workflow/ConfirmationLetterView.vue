@@ -124,7 +124,7 @@ async function handleFileChange(file) {
 
 async function handleSubmit() {
   try {
-    await submitForReview('mock-task-id')
+    await submitForReview()
     ElMessage.success('已提交审核')
     // Mark next step as in_progress
     const reviewStep = steps.value.find((s) => s.title === '审批')

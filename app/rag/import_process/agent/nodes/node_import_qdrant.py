@@ -4,7 +4,12 @@ from typing import List, Dict, Any
 
 # 导入自定义模块
 from app.rag.import_process.agent.state import ImportGraphState, state_summary
-from app.utils.qdrant_utils import get_qdrant_client, ensure_collection, upsert_chunks
+from app.utils.qdrant_utils import (
+    get_qdrant_client,
+    ensure_collection,
+    ensure_payload_indexes,
+    upsert_chunks,
+)
 from app.utils.task_utils import add_running_task, add_done_task
 from app.core.logger import logger
 from app.conf.qdrant_config import qdrant_config
@@ -24,6 +29,13 @@ def step_2_prepare_collections():
        
     # 2. 确保 collection 存在（不存在则自动创建，dense + 自定义 sparse 双向量）
     ensure_collection(qdrant_client, CHUNKS_COLLECTION_NAME)
+
+    # 2.1 确保检索会用到的 payload 索引存在（category/domain/file_title/news_date）。
+    # 这步是性能优化：没有索引过滤照样生效，只是退化成全表扫描。
+    # 放在这里而不是 ensure_collection 里面，是因为 collection 已存在时
+    # ensure_collection 会直接 return，老库就永远补不上索引了。
+    # 注意：item_name 不在索引清单里（它目前只是文件名兜底值，不是高频过滤条件）。
+    ensure_payload_indexes(qdrant_client, CHUNKS_COLLECTION_NAME)
     
     return qdrant_client
 
@@ -64,7 +76,7 @@ def step_3_delete_old_data(qdrant_client, item_name):
 #     milvus_client.load_collection(collection_name=CHUNKS_COLLECTION_NAME)
 
 
-def step_4_insert_collections(qdrant_client, chunks):
+def step_4_insert_collections(qdrant_client, chunks, file_id="", task_id=""):
     """
     批量插入 chunks 数据到 Qdrant（Qdrant 版）
     用 upsert_chunks 一步完成：生成 UUID chunk_id + 构造 PointStruct + 批量 upsert
@@ -72,7 +84,13 @@ def step_4_insert_collections(qdrant_client, chunks):
     :param chunks:
     :return: 带有 chunk_id 回显的 chunks
     """
-    chunks = upsert_chunks(qdrant_client, CHUNKS_COLLECTION_NAME, chunks)
+    chunks = upsert_chunks(
+        qdrant_client,
+        CHUNKS_COLLECTION_NAME,
+        chunks,
+        file_id=file_id,
+        task_id=task_id,
+    )
     logger.info(f"完成了数据插入，成功插入了 {len(chunks)} 条数据")
     return chunks
 
@@ -116,7 +134,12 @@ def node_import_qdrant(state: ImportGraphState) -> ImportGraphState:
         # 3. 根据 item_name 删除旧数据（幂等性）
         step_3_delete_old_data(qdrant_client, chunks[0]['item_name'])
         # 4. 批量插入 chunks 数据（自动生成 UUID chunk_id 回显）
-        with_id_chunks = step_4_insert_collections(qdrant_client, chunks)
+        with_id_chunks = step_4_insert_collections(
+            qdrant_client,
+            chunks,
+            file_id=state.get("file_id", ""),
+            task_id=state.get("task_id", ""),
+        )
 
         state['chunks'] = with_id_chunks
     except Exception as e:

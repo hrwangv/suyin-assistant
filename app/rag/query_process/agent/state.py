@@ -1,5 +1,5 @@
 from typing_extensions import TypedDict
-from typing import List
+from typing import List, Optional
 import copy
 
 class QueryGraphState(TypedDict):
@@ -7,6 +7,10 @@ class QueryGraphState(TypedDict):
     QueryGraphState 定义了整个查询流程中流转的数据结构。
     """
     session_id: str  # 会话唯一标识
+    # 用户标识：长期记忆按它聚合（跨对话共享）。
+    # 当前没有真实用户体系，留空时回退到 MEMORY_DEFAULT_USER_ID 配置。
+    user_id: str
+    conversation_id: Optional[int]  # Session Memory 中的会话主键
     original_query: str  # 用户原始问题
 
     # 检索过程中的中间数据
@@ -23,8 +27,10 @@ class QueryGraphState(TypedDict):
     answer: str  # 最终生成的答案
 
     # 辅助信息
-    item_names: List[str]  # 提取出的商品名称
     rewritten_query: str  # 改写后的问题
+    # Query Analyzer 抽出的结构化过滤条件（dict，字段见 retrieval.schemas.RetrievalFilters）。
+    # 注意：这里存的是「条件」而不是 Qdrant Filter，Filter 由检索节点负责构造。
+    retrieval_filters: dict
     history: list  # 历史对话记录
     is_stream: bool  # 是否流式输出标记
 
@@ -34,6 +40,8 @@ class QueryGraphState(TypedDict):
 # ========================
 query_graph_default_state: QueryGraphState = {
     "session_id": "",
+    "user_id": "",
+    "conversation_id": None,
     "original_query": "",
     "embedding_chunks": [],
     "hyde_embedding_chunks": [],
@@ -42,11 +50,11 @@ query_graph_default_state: QueryGraphState = {
     "reranked_docs": [],
     "prompt": "",
     "answer": "",
-    "item_names": [],
     "rewritten_query": "",
+    "retrieval_filters": {},
     "history": [],
     "is_stream": True
-}   
+}
 
 
 # ========================

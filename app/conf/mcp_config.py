@@ -1,24 +1,30 @@
-# 导入核心依赖：数据类、环境变量读取、路径处理
-from dataclasses import dataclass
+"""MCP 服务配置。
+
+仅负责从环境变量读取配置，不在模块导入时建立连接。
+"""
 import os
+from dataclasses import dataclass
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
-# 定义mcp的服务配置
-@dataclass
+@dataclass(frozen=True)
 class McpConfig:
-    mcp_base_url: str
-    api_key : str
-    qcc_api_key: str
-    yjt_base_url: str
-    yjt_api_key: str
+    """各类 MCP 服务的连接配置。"""
+
+    dashscope_base_url: str | None
+    dashscope_api_key: str | None
+    qcc_api_key: str | None
+    yjt_base_url: str | None
+    yjt_api_key: str | None
+
 
 mcp_config = McpConfig(
-    mcp_base_url=os.getenv("MCP_DASHSCOPE_BASE_URL_STREAMABLE"),
-    api_key=os.getenv("OPENAI_API_KEY"),
+    dashscope_base_url=os.getenv("MCP_DASHSCOPE_BASE_URL_STREAMABLE"),
+    dashscope_api_key=os.getenv("OPENAI_API_KEY"),
     qcc_api_key=os.getenv("QCC_API_KEY"),
     yjt_base_url=os.getenv("YJT_BASE_URL"),
-    yjt_api_key=os.getenv("YJT_API_KEY")
+    yjt_api_key=os.getenv("YJT_API_KEY"),
 )

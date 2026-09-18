@@ -6,11 +6,39 @@ from app.rag.query_process.agent.state import QueryGraphState
 from app.core.logger import logger
 from app.core.load_prompt import load_prompt
 from app.llm.lm_utils import get_llm_client
-from app.utils.mongo_history_utils import save_chat_message
+from app.memory.recent_message_service import get_recent_message_service
+from app.memory.utils.scope import build_long_term_scope, build_scope, parse_scope
+from app.memory.coordinator import get_memory_coordinator
+from app.memory.extraction_trigger import maybe_trigger_extraction
+from app.memory.config import (
+    AUTO_LONG_TERM_MEMORY_ENABLED,
+    MEMORY_DEFAULT_USER_ID,
+)
+# token 计数与预算裁剪（和记忆抽取、embedding 输入共用同一套口径）
+from app.utils.token_budget import count_tokens
+# 回答 prompt 的预算参数（总预算 / 输出预留 / 安全缓冲 / 长期记忆条数）
+from app.conf.answer_config import answer_config
 import re
 
 _IMAGE_BLOCK_MARKER = "【图片】"
-MAX_CONTEXT_CHARS = 12000  # 限制 prompt的长度
+
+# ------------------------------------------------------------------ #
+# 最终 prompt 的 token 预算
+#
+# 参数全部在 app/conf/answer_config.py（可用环境变量覆盖），这里只做引用。
+#
+# 这里是上下文的最后一道总控：
+#   docs(按分数降序) / history(按时间升序) / long_term(按相关度降序)
+# 三段在这个总预算内竞争，超额时按优先级整条丢弃。
+#
+# 为什么不直接用模型窗口（1M）当预算：真正的约束是成本、首字延迟，
+# 以及长上下文下的注意力衰减（中间部分容易被忽略）。
+# ------------------------------------------------------------------ #
+
+
+def _available_input_budget() -> int:
+    """真正可以分给三个来源的 token 数（= 总预算 − 输出预留 − 安全缓冲）。"""
+    return answer_config.available_input_budget
 
 
 def step_1_check_answer(state):
@@ -35,73 +63,221 @@ def step_1_check_answer(state):
         return False
 
 
+def _format_doc_entry(index, doc):
+    """把一条命中的文档格式化成 prompt 里的一个条目。
+
+    除正文外，把 payload 里对回答有用的元数据也带上：来源文件（file_title）、
+    日期（本地块 news_date / 联网块 date）、栏目（section）、主体（item_name/company_name）。
+    这些字段在入库时就构建好了、检索阶段还用于过滤，之前没传给模型，
+    结果是答案里无法标注时间和出处，也做不到溯源。
+
+    空值直接省略，避免 prompt 里出现一堆空的 [xx=] 干扰模型。
+    """
+    parts = [str(index), f"source={doc.get('source')}"]
+    title = doc.get("title")
+    if title:
+        parts.append(f"title={title}")
+    file_title = doc.get("file_title")
+    if file_title:
+        parts.append(f"file={file_title}")
+    # 本地块用 news_date（入库时已统一成 RFC3339），联网块用 date，两者取其一
+    date = doc.get("news_date") or doc.get("date")
+    if date:
+        parts.append(f"date={date}")
+    section = doc.get("section")
+    if section:
+        parts.append(f"section={section}")
+    item_name = doc.get("item_name") or doc.get("company_name")
+    if item_name:
+        parts.append(f"item={item_name}")
+    score = doc.get("score")
+    if score is not None:
+        parts.append(f"score={score}")
+    return "[" + "][".join(parts) + f"]\n\n{doc.get('text')}"
+
+
 def step_2_load_prompt(state):
     """
     加载模型润色答案的提示词！！
+    拼接各项数据源
     :param state:
     :return:
     """
 
     # 数据从state中获取
+    # 重写后的问题
     rewritten_query = state.get("rewritten_query") or state.get("original_query")  # question
+    # 重排序之后的文档信息
     reranked_docs = state.get("reranked_docs",[])
-    item_names = state.get("item_names",[])
-    history = state.get("history",[])
+    # 历史信息，短期记忆。
+    # node_item_name_confirm 已经从 Redis/MySQL 读取短期上下文并写入 state["history"]，
+    # 这里直接消费即可，不需要在 answer 节点重复读取 Redis。
+    history = state.get("history", [])
 
-    # 1. 先处理 chunk块的内容 -》 context
-    docs = []
-    used_length = 0 #记录使用的长度
-    # reranked_docs => [{text,chunk_id,score,url,title,source local | web },{}]
-    # [1][text][source][url][title][score] \n\n
-    # [2][text][source][url][title][score] \n\n
-    for i,doc in enumerate(reranked_docs,start=1):
-        text = doc.get("text")
-        source = doc.get("source")
-        title = doc.get("title")
-        score = doc.get("score")
-        # 拼接
-        content = f"[{i}][source={source}][title={title}][score={score}]\n\n{text}"
-        """
-        [{i}][source={source}][title={title}][score={score}]
-        
-        text chunk的内容。。。。
-        """
-        if used_length + len(content) > MAX_CONTEXT_CHARS:
-            logger.info(f"本次内容停止追加了！已经大于限制长度！")
-            break
-        docs.append(content) # state中所有的内容添加到一起
-        used_length += len(content) #长度累加
-    # ["[{i}][text={text}][source={source}][title={title}][score={score}]]","[{i}][text={text}][source={source}][title={title}][score={score}]]","[{i}][text={text}][source={source}][title={title}][score={score}]]"]
+    # 1. 三个来源各自整理成「条目列表」，先不拼接。
+    #    保持分段是后面能按优先级整条丢弃的前提：一旦拼成一个大字符串，
+    #    超预算时只能按字符硬切，会把文档切一半、把一句话切断。
+    #
+    # 1.1 RAG 文档（rerank 已按分数降序）
+    # reranked_docs => [{text,chunk_id,score,title,source local|web,
+    #                    file_title,news_date,section,item_name,category,...}]
+    docs = [
+        _format_doc_entry(i, doc)
+        for i, doc in enumerate(reranked_docs, start=1)
+    ]
+
+    # 1.2 短期记忆（按时间升序：第一条最旧）
+    history_items = []
+    for message in history:
+        role = message.get("role")
+        text = message.get("content")
+        if role == "user" and text:
+            history_items.append(f"【用户】: {text}")
+        elif role == "assistant" and text:
+            history_items.append(f"【模型助手】: {text}")
+
+    # 1.3 长期记忆（按相关度降序，step_2 内部已检索）
+    long_term_items = step_2_load_long_term_memory(state)
+
+    # 2. 总 token 控制：三段 + 固定开销一起算，超额按优先级丢
+    docs, history_items, long_term_items = _fit_prompt_budget(
+        docs=docs,
+        history=history_items,
+        long_term=long_term_items,
+        question=rewritten_query,
+    )
+
+    # 3. 组装最终 prompt（三段都空时给占位文案，保持原来的行为）
     final_context = "\n\n".join(docs)
-
-    # 2. 再处理 history -> 聊天记录的内容
-    history_str = "" # 对话记录的内容
-    if history and len(history) > 0:
-        for i,message in enumerate(history,start=1):
-           role = message.get("role")
-           text = message.get("text")
-           current_history = ""
-           if role == "user" and text:
-               current_history = f"【用户】: {text}\n"
-           elif role == "assistant" and text:
-               current_history = f"【助手】: {text}\n"
-           history_str += current_history
-           used_length += len(current_history) #使用长度
-           if used_length > MAX_CONTEXT_CHARS:
-               logger.info(f"本次内容停止追加了！已经大于限制长度！")
-               break
-    else:
-        history_str = "没有历史对话记录！"
-    # 3. 再处理 item_name
-    item_names_str =",".join(item_names)
-    # 4. 再处理 question 问题
+    history_str = "\n".join(history_items) if history_items else "没有历史对话记录！"
+    long_term_memories_str = "\n\n".join(long_term_items) if long_term_items else "没有相关长期记忆。"
     answer_out_prompt = load_prompt("answer_out",
-                           context=final_context,
-                           history=history_str,
-                           item_names=item_names_str,
+                           context=final_context, # rag的内容 
+                           history=history_str, # 短期记忆上下文
+                           long_term_memories=long_term_memories_str, # 长期记忆
                            question=rewritten_query)
-    logger.info(f"已经完成了提示词生成：{answer_out_prompt}")
+    logger.info(
+        f"已经完成了提示词生成：文档 {len(docs)} 条 / 历史 {len(history_items)} 条 / "
+        f"长期记忆 {len(long_term_items)} 条 | 总 token≈{count_tokens(answer_out_prompt)}"
+    )
     return answer_out_prompt
+
+
+def _fit_prompt_budget(docs, history, long_term, question):
+    """把三个来源裁进总 token 预算，超额时按优先级整条丢弃。
+
+    优先级（先丢的在前）：长期记忆 → 最旧的历史 → 最低分的文档。
+    · 长期记忆是提示词里定义的"背景补充"，最先牺牲
+    · 历史对话决定多轮追问能否接上，从最旧的一端丢
+    · 文档是答案的主要依据，从分数最低的一端丢，最后才动
+
+    固定开销（模板 / 当前问题）不参与丢弃——它们永远要留。
+
+    实现上每段只算一次 token，之后每丢一条做一次减法，不整体重算。
+    """
+    # 固定开销：模板（占位符填空后）+ 当前问题。
+    # 这两部分永远保留，不参与下面的丢弃。
+    empty_prompt = load_prompt(
+        "answer_out", context="", history="", long_term_memories="",
+        question="",
+    )
+    fixed_tokens = count_tokens(empty_prompt) + count_tokens(question)
+
+    # 三段来源按「先丢」到「后丢」排列（顺序即优先级）。
+    # "last" = 从末尾丢（长期记忆按相关度降序、文档按分数降序）；
+    # "oldest" = 从最旧的一端丢（历史对话按时间升序）。
+    sections = [
+        # (名字, 条目, 丢弃端)
+        ("长期记忆", long_term, "last"),
+        ("历史对话", history, "oldest"),
+        ("RAG文档", docs, "last"),
+    ]
+    # 每条 token 只算一次，后面丢的时候做减法，不整体重算
+    token_lists = [[count_tokens(item) for item in items] for _, items, _ in sections]
+    total = fixed_tokens + sum(sum(tokens) for tokens in token_lists)
+    # 预算 = 总预算 − 输出预留 − 安全缓冲（见 app/conf/answer_config.py）
+    budget = _available_input_budget()
+
+    if total <= budget:
+        return docs, history, long_term
+
+    dropped_summary = {}
+    for (name, items, drop_side), tokens in zip(sections, token_lists):
+        dropped = 0
+        if drop_side == "oldest":
+            while items and total > budget:
+                total -= tokens.pop(0)
+                items.pop(0)
+                dropped += 1
+        else:
+            while items and total > budget:
+                total -= tokens.pop()
+                items.pop()
+                dropped += 1
+        if dropped:
+            dropped_summary[name] = dropped
+        if total <= budget:
+            break
+
+    logger.info(
+        f"prompt 超过 token 预算，已按优先级裁剪：{dropped_summary} "
+        f"| 裁剪后约 {total} token（预算 {budget}）"
+    )
+    return docs, history, long_term
+
+
+def step_2_load_long_term_memory(state):
+    """
+    检索并格式化长期记忆。
+
+    长期记忆按「用户」聚合（跨对话共享），scope 的计算统一走
+    build_long_term_scope，与 step_6 写入时完全一致，避免一边写一边读不到。
+
+    返回**条目列表**（不是拼好的字符串）：step_1 的 token 总控需要按条丢弃，
+    拼成字符串就没法整条裁剪了。没有命中时返回空列表。
+    """
+    query = state.get("rewritten_query") or state.get("original_query") or ""
+    session_id = state.get("session_id")
+    if not query or not session_id:
+        return []
+
+    try:
+        scope = build_long_term_scope(
+            user_id=state.get("user_id"),
+            default_user_id=MEMORY_DEFAULT_USER_ID,
+            run_id=session_id,
+        )
+        # 执行长期记忆的检索，里面涉及到实体图谱entity
+        search_result = get_memory_coordinator().search(
+            query=query,
+            scope=scope,
+            # 检索条数走配置（ANSWER_LONG_TERM_MEMORY_TOP_K，默认 5）：
+            # 长期记忆在 prompt 里定位是"背景补充"，条数不放大，
+            # 而且它是最先被总预算裁掉的来源。
+            top_k=answer_config.long_term_memory_top_k, # 检索5条长期记忆
+            # 不走 rerank（coordinator.search 的默认值也是 False）：
+            # 只取 5 条背景补充，精排能改变的余地很小，
+            # 却要多付一次外部 API 的延迟和成本；排序由「稠密相似度 + 实体加分」决定。
+            rerank=False,
+        )
+        long_term_memories = search_result.get("long_term_memories", [])
+    except Exception as exc:
+        logger.warning(
+            f"answer 节点检索长期记忆失败，session_id={session_id}：{exc}"
+        )
+        return []
+
+    if not long_term_memories:
+        return []
+
+    memories = []
+    for index, memory in enumerate(long_term_memories, start=1):
+        memory_id = memory.get("memory_id", "")
+        data = memory.get("data", "")
+        memories.append(f"[{index}][memory_id={memory_id}]\n{data}")
+
+    # 这里不再限制总字符数：长度统一交给 step_1 的 token 总控裁剪
+    return memories
 
 
 def step_3_create_answer(state, prompt):
@@ -181,36 +357,80 @@ def step_4_extract_images_url(state):
 
 def step_5_write_history(state):
     """
-    将对话存储到mongodb history
+    将对话存储到 Session Memory
     每次对话 对应2条history
        我们问  -》 user  ->  question -> text
        查询到  -》 assistant -> answer -> text
+
+    写失败一律降级、不上抛：这个函数在答案已经推给前端之后执行，
+    抛出去会把「已经答完」的一轮对话标记成 failed（还跳过 add_done_task）。
+    代价是本轮短期记忆丢失，这个代价可以接受。
     :param state:
     :return:
     """
     session_id = state.get("session_id")
     answer = state.get("answer")
-    rewritten_query = state.get("rewritten_query") or state.get("original_query")
-    item_names = state.get("item_names",[])
 
-    # if rewritten_query:
-    #     # user
-    #     save_chat_message(
-    #         session_id = session_id,
-    #         role = "user",
-    #         text = rewritten_query,
-    #         item_names = item_names
-    #     )
-    if answer:
-        # assistant
-        save_chat_message(
-            session_id = session_id,
-            role = "assistant",
-            text = answer,
-            item_names = item_names,
-            rewritten_query=rewritten_query
+    if not answer:
+        logger.info("没有可写入的 assistant 回答，跳过记录存储")
+        return
+
+    try:
+        memory_service = get_recent_message_service()
+        scope = build_scope(run_id=session_id)
+        memory_service.add_messages(
+            scope,
+            [
+                {
+                    "role": "assistant",
+                    "content": answer,
+                }
+            ],
         )
-    logger.info(f"完成了本次对话的记录存储！")
+    except Exception as exc:
+        logger.error(
+            f"写入助手回答失败（忽略，答案已返回用户）：session_id={session_id}, err={exc}"
+        )
+        return
+    logger.info("完成了本次对话的记录存储")
+
+
+def step_6_extract_long_term_memory(state):
+    """
+    长期记忆抽取的触发点（在每轮问答结束时调用）。
+
+    注意这里**不是每轮都抽**：真正的判断在水位逻辑里（app/memory/extraction_trigger.py）——
+    距上次抽取新增的消息数达到阈值（默认 40 条）才触发一次批量抽取。
+    没到阈值时这个函数什么都不做，只打一条日志。
+
+    scope 分工：
+    - run_scope（会话级）：水位与抽取批次以它为维度，因为批次来自本会话的短期消息；
+    - long_term_scope（用户级）：抽取结果写这里，与 step_2 读取时用同一个 scope，
+      保证跨对话能读到。
+    """
+    if not AUTO_LONG_TERM_MEMORY_ENABLED:
+        return
+
+    session_id = state.get("session_id")
+    if not session_id:
+        return
+
+    run_scope = build_scope(run_id=session_id)
+    long_term_scope = build_long_term_scope(
+        user_id=state.get("user_id"),
+        default_user_id=MEMORY_DEFAULT_USER_ID,
+        run_id=session_id,
+    )
+    if not parse_scope(long_term_scope).get("user_id"):
+        logger.warning(
+            f"长期记忆当前为会话级隔离（未提供 user_id 且未配置 "
+            f"MEMORY_DEFAULT_USER_ID），新对话读不到本次记忆：session_id={session_id}"
+        )
+    try:
+        # 到阈值才真正触发；不够阈值直接返回，最多打一条日志
+        maybe_trigger_extraction(run_scope, long_term_scope)
+    except Exception as exc:
+        logger.warning(f"长期记忆抽取触发失败，session_id={session_id}：{exc}")
 
 
 def node_answer_output(state):
@@ -245,8 +465,10 @@ def node_answer_output(state):
                                    "status":"completed",
                                       "image_urls": images_url})
     # 数据都已经推送完毕了
-    # 5. 添加聊天记录（mongodb）
+    # 5. 添加聊天记录
     step_5_write_history(state)
+    # 6. 自动触发长期记忆抽取，使用后台线程，不阻塞本轮对话结束
+    step_6_extract_long_term_memory(state)
     add_done_task(state['session_id'], sys._getframe().f_code.co_name, state.get("is_stream"))
     print("---node_answer_output 节点处理结束---")
     return state
@@ -305,7 +527,6 @@ if __name__ == "__main__":
         "session_id": "test_answer_session_001",
         "original_query": "HAK 180 烫金机怎么操作？",
         "rewritten_query": "HAK 180 烫金机的具体操作步骤和面板设置方法",
-        "item_names": ["HAK 180 烫金机"],
         "history": mock_history,
         "reranked_docs": mock_reranked_docs,
         "is_stream": False,  # 测试非流式

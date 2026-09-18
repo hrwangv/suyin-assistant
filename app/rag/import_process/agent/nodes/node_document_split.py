@@ -2,6 +2,7 @@ import re
 import json
 import os
 import sys
+import datetime
 from turtledemo.penrose import start
 # 统一类型注解，避免混用any/Any
 from typing import List, Dict, Any, Tuple
@@ -12,12 +13,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from app.utils.task_utils import add_running_task, add_done_task
 from app.rag.import_process.agent.state import ImportGraphState, state_summary
 from app.core.logger import logger  # 项目统一日志工具，核心替换print
-
-# --- 配置参数 (Configuration) ---
-# 单个Chunk最大字符长度（不是token）：超过则触发二次切分（适配大模型上下文窗口）
-DEFAULT_MAX_CONTENT_LENGTH = 2000 # 512 - 1500 token
-# 短Chunk合并阈值：同父标题的短Chunk会被合并，减少碎片化
-MIN_CONTENT_LENGTH = 500 # 最小的长度
+from app.conf.document_split_config import document_split_config
+from app.utils.date_utils import to_rfc3339_date
 """
    完成md内容的切块！ 
    最终： chunks -> 存储块的集合   chunks ->  备份到本地 -> chunks.json 
@@ -178,18 +175,15 @@ def split_long_section(section, max_length):
     sub_sections = []
     for index,chunk in enumerate(splitter.split_text(content),start = 1): # 给每个分片内容标号，从1开始
         text = chunk.strip() # 每个细切片的内容
-        title = f"{section.get('title')}_{index}" # 之前取到的标题名(粗分得到的)_index 
-        parent_title = section.get("title")
-        part = index
-        file_title = section.get("file_title")
+        # 以原 section 为模板复制，只覆盖切分相关的字段
+        # 这样 news_date / section / category / domain 等上游赋好的元数据会一并保留，
+        # 不会因为这里重新构造 dict 而被丢掉
         sub_sections.append({
-            "title": title,
+            **section,
+            "title": f"{section.get('title')}_{index}", # 之前取到的标题名(粗分得到的)_index
             "content": text,
-            "file_title": file_title,
-            "parent_title": parent_title,
-            "part": part,
-            "news_date": section.get("date"),      # 新增
-            "section": section.get("source")   # 新增
+            "parent_title": section.get("title"),
+            "part": index,
         })
 
     # 10  20  30  40
@@ -239,10 +233,11 @@ def merge_short_sections(final_sections, min_length):
 def step_3_refine_chunks(sections, max_length,min_length):
     """
     做内容精细切割！
-       1. 超过了MIN_CONTENT_LENGTH块，要做切割！ （parent_title | part ）
-       2. 小于了MIN_CONTENT_LENGTH块，要合并结果！ （同一个parent_title)
+       1. 超过了max_length块，要做切割！ （parent_title | part ）
+       2. 小于了min_length块，要合并结果！ （同一个parent_title)
     :param sections:
-    :param MIN_CONTENT_LENGTH:
+    :param max_length: 单个Chunk最大字符长度，来自 document_split_config
+    :param min_length: 短Chunk合并阈值，来自 document_split_config
     :return: sections
     """
     final_sections = [] # 存储处理后的块
@@ -289,6 +284,7 @@ def assign_category_and_domain(sections):
     """
     为每个 section 添加 category（性质）和 domain（领域）字段。
     根据标题模式推断层级关系。
+    性质：新闻模块
     """
     # 顶级分类关键词（性质）
     CATEGORY_KEYWORDS = {
@@ -316,8 +312,6 @@ def assign_category_and_domain(sections):
     # 用于状态跟踪，全局信息
     current_category = None # 当前分类，如重点客户等
     current_domain = None # 当前领域，如新能源领域等
-    # 使用栈记录当前层级（便于恢复）
-    stack = []  # 元素为 (category, domain)
 
     for sec in sections:
         title = sec["title"]
@@ -328,8 +322,6 @@ def assign_category_and_domain(sections):
         if clean_title in CATEGORY_KEYWORDS: # 判断是否属于字典中的某个键  # 状态转移
             current_category = CATEGORY_KEYWORDS[clean_title] # 是的话就取出键对应的值
             current_domain = None
-            # 清空栈，顶级标题重置上下文
-            stack = [(current_category, current_domain)]
             sec["category"] = current_category
             sec["domain"] = current_domain
             continue
@@ -341,8 +333,6 @@ def assign_category_and_domain(sections):
             if current_category is None:
                 current_category = "行业动态"  # 兜底
             current_domain = None
-            # 推入栈（保留当前上下文）
-            stack.append((current_category, current_domain))
             sec["category"] = current_category
             sec["domain"] = current_domain
             continue
@@ -355,8 +345,6 @@ def assign_category_and_domain(sections):
             if current_category is None:
                 current_category = "行业动态"
             current_domain = domain_name
-            # 推入栈
-            stack.append((current_category, current_domain))
             sec["category"] = current_category
             sec["domain"] = current_domain
             continue
@@ -378,6 +366,21 @@ def assign_category_and_domain(sections):
     return sections
 
 
+def _is_valid_date(date_str: str) -> bool:
+    """
+    校验 8 位字符串是否为合法日期。
+
+    仅做格式和日期有效性校验，并限制年份在常见业务范围内，
+    避免把“20259999”这类恰好 8 位但不是日期的内容误判为日期。
+    """
+    try:
+        parsed = datetime.datetime.strptime(date_str, "%Y%m%d")
+    except ValueError:
+        return False
+
+    return 1990 <= parsed.year <= 2100
+
+
 def extract_source_and_date(file_title: str):
     """
     从文件名/标题中提取来源和日期。
@@ -389,20 +392,25 @@ def extract_source_and_date(file_title: str):
     
     # 匹配：来源部分（不含数字） + 可选的空格 + 8位数字（日期）
     # [^\d]+  一个或多个非数字字符。\d数字，^\d非数字 ，+一个或多个
+    # 中括号表示字符类
     pattern = r'^([^\d]+)\s*(\d{8})$' # ^代表从字符串开头开始匹配,$代表字符串结尾
     match = re.match(pattern, title)
     if match:
         source = match.group(1).strip()  # 捕获组1([^\d]+)
         date = match.group(2)            # 捕获组2(\d{8})
-        return source, date
+        if _is_valid_date(date):
+            return source, date
+        return title, None
     
-    # 若上述匹配失败，尝试更宽松的匹配（允许来源含数字）
+    # 若上述匹配失败，尝试更宽松的匹配（允许标题来源含数字）
     pattern2 = r'^(.*?)\s*(\d{8})$'
     match2 = re.match(pattern2, title)
     if match2:
         source = match2.group(1).strip()
         date = match2.group(2)
-        return source, date
+        if _is_valid_date(date) and source:
+            return source, date
+        return title, None
     
     # 都失败，则来源为原标题，日期为空
     return title, None
@@ -431,9 +439,13 @@ def node_document_split(state: ImportGraphState) -> ImportGraphState:
 
         # 从文件标题提取出的日期和来源赋值到section中，也就是后续需要保存到chunk中
         source,date = extract_source_and_date(file_title)
+        # 提取出来的原始日期是紧凑字符串（如 20260410），这里统一转成 RFC3339
+        # （2026-04-10T00:00:00Z）。转换只做这一次，后面 payload 里就只存这一种格式，
+        # 检索侧可以直接用它对 news_date 做时间范围过滤。
+        news_date = to_rfc3339_date(date)
         # 为当前所有 section 添加 date 和 source 字段
         for sec in sections:
-            sec['news_date'] = date
+            sec['news_date'] = news_date
             sec['section'] = source
 
         if(source=="经营晨报"):
@@ -449,7 +461,11 @@ def node_document_split(state: ImportGraphState) -> ImportGraphState:
         #  大 -》（设置重叠）
         #  小 || 小 -》 合并  
         #  大 -》 小 || 小 -》 合并
-        sections = step_3_refine_chunks(sections,DEFAULT_MAX_CONTENT_LENGTH,MIN_CONTENT_LENGTH)
+        sections = step_3_refine_chunks(
+            sections,
+            document_split_config.max_content_length,
+            document_split_config.min_content_length,
+        )
         # 大小合适，语义完整的chunks
         # 5. 数据的备份和chunks属性的修改 (chunks -> state  | chunks -> 本地备份一下)
         state['chunks'] = sections

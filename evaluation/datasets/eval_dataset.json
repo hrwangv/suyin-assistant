@@ -1,0 +1,4370 @@
+{
+  "meta": {
+    "source": "local",
+    "collection": null,
+    "seed": 20260915,
+    "corpus_size": 1706,
+    "generated_at": "2026-09-15T13:33:05",
+    "summary": {
+      "total": 100,
+      "by_question_type": {
+        "colloquial_entity": 10,
+        "domain_facet": 15,
+        "entity_fact": 30,
+        "file_category": 20,
+        "file_overview": 10,
+        "time_category": 15
+      },
+      "by_difficulty": {
+        "easy": 30,
+        "hard": 15,
+        "medium": 55
+      },
+      "requires_metadata_filter": 50,
+      "avg_gold_size": 3.21
+    }
+  },
+  "items": [
+    {
+      "id": "q0001",
+      "question": "经营晨报里关于「铜陵有色」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "7e7cb6e3e151a8d2ce00c76ae8ed0bf8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251107",
+          "title": "铜陵有色：以32.04亿元竞得安徽铜陵铜金钼矿勘查探矿权",
+          "part": 1,
+          "snippet": "## 铜陵有色：以32.04亿元竞得安徽铜陵铜金钼矿勘查探矿权  11月5日，据铜陵有色（000630.SZ）公告披露，公司以32.04亿元竞得安徽省铜陵市鸡冠山一胡村铜金钼矿勘查"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/298d27ae-5eb7-4e03-96c1-27176bdb4613/经营晨报 20251107/chunks.json"
+      ],
+      "notes": "实体=铜陵有色"
+    },
+    {
+      "id": "q0002",
+      "question": "「明阳智能」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "f38ba11605ff392de21cd61c50199660",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251031",
+          "title": "明阳智能：中标12亿海上风电项目",
+          "part": 1,
+          "snippet": "## 明阳智能：中标12亿海上风电项目  10月28日，舟山市普陀2#海上风电场项目风电机组（含塔筒）及附属设备中标结果公告，明阳智慧能源集团股份公司成功中标，中标金额为12.35"
+        },
+        {
+          "content_hash": "03d5551c031be18cc496265432703e45",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "明阳智能将在英国建厂，总投资140亿元",
+          "part": 1,
+          "snippet": "## 明阳智能将在英国建厂，总投资140亿元  10月10日，中国风机制造商明阳智能（601615.SH）宣布，该公司将投资高达15亿英镑（约合人民币142.94亿元）在苏格兰建设"
+        },
+        {
+          "content_hash": "ca4eb67923a0c3b71fb767ef1537c793",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251031",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "# 重点要闻  · 国家主席习近平在釜山同美国总统特朗普举行会晤  ·明阳智能：中标12亿海上风电项目  · 总投资10.8亿元年产6万吨高性能电池铝箔项目落地安徽"
+        },
+        {
+          "content_hash": "e06134eb59f983977930e37e43be5a7d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250904",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  盛虹投资：10万吨POE工业化装置预计今年三季度投产。9月2日，据东方盛虹（000301.SZ）投资者平台披露，公司10万吨POE工业化装置处于建设期，预计2"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/6611d3e7-4a68-4bf3-9b07-a9e2128183a3/经营晨报 20251013/chunks.json",
+        "output/20260910/6ec6bc98-f033-426a-8d01-34737251cf92/经营晨报 20250904/chunks.json",
+        "output/20260910/c1adbe5a-194b-4e71-91f3-7bccbedf14e0/经营晨报 20251031/chunks.json"
+      ],
+      "notes": "实体=明阳智能"
+    },
+    {
+      "id": "q0003",
+      "question": "我想了解「安克创新」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "87ca9f8c733aaa7767f1a3ce168d0353",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251113",
+          "title": "安克创新：拟赴港上市",
+          "part": 1,
+          "snippet": "## 安克创新：拟赴港上市  11月12日，据安克创新（300866.SZ）公告披露，公司审议通过《关于公司发行H股股票并在香港联合交易所有限公司上市的议案》及相关议案，正式启动发"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/b2615dfb-885c-4f4f-ac96-55d480ff1d10/经营晨报 20251113/chunks.json"
+      ],
+      "notes": "实体=安克创新"
+    },
+    {
+      "id": "q0004",
+      "question": "关于「新凤鸣」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "cef183ef545f2011eac3eb9e0fffa384",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251225",
+          "title": "埃及与新凤鸣等三家中企签署近11.5亿美元协议，将在苏伊士运河经济区建厂",
+          "part": 1,
+          "snippet": "## 埃及与新凤鸣等三家中企签署近11.5亿美元协议，将在苏伊士运河经济区建厂  12月23日，埃及政府发布声明称，埃及工业发展局分别与新凤鸣、朝阳浪马轮胎和铜陵洁雅生物科技股份有"
+        },
+        {
+          "content_hash": "a11cc71beb5be3d3e5d63794197a6b9f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251215",
+          "title": "新凤鸣：投资2.8亿美元在埃及建设36万吨功能性纤维项目",
+          "part": 1,
+          "snippet": "## 新凤鸣：投资2.8亿美元在埃及建设36万吨功能性纤维项目  12月12日，新凤鸣（603225.SH）公告称，公司计划启动新凤鸣（埃及）36万吨/年功能性纤维项目，总投资约2"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/26499bad-c899-45b3-8f7b-6a5e9cb26747/经营晨报 20251215/chunks.json",
+        "output/20260910/fe50a9c3-9c1a-4809-ac89-3bbe2b6146d7/经营晨报 20251225/chunks.json"
+      ],
+      "notes": "实体=新凤鸣"
+    },
+    {
+      "id": "q0005",
+      "question": "经营晨报里关于「览翌航空」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "ec6cf11f4b2331681bd76a207e0f52f2",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250923",
+          "title": "览翌航空：新获120架eVTOL飞行器订单",
+          "part": 1,
+          "snippet": "## 览翌航空：新获120架eVTOL飞行器订单  9月20日，合肥览翌航空科技有限公司（览翌航空）新签120架飞机订单。安徽行知通航将向览翌航空采购50架LE200 eVTOL飞"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/de25d348-20f4-4a1b-b1c4-db044aba2dac/经营晨报 20250923/chunks.json"
+      ],
+      "notes": "实体=览翌航空"
+    },
+    {
+      "id": "q0006",
+      "question": "「东方盛虹」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "56816d16af922dbf2957d4c2ff5d715e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251230",
+          "title": "东方盛虹：2026年互相担保额度不超过1,244.23亿元",
+          "part": 1,
+          "snippet": "## 东方盛虹：2026年互相担保额度不超过1,244.23亿元  12月26日，据东方盛虹（000301.SZ）公告披露，预计2026年度公司及子公司互相担保额度不超过等值人民币"
+        },
+        {
+          "content_hash": "e57a473ab6cd86bb7733f1f395aff693",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250812",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  正大集团 150 亿元绿色甲醇项目落地福建古雷。近日，正大集团与福建古雷开发区正式签约，投资 150 亿元建设年产 100 万吨绿色甲醇及下游产品项目。项目依"
+        },
+        {
+          "content_hash": "e06134eb59f983977930e37e43be5a7d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250904",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  盛虹投资：10万吨POE工业化装置预计今年三季度投产。9月2日，据东方盛虹（000301.SZ）投资者平台披露，公司10万吨POE工业化装置处于建设期，预计2"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 3,
+      "source_files": [
+        "output/20260910/6ec6bc98-f033-426a-8d01-34737251cf92/经营晨报 20250904/chunks.json",
+        "output/20260910/8157361c-62b9-4b5b-9028-754b3e00ab8b/经营晨报 20251230/chunks.json",
+        "output/20260910/a114de5a-a2a0-4ddb-a295-049b44ccb4d4/经营晨报 20250812/chunks.json"
+      ],
+      "notes": "实体=东方盛虹"
+    },
+    {
+      "id": "q0007",
+      "question": "我想了解「中天科技」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "bfc4c74a8539d1f84d55b99a39b20a50",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251021",
+          "title": "中天科技：获17.88亿海洋系列大单",
+          "part": 1,
+          "snippet": "## 中天科技：获17.88亿海洋系列大单  10月17日，据中天科技（600522.SH）公告披露，公司中标/预中标海洋系列项目金额合计约17.88亿元，占公司2024年度经审计"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/9ccc20a0-579b-4376-b2c7-b7bebde11907/经营晨报 20251021/chunks.json"
+      ],
+      "notes": "实体=中天科技"
+    },
+    {
+      "id": "q0008",
+      "question": "关于「中材科技」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "a3493bbfd85851f59fea657d3f881741",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "·中材科技：拟定增募资44.81亿元扩产",
+          "part": 1,
+          "snippet": "## ·中材科技：拟定增募资44.81亿元扩产  ·我国将于2026年起在政府采购中正式实施本国产品标准并给予价格评审优惠"
+        },
+        {
+          "content_hash": "30bf517a3c18f32f54a61ce71f976bcc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "中材科技：拟定增募资44.81亿元扩产",
+          "part": 1,
+          "snippet": "## 中材科技：拟定增募资44.81亿元扩产  9月30日，据中材科技（002080.SZ）公告披露，拟定增募资不超过44.81亿元，分别用于年产3500万米低介电纤维布项目、年产"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/a7eebaf4-df62-4b7a-9958-1c3c5d231ce0/经营晨报 20251010/chunks.json"
+      ],
+      "notes": "实体=中材科技"
+    },
+    {
+      "id": "q0009",
+      "question": "经营晨报里关于「蔚蓝锂芯」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "2596fa331018747cc90988b9601451c4",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251016",
+          "title": "蔚蓝锂芯:参与格林美印尼项目增资扩股",
+          "part": 1,
+          "snippet": "## 蔚蓝锂芯:参与格林美印尼项目增资扩股  蔚蓝锂芯召开的第七届董事会第六次会议审议通过了《关于参与格林美印尼项目增资扩股的议案》，同意公司参与格林美印尼项目增资扩股事项，出资2"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/22fd7694-b093-421e-a4d8-9a7a9cb8df79/经营晨报 20251016/chunks.json"
+      ],
+      "notes": "实体=蔚蓝锂芯"
+    },
+    {
+      "id": "q0010",
+      "question": "「安徽合力」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "a86e542320f9b025d3594337d421dc58",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250922",
+          "title": "安徽合力：拟收购江淮重工51%股权",
+          "part": 1,
+          "snippet": "## 安徽合力：拟收购江淮重工51%股权  9月18日电，据安徽合力（600761.SH）公告披露，公司拟以现金方式收购安徽江淮重型工程机械有限公司（江淮重工）51%股权，交易对方"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/55710a9f-27dc-4ac8-bd35-c55ac26c25f4/经营晨报 20250922/chunks.json"
+      ],
+      "notes": "实体=安徽合力"
+    },
+    {
+      "id": "q0011",
+      "question": "我想了解「南都电源」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "5d4afa9a4b370c10dced314aa3487797",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251217",
+          "title": "南都电源：继续停牌，筹划控制权变更",
+          "part": 1,
+          "snippet": "## 南都电源：继续停牌，筹划控制权变更  12月16日，据南都电源（300068.SZ）公告披露，南都电源控股股东杭州南都电源有限公司、上海益都实业有限公司、上海南都集团有限公司"
+        },
+        {
+          "content_hash": "0e3108aec6e1190b78841ed661f942dd",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250813",
+          "title": "1. 南都电源新获全球最大 2.8GWh 半固态电池储能订单",
+          "part": 1,
+          "snippet": "## 1. 南都电源新获全球最大 2.8GWh 半固态电池储能订单  8月11日，南都电源成功签署总容量高达2.8GWh的独立储能项目订单，项目将全部采用南都自主研发的314Ah半"
+        },
+        {
+          "content_hash": "1c8b6e3e077aeb52f83f77d2163e6186",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250818",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  协创数据:拟采购不超过12亿元服务器用于算力租赁服务。8月16日，据协创数据（300857.SZ）公告披露，公司拟向多家供应商采购服务器，总金额预计不超过12"
+        },
+        {
+          "content_hash": "1f3cab5157d2c6ef210c7179bf7d589a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250821",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  华电辽能 196 亿投资热电联产+海上风电。8 月 18 日，华电辽宁能源发展股份有限公司（600396.SH）公告，拟向全资子公司丹东金山热电有"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/25f45814-e877-4415-ac73-fadafccc810b/经营晨报 20250813/chunks.json",
+        "output/20260910/293a77bf-ea88-4df1-95fa-b9c4828fec45/经营晨报 20251217/chunks.json",
+        "output/20260910/40648a89-07a4-4aab-8d04-83811e139fe7/经营晨报 20250818/chunks.json",
+        "output/20260910/7d0efedd-69c7-4359-83c5-6538f08953e7/经营晨报 20250821/chunks.json"
+      ],
+      "notes": "实体=南都电源"
+    },
+    {
+      "id": "q0012",
+      "question": "关于「全球航运业迎扩张潮」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "21ee4754f81bcef71a88b4a6ef4fa849",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "全球航运业迎扩张潮：中远海运船队规模居首",
+          "part": 1,
+          "snippet": "## 全球航运业迎扩张潮：中远海运船队规模居首  根据克拉克森最新数据，全球航运业正迎来产能扩张浪潮。中远海运以现有船队8795万载重吨稳居全球第一，地中海航运和日本邮船分列二、三"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/1e8e7f81-f35a-473b-9971-081e050f8284/经营晨报 20250915/chunks.json"
+      ],
+      "notes": "实体=全球航运业迎扩张潮"
+    },
+    {
+      "id": "q0013",
+      "question": "经营晨报里关于「大烨智能」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "c7f6df9fee8fa1f3ecabac4371bd9da3",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251111",
+          "title": "大烨智能：出租两艘海上风电船，将不再从事海上风电业务",
+          "part": 1,
+          "snippet": "## 大烨智能：出租两艘海上风电船，将不再从事海上风电业务  11月2日，据大烨智能（300670.SZ）公告披露，由于国家补贴退坡、用海审批滞后、项目推进缓慢等多种因素，公司全资"
+        },
+        {
+          "content_hash": "57f1794e366606b5ca99293e02678d9b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "华电能源拟开展3亿直租，成本不高于2.6%",
+          "part": 1,
+          "snippet": "## 华电能源拟开展3亿直租，成本不高于2.6%  10月30日，据华电能源（600726.SH）公告披露，其子公司拟北安新能源公司投资建设风电项目，开展3.06亿元融资租赁业务，"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/199cdbf2-438e-4ab4-9be1-fed3ea70d0ba/经营晨报 20251111/chunks.json",
+        "output/20260910/8012addb-dfd3-424b-b0f6-70cb5ccb3626/经营晨报 20251104/chunks.json"
+      ],
+      "notes": "实体=大烨智能"
+    },
+    {
+      "id": "q0014",
+      "question": "「杰瑞股份」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "d372d4e38982269a7d9f43f7dffff336",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "杰瑞股份：再次签署超1亿美元北美发电机组销售合同",
+          "part": 1,
+          "snippet": "## 杰瑞股份：再次签署超1亿美元北美发电机组销售合同  12月2日，杰瑞股份（002353.SZ）继上周斩获数据中心发电机组销售订单后，再次与北美另一重要客户签署燃气轮机发电机组"
+        },
+        {
+          "content_hash": "9172389cf8a036ae4e1d2bff6534fdee",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  杰瑞股份：签署超1亿美元北美数据中心发电机组销售合同11月27日，杰瑞股份（002353.SZ）在投资者关系活动记录表中称，公司近日签署北美数据中"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json",
+        "output/20260910/e04e6d53-5f8f-4765-82e9-e43990ea46de/经营晨报 20251201/chunks.json"
+      ],
+      "notes": "实体=杰瑞股份"
+    },
+    {
+      "id": "q0015",
+      "question": "我想了解「凤凰航运」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "dfc99afb8f53483d8ee8dbf907df6fa5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251016",
+          "title": "凤凰航运：计划使用不超过6000万美元购置干散货船舶",
+          "part": 1,
+          "snippet": "## 凤凰航运：计划使用不超过6000万美元购置干散货船舶  10月14日，据凤凰航运（000520.SZ）公告披露，公司及其全资子公司拟使用不超过6000万美元购置干散货船舶，购"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/22fd7694-b093-421e-a4d8-9a7a9cb8df79/经营晨报 20251016/chunks.json"
+      ],
+      "notes": "实体=凤凰航运"
+    },
+    {
+      "id": "q0016",
+      "question": "关于「平煤神马控股集团」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "3b84252dcb590c74d04bdc24790fab0b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251017",
+          "title": "平煤神马控股集团：发行中期票据",
+          "part": 1,
+          "snippet": "## 平煤神马控股集团：发行中期票据  10月15日，据平煤神马控股集团公告披露，25中国平煤MTN010实际发行10亿元，发行利率3.15%。"
+        },
+        {
+          "content_hash": "a51d98e19b449b843750e0bf3c793564",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251212",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  平煤神马：中期票据发行情况公示12月10日，中国平煤神马控股集团发行2025年度第十二期中期票据，发行总额10亿元，发行利率3.00%。"
+        },
+        {
+          "content_hash": "75682acc16f3a21940ba378e050d1f12",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250926",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  平煤神马：与河南能源实施战略重组&拟斥资1-2亿元回购9月25日，据平煤股份（601666.SH）公告披露，河南省委、省政府决定对河南能源集团有限公司和中国平煤神"
+        },
+        {
+          "content_hash": "e46d0bd44f9b32822d07c7ae94466ee9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  东阳光：280亿元领投秦淮数据。9月10日，东阳光（600673.SH）公告披露，深圳市东阳光实业发展有限公司携手上市公司东阳光及包括宜都国投在内的其他联合投资人"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/3fa0d8ef-8275-4c35-8c52-e422ba44a26c/经营晨报 20251212/chunks.json",
+        "output/20260910/6793a9d4-897a-45f5-a32f-24fc850b751d/经营晨报 20250911/chunks.json",
+        "output/20260910/aa37514f-f722-4d36-b124-3a33052846db/经营晨报 20251017/chunks.json",
+        "output/20260910/eea95d5a-cc0c-47e0-8c80-14671a501229/经营晨报 20250926/chunks.json"
+      ],
+      "notes": "实体=平煤神马控股集团"
+    },
+    {
+      "id": "q0017",
+      "question": "经营晨报里关于「湖北启动新能源竞价」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "77f56458d031bfb0025d2fcdbbfa4d58",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251106",
+          "title": "湖北启动新能源竞价：风电0.26-0.39元/千瓦时，光伏0.25-0.38元/千瓦时",
+          "part": 1,
+          "snippet": "## 湖北启动新能源竞价：风电0.26-0.39元/千瓦时，光伏0.25-0.38元/千瓦时  11月2日，湖北省发改委与能源局联合启动2025年度新能源机制电价竞价工作。本次竞价"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/bee5de87-ba17-4650-9648-f4e4f326d485/经营晨报 20251106/chunks.json"
+      ],
+      "notes": "实体=湖北启动新能源竞价"
+    },
+    {
+      "id": "q0018",
+      "question": "「节能风电」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "9ded83fdd2c2521eeaf63c02a6a97ee7",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251110",
+          "title": "节能风电：拟定增募资不超过36亿元用于中节能阿克塞县10万千瓦风电项目",
+          "part": 1,
+          "snippet": "## 节能风电：拟定增募资不超过36亿元用于中节能阿克塞县10万千瓦风电项目  11月6日，据节能风电（(601016.SH)公告披露，拟定增募资不超过36亿元，用于中节能察右前旗"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/fd78dbc4-6b7b-48d8-bf69-e6f9934b0fbc/经营晨报 20251110/chunks.json"
+      ],
+      "notes": "实体=节能风电"
+    },
+    {
+      "id": "q0019",
+      "question": "我想了解「新莱应材」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "f9cb3d432c3f95ec9805cc1a6406ae8a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251027",
+          "title": "新莱应材：拟投资20亿元建半导体核心零部件项目",
+          "part": 1,
+          "snippet": "## 新莱应材：拟投资20亿元建半导体核心零部件项目  10月23日，据新莱应材（300260.SZ）公告披露，全资子公司昆山方新精密科技有限公司与昆山市陆家镇人民政府签署《项目投"
+        },
+        {
+          "content_hash": "007e9f16a321b71752405b570582f844",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251027",
+          "title": "正泰集团：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 正泰集团：大额项目中标候选人公示  新莱应材：拟投资20亿元建半导体核心零部件项目  江苏国信拟先行投资84.61亿元814MW海上风电项目  总投资50亿元重大项目在栖霞开"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/bd9336d9-f5bd-4652-a10b-ca3a47910010/经营晨报 20251027/chunks.json"
+      ],
+      "notes": "实体=新莱应材"
+    },
+    {
+      "id": "q0020",
+      "question": "关于「国电电力」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "23085dc1751aac90cfbf32bfbce606ca",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "国电电力：拟投建国能谏壁八期项目，总投资72.18亿元",
+          "part": 1,
+          "snippet": "## 国电电力：拟投建国能谏壁八期项目，总投资72.18亿元  12月12日，国电电力（600795.SH）公告称，公司控股子公司北京国电电力所属国家能源集团江苏电力有限公司和镇江"
+        },
+        {
+          "content_hash": "e743c9c508a968720ec1fd4b4fd52361",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250826",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  我国全球首个商用级钙钛矿光伏实证项目正式投产，标志着该技术迈入规模化示范新阶段。8月23日，中国华能集团有限公司在青海省海南藏族自治州共和光伏园区建成全球首"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/7e4f5fd9-d7f5-404f-aefa-7f0e5308c798/经营晨报 20250826/chunks.json",
+        "output/20260910/dc1f3886-68a3-4a19-8d55-22cc09526937/经营晨报 20251216/chunks.json"
+      ],
+      "notes": "实体=国电电力"
+    },
+    {
+      "id": "q0021",
+      "question": "经营晨报里关于「西安奕材」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "0a09a7157112f02cf956cca01fa3c71d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "西安奕材：拟投建总投资约125亿元武汉硅材料基地项目",
+          "part": 1,
+          "snippet": "## 西安奕材：拟投建总投资约125亿元武汉硅材料基地项目  12月2日，西安奕材（688783.SH）公告称，公司与武汉光谷半导体产业投资有限公司签署协议，投资建设武汉硅材料基地"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json"
+      ],
+      "notes": "实体=西安奕材"
+    },
+    {
+      "id": "q0022",
+      "question": "「瑞玛精密」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "e3f60df277b8c3e73fa079a3932ca3cb",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250926",
+          "title": "瑞玛精密：子公司获国内车企定点",
+          "part": 1,
+          "snippet": "## 瑞玛精密：子公司获国内车企定点  瑞玛精密9月24日公告，公司子公司普莱德（苏州）近日收到国内某车企的定点通知，普莱德（苏州）成为其新能源车型平台项目空气弹簧总成产品的定点供"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/eea95d5a-cc0c-47e0-8c80-14671a501229/经营晨报 20250926/chunks.json"
+      ],
+      "notes": "实体=瑞玛精密"
+    },
+    {
+      "id": "q0023",
+      "question": "我想了解「柳工」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "3effaefff4d2bf1285dd5f31091912e9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "柳工：经销商年会意向签约60亿元",
+          "part": 1,
+          "snippet": "## 柳工：经销商年会意向签约60亿元  近日，柳工（000528.SZ）举办全球经销商年会战略盛典日活动，会上签约意向订单总额达60亿元人民币，订单覆盖工程机械核心产品线与服务解"
+        },
+        {
+          "content_hash": "84bb7c13868eb45c348f7ed3fb6618c5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250929",
+          "title": "柳工：与中国北方车辆、北奔重汽正式签署战略合作协议",
+          "part": 1,
+          "snippet": "## 柳工：与中国北方车辆、北奔重汽正式签署战略合作协议  9月25日，中国北方车辆、广西柳工机械、北奔重汽正式签署战略合作协议，聚焦核心领域协同、业务模式创新、海外市场拓展、合作"
+        },
+        {
+          "content_hash": "baf121f93406a335b4457afc152e1a0c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "柳工：交付全球首台矿山电动无人驾驶装载机",
+          "part": 1,
+          "snippet": "## 柳工：交付全球首台矿山电动无人驾驶装载机  柳工：交付全球首台矿山电动无人驾驶装载机  近日，全球首台矿山电动无人驾驶装载机柳工870HE正式交付云南某露天矿山，无人驾驶装载"
+        },
+        {
+          "content_hash": "d4b15e44fcf256c7ec82e95cc3132807",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250903",
+          "title": "三、同业资讯",
+          "part": 1,
+          "snippet": "## 三、同业资讯  中银协发布2025金融租赁行业发展报告。中国银行业协会于2025年9月1日正式发布《中国金融租赁行业发展报告（2025）》，报告显示截至2024年末，金融租赁"
+        },
+        {
+          "content_hash": "ef2442350e27274f19b306691fa5d2ff",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250901",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  峰业环境：大额项目中标候选人公示。8月29日，宁夏电投石嘴山2×660MW超超临界热电项目脱硫EPC工程项目中标候选人公示，江苏峰业环境科技集团股份有限公司为"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 5,
+      "source_files": [
+        "output/20260910/08fff2d9-52b4-4fc5-ad0a-a25a7072e871/经营晨报 20250917/chunks.json",
+        "output/20260910/475e52de-9074-431e-8665-265b7d2809fd/经营晨报 20250903/chunks.json",
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json",
+        "output/20260910/9c70b5a5-cdcb-4f0b-b5a5-0351ec1011f2/经营晨报 20250901/chunks.json",
+        "output/20260910/f2d3ec1b-f7c5-4a04-89a5-5bcb9a10c4cd/经营晨报 20250929/chunks.json"
+      ],
+      "notes": "实体=柳工"
+    },
+    {
+      "id": "q0024",
+      "question": "关于「深城交」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "3f30477b20364cb71459741b71db9ad5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251219",
+          "title": "深城交：拟定增募资不超过18亿元用于低空、自动驾驶等项目",
+          "part": 1,
+          "snippet": "## 深城交：拟定增募资不超过18亿元用于低空、自动驾驶等项目  12月17日，深城交（301091.SZ）公告称，拟定增募资不超过18亿元，用于面向全域智能体协同的交通行业大模型"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/1df43be4-34fa-4912-8ef4-2f5c06a89546/经营晨报 20251219/chunks.json"
+      ],
+      "notes": "实体=深城交"
+    },
+    {
+      "id": "q0025",
+      "question": "经营晨报里关于「工信部」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "6828b9faab957adb293e271d747f1613",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "工信部就风电装备行业公开征求意见",
+          "part": 1,
+          "snippet": "## 工信部就风电装备行业公开征求意见  11月17日，据工信部网站消息，为推动我国风电装备制造行业持续健康发展，工信部组织编制了《风电装备行业规范条件》《风电装备行业规范公告管理"
+        },
+        {
+          "content_hash": "dc7bd5aae1fc9c89effea1db951f7794",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250929",
+          "title": "工信部将多措并举推动新能源汽车产业高质量发展",
+          "part": 1,
+          "snippet": "## 工信部将多措并举推动新能源汽车产业高质量发展  9月27日，工信部副部长熊继军在2025世界新能源车大会上表示，将通过支持大算力芯片等关键技术攻关、优化税收政策扩大消费、健全"
+        },
+        {
+          "content_hash": "63b7beb1d5d15ce5a2f26cacf8ec9cb0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "工信部：将推动大型企业集团实施绿色供应链提升行动",
+          "part": 1,
+          "snippet": "## 工信部：将推动大型企业集团实施绿色供应链提升行动  12月1日，工信部部长李乐成表示，将推动大型企业集团实施绿色低碳供应链提升行动。中国将通过绿色采购、供应链金融等帮扶活动，"
+        },
+        {
+          "content_hash": "e5fe7a33b7c8cfae11d6cc4e1be427d9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "工信部公布129家合规光伏制造企业，江苏35家居首",
+          "part": 1,
+          "snippet": "## 工信部公布129家合规光伏制造企业，江苏35家居首  工信部10月29日正式公布现行有效符合光伏制造行业规范条件的企业名单，共计129家企业入围。从区域分布看，江苏省以35家"
+        },
+        {
+          "content_hash": "1e4fcaab79d64ed248d28764c890e917",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250922",
+          "title": "工信部：加快固态/钠离子电池研发，构建锂电池多维安全体系并推动高质量出海",
+          "part": 1,
+          "snippet": "## 工信部：加快固态/钠离子电池研发，构建锂电池多维安全体系并推动高质量出海  2025遂宁国际锂电产业大会召开。工业和信息化部表示将强化锂电池技术创新引领，加快固态电池、钠离子"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 31,
+      "source_files": [
+        "output/20260910/55710a9f-27dc-4ac8-bd35-c55ac26c25f4/经营晨报 20250922/chunks.json",
+        "output/20260910/5c5eacad-991b-4b97-87a1-618852b8efd3/经营晨报 20251119/chunks.json",
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json",
+        "output/20260910/a4223751-d297-4e86-a0a5-548c8ef52c83/经营晨报 20251103/chunks.json",
+        "output/20260910/f2d3ec1b-f7c5-4a04-89a5-5bcb9a10c4cd/经营晨报 20250929/chunks.json"
+      ],
+      "notes": "实体=工信部"
+    },
+    {
+      "id": "q0026",
+      "question": "「海南华铁」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "f32e6fba59c74810a390cc0543fa598c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251020",
+          "title": "·海南华铁：收到中国证监会的立案告知书",
+          "part": 1,
+          "snippet": "## ·海南华铁：收到中国证监会的立案告知书  ·洲际船务：与中银金租开展光船租赁  ·新能源电价新政落地：19省启动竞价，全面进入市场化阶段  氢能产业迈出关键一步，国家能源局启"
+        },
+        {
+          "content_hash": "b2bbc1d619db8dbece7698797cadde6b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251229",
+          "title": "海南华铁：拟被罚1720万元",
+          "part": 1,
+          "snippet": "## 海南华铁：拟被罚1720万元  12月27日，据海南华铁（603300.SH）公告披露，公司和相关责任人收到中国证监会浙江监管局下发的《行政处罚事先告知书》，对公司36.9亿"
+        },
+        {
+          "content_hash": "a2656341d11d12d810a3848e3911cdb5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251202",
+          "title": "海南华铁：为子公司提供担保公告",
+          "part": 1,
+          "snippet": "## 海南华铁：为子公司提供担保公告  11月29日，据海南华铁（603300.SH）公告披露，公司为子公司海南华铁大黄蜂建筑机械设备有限公司在辰泰融资租赁（山东）有限公司的融资租"
+        },
+        {
+          "content_hash": "b273ee3dd9247acbe28a3c0ee5ff5350",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "海南华铁：第二大股东减持改增持",
+          "part": 1,
+          "snippet": "## 海南华铁：第二大股东减持改增持  10月9日，据海南华铁（603300.SH）公告披露，公司第二大股东胡丹锋终止原定的减持计划，并将在未来一个月内以集中竞价方式增持公司股份，"
+        },
+        {
+          "content_hash": "08fc77f349bda0bc1dd45b1f89e0c4a5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "海南华铁：终止36.9亿算力大单",
+          "part": 1,
+          "snippet": "## 海南华铁：终止36.9亿算力大单  10月1日，据海南华铁（603300.SH）公告披露，全资子公司华铁大黄蜂于2025年3月与杭州X公司签署了《算力服务协议》(以下简称“原"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 9,
+      "source_files": [
+        "output/20260910/0a5e0c41-3e6b-46f8-977c-40bc9a143062/经营晨报 20251229/chunks.json",
+        "output/20260910/0c259dd4-57d3-433e-9748-cdfc7c9037b2/经营晨报 20251020/chunks.json",
+        "output/20260910/0e20df4e-4db6-46a0-9597-4dc1d13f956c/经营晨报 20251202/chunks.json",
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json",
+        "output/20260910/a7eebaf4-df62-4b7a-9958-1c3c5d231ce0/经营晨报 20251010/chunks.json"
+      ],
+      "notes": "实体=海南华铁"
+    },
+    {
+      "id": "q0027",
+      "question": "我想了解「润泽科技」的情况，经营晨报里有哪些相关内容？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "39fe19c313451125f58298572d7a0659",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251212",
+          "title": "润泽科技：2026年申请不超过150亿授信额度",
+          "part": 1,
+          "snippet": "## 润泽科技：2026年申请不超过150亿授信额度  12月10日，据润泽科技（300442.SZ）公告披露，公司计划于2026年度向相关金融机构申请不超过150亿元的授信额度，"
+        },
+        {
+          "content_hash": "335127a4cc80da0eb4611bd6b8188266",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250902",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  国轩高科：80亿扩产40GWh电池产能。国轩高科于8月29日公告，拟在安徽芜湖和江苏南京分别投资不超过40亿元建设两个20GWh新能源电池基地项目，总投资额8"
+        },
+        {
+          "content_hash": "63d4eefb07bf5f941280e95134e10d0b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250806",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  正泰集团：总投资50亿元正泰新能源装备制造项目签约。8月4日，正泰新能源装备制造项目正式签约，位于射阳港经济开发区，总投资约50亿元，用地约200亩。计划分两"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 3,
+      "source_files": [
+        "output/20260910/3fa0d8ef-8275-4c35-8c52-e422ba44a26c/经营晨报 20251212/chunks.json",
+        "output/20260910/454ea6bb-0bff-4e61-ba1a-a31ad8ac00a5/经营晨报 20250806/chunks.json",
+        "output/20260910/b9a21fb3-8ec1-4cb5-8a4b-1dd4c96f2a2a/经营晨报 20250902/chunks.json"
+      ],
+      "notes": "实体=润泽科技"
+    },
+    {
+      "id": "q0028",
+      "question": "关于「昆工科技」，经营晨报是怎么报道的？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "62b558e584455087c726da084496e62a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "昆工科技：签订1GWh储能电池采购合同",
+          "part": 1,
+          "snippet": "## 昆工科技：签订1GWh储能电池采购合同  12月2日，昆工科技（920152.BJ）公告，公司与浙江太湖能谷科技有限公司签订《战略合作框架协议》，计划未来三年合作共建3GWh"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json"
+      ],
+      "notes": "实体=昆工科技"
+    },
+    {
+      "id": "q0029",
+      "question": "经营晨报里关于「富临精工」的信息有哪些？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "7002f104a7e899af0f2c0e12469996ac",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250922",
+          "title": "· 富临精工：与宁德时代签订15亿元预付款协议",
+          "part": 1,
+          "snippet": "## · 富临精工：与宁德时代签订15亿元预付款协议  ·广东同源新能源公司7.5亿储能项目签约"
+        },
+        {
+          "content_hash": "8eed5f2c88d969e1d924212a3b28b2dc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250922",
+          "title": "富临精工：与宁德时代签订15亿元预付款协议",
+          "part": 1,
+          "snippet": "## 富临精工：与宁德时代签订15亿元预付款协议  9月19日，据富临精工（300432.SZ）公告披露，公司控股子公司江西升华与宁德时代签订《预付款协议》，宁德时代向江西升华支付"
+        },
+        {
+          "content_hash": "f9fa5ba5bf0d4e171cfc1513f9c812e7",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251030",
+          "title": "富临精工：子公司拟40亿元投建年产35万吨新型高压实密度磷酸铁锂项目",
+          "part": 1,
+          "snippet": "## 富临精工：子公司拟40亿元投建年产35万吨新型高压实密度磷酸铁锂项目  10月28日，据富临精工（300432.SZ）公告披露，子公司江西升华新材料有限公司拟在德阳-阿坝生态"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 3,
+      "source_files": [
+        "output/20260910/0ee83a15-a6a2-402e-8630-3364f0fd6318/经营晨报 20251030/chunks.json",
+        "output/20260910/55710a9f-27dc-4ac8-bd35-c55ac26c25f4/经营晨报 20250922/chunks.json"
+      ],
+      "notes": "实体=富临精工"
+    },
+    {
+      "id": "q0030",
+      "question": "「冀中能源」在经营晨报中有哪些相关报道？",
+      "question_type": "entity_fact",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "d8caa5e35fbafb49048df2331f5758e7",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251011",
+          "title": "冀中能源：已完成收购锡林能源49%股权",
+          "part": 1,
+          "snippet": "## 冀中能源：已完成收购锡林能源49%股权  10月10日，据冀中能源（000937.SZ）公告披露，公司收购京能锡林郭勒能源有限公司49%股权的交易已完成工商变更登记手续，交易"
+        },
+        {
+          "content_hash": "4704b6b37b396ed29a24e1b3c8af7da5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251208",
+          "title": "恒逸集团&冀中能源&河南能源：债券发行公示",
+          "part": 1,
+          "snippet": "## 恒逸集团&冀中能源&河南能源：债券发行公示  12月3日，恒逸集团发行3.2亿元一年期科创债，发行利率3.30%；冀中能源发行5.0亿元两年期科创债，发行利率2.63%。12"
+        },
+        {
+          "content_hash": "98a251658300a9bed42c963b85e7eb41",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250825",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  正泰集团：正泰安能建全国最大户用单体项目。8月21日，据正泰安能宣布，其辽阳五村29.9MW整村开发项目创全国户用单体最大规模。该项目共计613户，项目装机量"
+        },
+        {
+          "content_hash": "1c4a26775c3ba8df81d7e407a9b93f5e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250807",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  江苏峰业环境：大额项目中标候选人公示。8月5日，陕煤集团榆林化学有限责任公司1,500万吨/年煤炭分质清洁高效转化示范项目烯烃、芳烃及深加工工程一阶段项目烟气"
+        },
+        {
+          "content_hash": "e57a473ab6cd86bb7733f1f395aff693",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250812",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  正大集团 150 亿元绿色甲醇项目落地福建古雷。近日，正大集团与福建古雷开发区正式签约，投资 150 亿元建设年产 100 万吨绿色甲醇及下游产品项目。项目依"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 6,
+      "source_files": [
+        "output/20260910/87a0c64c-93a9-4a88-82c1-1e24a82381d2/经营晨报 20251011/chunks.json",
+        "output/20260910/8ae7cd9a-a57b-4811-965d-7167296ee2ef/经营晨报 20250825/chunks.json",
+        "output/20260910/a114de5a-a2a0-4ddb-a295-049b44ccb4d4/经营晨报 20250812/chunks.json",
+        "output/20260910/dd72620c-0a3b-4ecc-bfd8-189529e0504b/经营晨报 20250807/chunks.json",
+        "output/20260910/f365d208-2eea-4d85-ac2b-e72f48a2ab62/经营晨报 20251208/chunks.json"
+      ],
+      "notes": "实体=冀中能源"
+    },
+    {
+      "id": "q0031",
+      "question": "兴福电子最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "3caf8f2931ceb0ca47106bb3e911eeaf",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251211",
+          "title": "兴福电子：拟投资4.8亿元建设4万吨/年电子级磷酸项目",
+          "part": 1,
+          "snippet": "## 兴福电子：拟投资4.8亿元建设4万吨/年电子级磷酸项目  12月9日，兴福电子（688545.SH）公告称，公司拟投资4.8亿元建设4万吨/年电子级磷酸项目。电子级磷酸主要应"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/14674351-2580-4380-82d7-0efc60fc79c2/经营晨报 20251211/chunks.json"
+      ],
+      "notes": "实体=兴福电子；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0032",
+      "question": "豫能控股最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "5ea920c0981854e6777942adc0ec8c47",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251030",
+          "title": "豫能控股：终止17个分布式光伏项目投资",
+          "part": 1,
+          "snippet": "## 豫能控股：终止17个分布式光伏项目投资  10月29日，据豫能控股（001896.SZ）公告披露，终止17个此前通过公司董事会审议投资建设的分布式光伏项目，规模共313.19"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/0ee83a15-a6a2-402e-8630-3364f0fd6318/经营晨报 20251030/chunks.json"
+      ],
+      "notes": "实体=豫能控股；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0033",
+      "question": "国银金租最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "a2e0de34afbb839ac037ae87ca64e9f1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251219",
+          "title": "国银金租与上海铭行汽车订立融资租赁合同",
+          "part": 1,
+          "snippet": "## 国银金租与上海铭行汽车订立融资租赁合同  12月15日，国银金租（1606.HK）公告称，公司作为出租人与承租人上海铭行汽车服务有限公司订立融资租赁合同，融资金额1.82亿元"
+        },
+        {
+          "content_hash": "f30108c3b7c9e4b64d47af6745848e45",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251011",
+          "title": "国银金租获批在境外发行不超过10亿美元二级资本债券",
+          "part": 1,
+          "snippet": "## 国银金租获批在境外发行不超过10亿美元二级资本债券  近日，深圳金融监管局发布相关批复，同意国银金融租赁股份有限公司在境外发行不超过10亿美元的二级资本债券，并按照有关规定计"
+        },
+        {
+          "content_hash": "5fb61f756848bd0c22265f9a718883f8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "国银金租拟向国银航空增资8.6亿美元",
+          "part": 1,
+          "snippet": "## 国银金租拟向国银航空增资8.6亿美元  国银金租于10月29日公布，董事会审议公司拟以8.6亿美元向国银航空金融租赁有限公司进行增资。增资完成后，公司将继续全资持有国银航空的"
+        },
+        {
+          "content_hash": "2c59fe4fdd9f259fabcf25724970fbf2",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250924",
+          "title": "国银金租成功发行金租首单区块链簿记金融债券",
+          "part": 1,
+          "snippet": "## 国银金租成功发行金租首单区块链簿记金融债券  9月16日，国银金租于全国银行间债券市场成功发行金融租赁行业首单区块链簿记金融债券（债券简称：25国银金租债03；债券代码：25"
+        },
+        {
+          "content_hash": "7295a2f5dbae28f684dd699b278142ba",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "国银金租签订12亿16年的光伏融资租赁大单",
+          "part": 1,
+          "snippet": "## 国银金租签订12亿16年的光伏融资租赁大单  11月27日，国银金租公布一笔12.2亿元的光伏电站融资租赁项目公告。租赁物位于青海省的光伏电站设备，账面净值15亿，期限192"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 19,
+      "source_files": [
+        "output/20260910/1df43be4-34fa-4912-8ef4-2f5c06a89546/经营晨报 20251219/chunks.json",
+        "output/20260910/87a0c64c-93a9-4a88-82c1-1e24a82381d2/经营晨报 20251011/chunks.json",
+        "output/20260910/8b98e13d-c096-4e27-8517-e94a2319145b/经营晨报 20250924/chunks.json",
+        "output/20260910/a4223751-d297-4e86-a0a5-548c8ef52c83/经营晨报 20251103/chunks.json",
+        "output/20260910/e04e6d53-5f8f-4765-82e9-e43990ea46de/经营晨报 20251201/chunks.json"
+      ],
+      "notes": "实体=国银金租；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0034",
+      "question": "平煤神马&河南能源最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "6a22562a5db694d7b6bf29fe94b3a643",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250928",
+          "title": "平煤神马&河南能源：因战略重组消息涨停",
+          "part": 1,
+          "snippet": "## 平煤神马&河南能源：因战略重组消息涨停  9月26日，因河南省委、省政决定对河南能源集团与平煤神马集团实施战略重组，平煤股份（601666.SH）、神马股份（600810.S"
+        },
+        {
+          "content_hash": "b907788ed73e3bb4adef2327a7aae8e1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "平煤神马&河南能源：战略重组进展公告",
+          "part": 1,
+          "snippet": "## 平煤神马&河南能源：战略重组进展公告  11月11日，据平煤股份（601666.SH）公告披露，河南省国资委与平煤神马集团、河南能源集团签署《战略重组框架协议》。根据协议约定"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/1bc15d50-7123-4d15-b491-1695fba66c17/经营晨报 20250928/chunks.json",
+        "output/20260910/dc580eef-866f-4f12-b9fa-262818331293/经营晨报 20251112/chunks.json"
+      ],
+      "notes": "实体=平煤神马&河南能源；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0035",
+      "question": "东山精密最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "751afeed833ea68eb779f5bfbe33037b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "东山精密：已支付索尔思光电股权转让款约26.33亿元",
+          "part": 1,
+          "snippet": "## 东山精密：已支付索尔思光电股权转让款约26.33亿元  11月18日，据东山精密（002384.SZ）公告披露，公司全资子公司香港超毅拟收购索尔思光电 $100\\%$ 股份，"
+        },
+        {
+          "content_hash": "949c69153ca8fb6480d16e594e7c998e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251105",
+          "title": "凯伦股份：与成都京东方签订1.98亿元设备采购合同",
+          "part": 1,
+          "snippet": "## 凯伦股份：与成都京东方签订1.98亿元设备采购合同  11月3日，据凯伦股份（300715.SZ）公告披露，公司控股子公司苏州佳智彩光电科技有限公司与成都京东方显示技术有限公"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/58cdedc0-6146-49a2-83ca-418d787c89e1/经营晨报 20251105/chunks.json",
+        "output/20260910/5c5eacad-991b-4b97-87a1-618852b8efd3/经营晨报 20251119/chunks.json"
+      ],
+      "notes": "实体=东山精密；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0036",
+      "question": "中航成飞最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "3bd2d6eb9b7a7e71bc407e3e97e91f38",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "中航成飞：拟投建10亿元空天装备装配基地",
+          "part": 1,
+          "snippet": "## 中航成飞：拟投建10亿元空天装备装配基地  12月16日，中航成飞（302132.SZ）公告称，全资子公司成飞公司拟实施空天装备装配基地建设项目，项目计划总投资约10亿元。 "
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/a453dd07-bd71-49a4-b1dd-10e030619686/经营晨报 20251218/chunks.json"
+      ],
+      "notes": "实体=中航成飞；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0037",
+      "question": "湖南发展最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "1cbd8cc69b0527e79f95f594cf71c47e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251028",
+          "title": "湖南发展：拟投资24亿元建设光伏发电项目",
+          "part": 1,
+          "snippet": "## 湖南发展：拟投资24亿元建设光伏发电项目  10月24日，据湖南发展（000722.SZ）公告披露，嘉禾县人民政府与公司签署《嘉禾县光伏项目投资开发协议》。公司拟在嘉禾县投资"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/25776f09-fea7-4f21-8fa1-0d75df1db1da/经营晨报 20251028/chunks.json"
+      ],
+      "notes": "实体=湖南发展；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0038",
+      "question": "凯伦股份最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "949c69153ca8fb6480d16e594e7c998e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251105",
+          "title": "凯伦股份：与成都京东方签订1.98亿元设备采购合同",
+          "part": 1,
+          "snippet": "## 凯伦股份：与成都京东方签订1.98亿元设备采购合同  11月3日，据凯伦股份（300715.SZ）公告披露，公司控股子公司苏州佳智彩光电科技有限公司与成都京东方显示技术有限公"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/58cdedc0-6146-49a2-83ca-418d787c89e1/经营晨报 20251105/chunks.json"
+      ],
+      "notes": "实体=凯伦股份；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0039",
+      "question": "南京金龙最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "463055b785aa391769f3ebad4a297641",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "南京金龙：大额项目中标公示",
+          "part": 1,
+          "snippet": "## 南京金龙：大额项目中标公示  9月30日，西宁市2025年新能源公交车更新项目中标结果公示，南京金龙客车制造有限公司中标包二，中标价格为4595万元。"
+        },
+        {
+          "content_hash": "c385d2f950798148fd41e75bf084a445",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251121",
+          "title": "南京金龙：大额项目中标公示",
+          "part": 1,
+          "snippet": "## 南京金龙：大额项目中标公示  11月18日，海口市绿色低碳公交车更新项目（第一批335辆）（A包）二次招标项目中标结果公示，南京金龙客车制造有限公司为中标人，投标报价2400"
+        },
+        {
+          "content_hash": "2a1100f8773e16a150dcb0f2b5bb9364",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251027",
+          "title": "南京金龙客车：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 南京金龙客车：大额项目中标候选人公示  10月24日，南京淳科公交有限公司30辆纯电动城市客车采购及相关服务中标候选人公示，南京金龙客车为包一第二中标候选人、包二第一中标候选"
+        },
+        {
+          "content_hash": "a122c5f7516b03c810276ec2f8fbe98c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "南京金龙：大额项目中标公示",
+          "part": 1,
+          "snippet": "## 南京金龙：大额项目中标公示  10月31日，南京东山公交客运有限公司150辆新能源公交车动力电池更换及电机、电控等零部件延保服务采购项目中标结果公示，南京金龙中标标段一，中标"
+        },
+        {
+          "content_hash": "dd59f80e19b6e86e83d57dea3feb852c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  平煤神马：7月29日，据平煤神马子公司河南天成环保科技股份有限公司公告披露，因未及时审议并披露2024年度关联交易及重大诉讼事项，被中国证券监督管理委员会河南"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 6,
+      "source_files": [
+        "output/20260910/8012addb-dfd3-424b-b0f6-70cb5ccb3626/经营晨报 20251104/chunks.json",
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json",
+        "output/20260910/af07c1b9-e4a2-4793-98af-d5c8dac30914/经营晨报 20251121/chunks.json",
+        "output/20260910/bd9336d9-f5bd-4652-a10b-ca3a47910010/经营晨报 20251027/chunks.json",
+        "output/20260910/d8c26ba9-c89a-4edb-998a-b0b8f130102a/经营晨报 20250731/chunks.json"
+      ],
+      "notes": "实体=南京金龙；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0040",
+      "question": "巴斯夫最近有啥新动静？",
+      "question_type": "colloquial_entity",
+      "difficulty": "medium",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "dadc6471562019a1f2f9d0a96a28317b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251023",
+          "title": "巴斯夫：年产能8万吨新戊二醇（NPG）装置投产",
+          "part": 1,
+          "snippet": "## 巴斯夫：年产能8万吨新戊二醇（NPG）装置投产  10月20日，巴斯夫全新新戊二醇（NPG）装置在湛江一体化基地投产，该装置年产能8万吨，投产后巴斯夫全球NPG总年产能将提升"
+        },
+        {
+          "content_hash": "1d1b4cb857bf2c6daf7de6aee4eaadd8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  巴斯夫以77亿欧元剥离涂料业务，联手凯雷集团创立新公司全球化工巨头巴斯夫宣布，将以77亿欧元估值剥离其涂料业务，与美国私募股权巨头凯雷集团旗下基金"
+        },
+        {
+          "content_hash": "a8893a54556068a7f1854ff0fa038b52",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250919",
+          "title": "2024全球化工十亿美元俱乐部榜单发布",
+          "part": 1,
+          "snippet": "## 2024全球化工十亿美元俱乐部榜单发布  美国《化学周刊》最新“十亿美元俱乐部”榜单显示，2024年全球化工头部企业营收普遍下滑但降幅收窄，行业整体仍处低迷。巴斯夫连续六年位"
+        },
+        {
+          "content_hash": "fc5c9bc0bf5558d520c919ae9f1603fd",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250801",
+          "title": "2.化工领域",
+          "part": 1,
+          "snippet": "## 2.化工领域  南通东港化工 70 亿元氟材料项目落户新疆甘泉堡。7 月 28 日，南通东港化工与乌鲁木齐甘泉堡经开区签署协议，投资 70 亿元建设氟材料一体化及下游延伸项目"
+        }
+      ],
+      "gold_meta": {},
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/13c4707f-d2a0-45bc-8f49-ff2ac7d41e82/经营晨报 20251023/chunks.json",
+        "output/20260910/14cd8247-b1a6-4bec-bf6e-5d94e0ec0681/经营晨报 20250919/chunks.json",
+        "output/20260910/6611d3e7-4a68-4bf3-9b07-a9e2128183a3/经营晨报 20251013/chunks.json",
+        "output/20260910/986cf597-9dbc-415a-8e05-027a68165127/经营晨报 20250801/chunks.json"
+      ],
+      "notes": "实体=巴斯夫；口语化提问，考察问题改写"
+    },
+    {
+      "id": "q0041",
+      "question": "《经营晨报 20250923》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "0b01986bac9396d021943b7545321f34",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250923",
+          "title": "LPR连续四个月维持不变，货币政策保持稳健",
+          "part": 1,
+          "snippet": "## LPR连续四个月维持不变，货币政策保持稳健  9月贷款市场报价利率（LPR）继续维持不变，1年期和5年期以上LPR分别保持在 $3.00\\%$ 和 $3.50\\%$ ，已连续"
+        },
+        {
+          "content_hash": "0e962e81f8f85de546fc197b796ec6c5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250923",
+          "title": "金融\"十四五\"成就发布：银行业总资产全球第一，金融服务实体经济质效显著",
+          "part": 1,
+          "snippet": "## 金融\"十四五\"成就发布：银行业总资产全球第一，金融服务实体经济质效显著  9月22日国新办发布会召开，“十四五”期间我国金融业取得重大成就：银行业总资产近470万亿元位居世界"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250923",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/de25d348-20f4-4a1b-b1c4-db044aba2dac/经营晨报 20250923/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0042",
+      "question": "《经营晨报 20251216》的「行业动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "f3257e95f0e58f8d13e876911dec28f9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "新能源领域",
+          "part": 1,
+          "snippet": "## 新能源领域  陕西发布2026年电力市场提示：工商业用户分摊费用预计上涨   陕西省电力交易中心近日发布提示，明确2026年新能源电价改革与煤电容量电价政策相关费用将由全体工"
+        },
+        {
+          "content_hash": "215fb27e1b72d56a217352c445ef9699",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "两部门：2026年起对部分钢铁产品实施出口许可证管理",
+          "part": 1,
+          "snippet": "## 两部门：2026年起对部分钢铁产品实施出口许可证管理  商务部与海关总署宣布，自2026年1月1日起对部分钢铁产品实施出口许可证管理。此举被解读为通过精准调控以优化出口结构、"
+        },
+        {
+          "content_hash": "511c7cf27bcef6be9aa50a7e4a89f063",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "华能采用自主进口煤指数完成全国首单采购",
+          "part": 1,
+          "snippet": "## 华能采用自主进口煤指数完成全国首单采购  近日，华能玉环电厂完成全国首单以“中国电力企业联合会电ECI进口指数”为定价基准的进口动力煤采购，有效缓解了境外指数与国内实际采购价"
+        },
+        {
+          "content_hash": "7b4d504d727a2f108ae437a958dec191",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## ）头部及域内企业要闻  12月12日，中远海运能源运输股份有限公司宣布，与中远海运重工附属船厂签订19艘船舶建造合同，船价总额为78.82亿元，连同建造期利息、监造费等资本化"
+        },
+        {
+          "content_hash": "5787d825c226ddbb1c38d653e0a1643a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "隆盛科技3.5亿跨界落子具身智能机器人",
+          "part": 1,
+          "snippet": "## 隆盛科技3.5亿跨界落子具身智能机器人  12月12日，隆盛科技（300680.SZ）公告称，公司及控股子公司隆盛唯睿与无锡市滨湖区蠡湖街道办事处签署合作协议，计划在无锡滨湖"
+        },
+        {
+          "content_hash": "23085dc1751aac90cfbf32bfbce606ca",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "国电电力：拟投建国能谏壁八期项目，总投资72.18亿元",
+          "part": 1,
+          "snippet": "## 国电电力：拟投建国能谏壁八期项目，总投资72.18亿元  12月12日，国电电力（600795.SH）公告称，公司控股子公司北京国电电力所属国家能源集团江苏电力有限公司和镇江"
+        },
+        {
+          "content_hash": "f708b21404b66651ef65fa8d93bbfb1b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251216",
+          "title": "万华化学在莱州投资建设年产65万吨磷酸铁锂项目",
+          "part": 1,
+          "snippet": "## 万华化学在莱州投资建设年产65万吨磷酸铁锂项目  12月11日，莱州市与万华化学集团股份有限公司成功签署“万华菜州绿电产业园”项目投资协议，万华化学将在莱州投资建设年产65万"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251216",
+        "category": "行业动态"
+      },
+      "raw_gold_size": 7,
+      "source_files": [
+        "output/20260910/dc1f3886-68a3-4a19-8d55-22cc09526937/经营晨报 20251216/chunks.json"
+      ],
+      "notes": "分类=行业动态"
+    },
+    {
+      "id": "q0043",
+      "question": "《经营晨报 20251218》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "9383247ea2ea65bfad4aafee2ed97add",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "美丽广州建设规划纲要（2025—2035年）印发",
+          "part": 1,
+          "snippet": "## 美丽广州建设规划纲要（2025—2035年）印发  12月15日，广东广州市人民政府印发美丽广州建设规划纲要（2025—2035年），提到，高标准建设白云区、黄埔区、花都区等"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251218",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/a453dd07-bd71-49a4-b1dd-10e030619686/经营晨报 20251218/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0044",
+      "question": "《经营晨报 20251114》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "128c0200f9992d0329b5a242b343d33a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251114",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  美国结束43天最长政府停摆，临时拨款法案维持运转至2026年美国总统特朗普于当地时间11月12日签署临时拨款法案，正式结束持续43天的联邦政府“停摆”。"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251114",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/392cee44-82f4-47b1-ab26-679c74a0f7e7/经营晨报 20251114/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0045",
+      "question": "《经营晨报 20250911》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "8eaff303d20557400e548b21e9594176",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  10年期国债收益率时隔五个月重返 $1.8\\%$ 。9月10日，10年期国债收益率上行3bp至 $1.825\\%$ ，主因核心CPI连续4个月上升及公募"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250911",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/6793a9d4-897a-45f5-a32f-24fc850b751d/经营晨报 20250911/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0046",
+      "question": "《经营晨报 20251112》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "dfc6eb89c2ee18e712f8caf740a29987",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  江苏十三市前三季度GDP出炉，苏州总量居首徐州淮安增速领跑江苏省前三季度GDP数据已全部公布，全省同比增长5.4%。其中苏州以近2万亿元的经济总量继续领"
+        },
+        {
+          "content_hash": "741b9b7993042bfcd9c82b8fe1b883fc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "十部门联合印发物流数据开放互联方案，推动多式联运\"一单制\"落地",
+          "part": 1,
+          "snippet": "## 十部门联合印发物流数据开放互联方案，推动多式联运\"一单制\"落地  11月10日，国家发改委等十部门联合印发《关于推动物流数据开放互联的实施方案》，明确将通过技术应用推动多式联"
+        },
+        {
+          "content_hash": "f684f62298468c32dabcacfd154252d7",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "国家发改委推出促进民间投资13条措施",
+          "part": 1,
+          "snippet": "## 国家发改委推出促进民间投资13条措施  国家发改委等部门推出促进民间投资系列措施，明确要求铁路、核电等基础设施项目专项论证民间资本参与可行性，持股比例可达10%以上。新政覆盖"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251112",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 3,
+      "source_files": [
+        "output/20260910/dc580eef-866f-4f12-b9fa-262818331293/经营晨报 20251112/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0047",
+      "question": "《经营晨报 20251126》的「重点要闻」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "4f0e16c565ea5fe0aa0e082cabc09ffc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251126",
+          "title": "·恒力重工：与江苏省港口集团签署战略合作协议",
+          "part": 1,
+          "snippet": "## ·恒力重工：与江苏省港口集团签署战略合作协议  ·美国政府AI算力再升级：亚马逊将投资500亿，AWS新增1.3吉瓦产能  龙蟠科技签署补充协议，预计总销售额超450亿元"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251126",
+        "category": "重点要闻"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/03b4444e-a18c-4518-94ee-49f2cf84f810/经营晨报 20251126/chunks.json"
+      ],
+      "notes": "分类=重点要闻"
+    },
+    {
+      "id": "q0048",
+      "question": "《经营晨报 20251128》的「同业资讯」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "e5317b612e2e9fe1c114650439e41752",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251128",
+          "title": "天银金租落地国内首笔民营低轨导航极轨星座卫星直租",
+          "part": 1,
+          "snippet": "## 天银金租落地国内首笔民营低轨导航极轨星座卫星直租  11月25日，天银金租成功落地国内首笔民营低轨导航极轨星座卫星的直租业务。天银金租基于卫星资产的投入回报周期及其在轨运行寿"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251128",
+        "category": "同业资讯"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/73383c05-8381-4485-877f-623422afa9f0/经营晨报 20251128/chunks.json"
+      ],
+      "notes": "分类=同业资讯"
+    },
+    {
+      "id": "q0049",
+      "question": "《经营晨报 20251212》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "654b6aec63e37c9fa57c4502e3b06eca",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251212",
+          "title": "美联储宣布将联邦基金利率目标区间下调25个基点",
+          "part": 1,
+          "snippet": "## 美联储宣布将联邦基金利率目标区间下调25个基点  美联储宣布将联邦基金利率目标区间下调25个基点至 $3.5\\%$ 至 $3.75\\%$ 之间，符合预期。美联储点阵图预测显示"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251212",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/3fa0d8ef-8275-4c35-8c52-e422ba44a26c/经营晨报 20251212/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0050",
+      "question": "《经营晨报 20251231》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "617932564ad1ee189a9a568e6d8c8572",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251231",
+          "title": "四部门发文推动汽车行业人工智能应用，支持打造垂域大模型与智能体",
+          "part": 1,
+          "snippet": "## 四部门发文推动汽车行业人工智能应用，支持打造垂域大模型与智能体  12月30日，工业和信息化部等四部门印发《汽车行业数字化转型实施方案》。方案提出支持企业打造汽车行业大模型与"
+        },
+        {
+          "content_hash": "5bc426f00fb4bd573193f8145be65b10",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251231",
+          "title": "汽车行业数字化转型方案明确目标：2027年关键工序数控化率超70%",
+          "part": 1,
+          "snippet": "## 汽车行业数字化转型方案明确目标：2027年关键工序数控化率超70%  工业和信息化部等四部门近日印发《汽车行业数字化转型实施方案》，明确提出到2027年整车企业智能制造成熟度"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251231",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/270c8815-2d5f-4519-9ed9-afc6a1e0f8ec/经营晨报 20251231/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0051",
+      "question": "《经营晨报 20251211》的「同业资讯」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "745191921332a8f637a959758766bf64",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251211",
+          "title": "中原航租携手乌鲁木齐航空成功交付首架国产C909飞机",
+          "part": 1,
+          "snippet": "## 中原航租携手乌鲁木齐航空成功交付首架国产C909飞机  12月8日，中原航租首架C909飞机交付仪式在上海举行。中原航租以直租方式携手乌鲁木齐航空成功引进一架C909飞机，是"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251211",
+        "category": "同业资讯"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/14674351-2580-4380-82d7-0efc60fc79c2/经营晨报 20251211/chunks.json"
+      ],
+      "notes": "分类=同业资讯"
+    },
+    {
+      "id": "q0052",
+      "question": "《经营晨报 20250924》的「重点要闻」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "78d4622c845d11b5a57b319341f9a46d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250924",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·四川电力现货市场出现负电价，反映新能源消纳挑战  ·洛银金租7折转让城投债权  ·近三月城投债利率环比上行"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250924",
+        "category": "重点要闻"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/8b98e13d-c096-4e27-8517-e94a2319145b/经营晨报 20250924/chunks.json"
+      ],
+      "notes": "分类=重点要闻"
+    },
+    {
+      "id": "q0053",
+      "question": "《经营晨报 20250911》的「行业动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "6c628a2de2619f91374a339b8499580f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "1、新能源领域",
+          "part": 1,
+          "snippet": "## 1、新能源领域  9月7日，中国东方资产旗下企业首储万乾通公司计划投资53.47亿元，在宁夏吴忠建设年处理41万吨的光伏组件回收项目，标志着“国家队”正式进入光伏回收领域，推"
+        },
+        {
+          "content_hash": "2c79aeef8cc3c562864dba53bbdadec4",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "2、航运领域",
+          "part": 1,
+          "snippet": "## 2、航运领域  8月中国沿海散货运价指数环比上涨3.3%，煤炭运价波动显著。2025年8月，中国沿海（散货）综合运价指数月均值为1070.11点，环比上涨3.3%，其中煤炭运"
+        },
+        {
+          "content_hash": "ef221b22c837175ff68b82cb5ede20e6",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "3、航空领域",
+          "part": 1,
+          "snippet": "## 3、航空领域  柬埔寨拟采购20架中国C909飞机。柬埔寨国家航空有限公司与中国商飞于2025年9月8日在郑州签署合作谅解备忘录，拟采购20架C909飞机（10架确认订单+1"
+        },
+        {
+          "content_hash": "78b6ca36628a3b0c2c16e798e4ba6332",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  中国安能集团昌邑永安光伏发电项目储能设备采购中标结果于9月9日公示，国宁新储公司以0.527元/Wh的单价成为第一中标候选人，此次招标标志着储能设"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250911",
+        "category": "行业动态"
+      },
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/6793a9d4-897a-45f5-a32f-24fc850b751d/经营晨报 20250911/chunks.json"
+      ],
+      "notes": "分类=行业动态"
+    },
+    {
+      "id": "q0054",
+      "question": "《经营晨报 20250919》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "773c228ae2fa9d342e2df92930886364",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250919",
+          "title": "工信部就智能网联汽车辅助驾驶安全国标征求意见",
+          "part": 1,
+          "snippet": "## 工信部就智能网联汽车辅助驾驶安全国标征求意见  9月17日，工业和信息化部就《智能网联汽车组合驾驶辅助系统安全要求》强制性国家标准公开征求意见。该标准为智能网联汽车产品设立安"
+        },
+        {
+          "content_hash": "ba7d714b07ae1460b1e64b4bf17a818f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250919",
+          "title": "前8月全国财政收入同比增长 $0.3\\%$ ，税收增速年内首次转正",
+          "part": 1,
+          "snippet": "## 前8月全国财政收入同比增长 $0.3\\%$ ，税收增速年内首次转正  财政部数据显示，1—8月全国一般公共预算收入达1.48万亿元，同比增长 $0.3\\%$ ，其中税收收入累"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250919",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/14cd8247-b1a6-4bec-bf6e-5d94e0ec0681/经营晨报 20250919/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0055",
+      "question": "《经营晨报 20251112》的「行业动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "275cb7955eee49371a6c37335a52fde9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  福建启动46.3亿千瓦时新能源竞价，海上光伏上限393.2元/兆瓦时   福建省发改委与福建能源监管办联合发布2025年新能源增量项目机制电价竞价通知，明确"
+        },
+        {
+          "content_hash": "913d9b7d7ce1e225ff45a2e3c75b2b5a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "陕西启动115亿千瓦时新能源竞价，风光电价区间0.23-0.3545元/千瓦时",
+          "part": 1,
+          "snippet": "## 陕西启动115亿千瓦时新能源竞价，风光电价区间0.23-0.3545元/千瓦时  11月10日，陕西省2025-2026年增量新能源项目机制电价竞价公告公示，明确总规模达11"
+        },
+        {
+          "content_hash": "63b112e932ee0d29a46c75f0c7bb21e5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "辽宁规范分布式光伏上网模式，工商业项目上网电量比例不得超50%",
+          "part": 1,
+          "snippet": "## 辽宁规范分布式光伏上网模式，工商业项目上网电量比例不得超50%  辽宁省发改委就分布式光伏管理实施细则公开征求意见，按用户类型差异化规定上网模式。自然人及非自然人户用可选择全"
+        },
+        {
+          "content_hash": "b2d3fa83f8bcdf61a57f9582d12b4202",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "2. 船舶领域",
+          "part": 1,
+          "snippet": "## 2. 船舶领域  地中海航运公司（MSC）集装箱船队运力于2025年11月突破700万TEU，成为全球首家达成此里程碑的班轮公司。其现有运力已超越多个主要航运联盟总和，在手订"
+        },
+        {
+          "content_hash": "236e3732b82ee7888b956742cad9aac5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  （二）头部及域内企业要闻 尚太科技：拟投资40.7亿元建设年产20万吨锂离子电池负极材料项目  11月8日，尚太科技（001301.SZ）公告披露"
+        },
+        {
+          "content_hash": "9840f4ab1fcc8383594742dfd05be882",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "中贝通信与弘信电子签订10亿元算力综合服务框架协议",
+          "part": 1,
+          "snippet": "## 中贝通信与弘信电子签订10亿元算力综合服务框架协议  中贝通信与弘信电子签订10亿元算力综合服务框架协议 11月11日，据中贝通信（603220.SH）公告披露，公司与厦门弘"
+        },
+        {
+          "content_hash": "49f22eac367d4fd4bf9c684475d8940f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "博俊科技：子公司拟10亿元投建汽车零部件生产基地项目",
+          "part": 1,
+          "snippet": "## 博俊科技：子公司拟10亿元投建汽车零部件生产基地项目  11月10日，据博俊科技（300926.SZ）公告披露，公司全资子公司浙江博俊工业科技有限公司拟与杭州前进智造园管理办"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251112",
+        "category": "行业动态"
+      },
+      "raw_gold_size": 7,
+      "source_files": [
+        "output/20260910/dc580eef-866f-4f12-b9fa-262818331293/经营晨报 20251112/chunks.json"
+      ],
+      "notes": "分类=行业动态"
+    },
+    {
+      "id": "q0056",
+      "question": "《经营晨报 20251218》的「重点要闻」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "810c7b508e66fe3bf37995aa21b016ed",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "· 天合光能：钙钛矿/晶体硅叠层电池效率及叠层组件功率双破世界纪录",
+          "part": 1,
+          "snippet": "## · 天合光能：钙钛矿/晶体硅叠层电池效率及叠层组件功率双破世界纪录  ·协创数据：拟采购服务器不超过90亿元  · 士兰微：12英寸高端模拟芯片项目获备案，一期总投资100亿"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251218",
+        "category": "重点要闻"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/a453dd07-bd71-49a4-b1dd-10e030619686/经营晨报 20251218/chunks.json"
+      ],
+      "notes": "分类=重点要闻"
+    },
+    {
+      "id": "q0057",
+      "question": "《经营晨报 20251110》的「重点要闻」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "64985dd5ef0e252c8c77cdc248bb244d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251110",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·盛屯集团：投资59亿元建设矿化材一体磷酸铁锂正极材料项目  · 多晶硅重组联合体筹划设立700亿基金，拟采用承债式收购  ·濮阳11.9亿元大数据中心封顶，将成"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251110",
+        "category": "重点要闻"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/fd78dbc4-6b7b-48d8-bf69-e6f9934b0fbc/经营晨报 20251110/chunks.json"
+      ],
+      "notes": "分类=重点要闻"
+    },
+    {
+      "id": "q0058",
+      "question": "《经营晨报 20250917》的「重点客户」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "16724efc23f500877812ad559fe177fc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  协鑫集成：发行47.36亿股认购股份，净筹约53.92亿港元9月16日，据协鑫集成（3800.HK）公告披露，公司拟发行47.36亿股认购股份，每股认购价1.15"
+        },
+        {
+          "content_hash": "0893e0b304cc9297d91bd646182167e8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "远景能源：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 远景能源：大额项目中标候选人公示  9月15日，晋能控股晋北采煤沉陷区新能源基地风电项目中标候选人公示，远景能源为一至三标段第一中标候选人，投标报价分别为6.75、3.48、"
+        },
+        {
+          "content_hash": "baf121f93406a335b4457afc152e1a0c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "柳工：交付全球首台矿山电动无人驾驶装载机",
+          "part": 1,
+          "snippet": "## 柳工：交付全球首台矿山电动无人驾驶装载机  柳工：交付全球首台矿山电动无人驾驶装载机  近日，全球首台矿山电动无人驾驶装载机柳工870HE正式交付云南某露天矿山，无人驾驶装载"
+        },
+        {
+          "content_hash": "a4aa4dee5a28f16e8d69e5a3346137c6",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "鸿博股份：累计诉讼、仲裁情况披露",
+          "part": 1,
+          "snippet": "## 鸿博股份：累计诉讼、仲裁情况披露  9月16日，据鸿博股份（002229.SZ）公告披露，公司及控股子公司近12个月累计诉讼、仲裁涉案金额合计约为1.26亿元，其中作为被告的"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250917",
+        "category": "重点客户"
+      },
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/08fff2d9-52b4-4fc5-ad0a-a25a7072e871/经营晨报 20250917/chunks.json"
+      ],
+      "notes": "分类=重点客户"
+    },
+    {
+      "id": "q0059",
+      "question": "《经营晨报 20251029》的「宏观动态」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "772a05cc3f6d8bdb076164130fbf8c9c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251029",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  中国人民银行宣布将恢复公开市场国债买卖操作   中国人民银行行长潘功胜宣布将恢复公开市场国债买卖操作。去年开展的相关操作因年初市场供需压力及风险累积而暂"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251029",
+        "category": "宏观动态"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/fdc26861-5eb8-442c-a899-ffaa7314804b/经营晨报 20251029/chunks.json"
+      ],
+      "notes": "分类=宏观动态"
+    },
+    {
+      "id": "q0060",
+      "question": "《经营晨报 20250912》的「重点要闻」部分讲了什么？",
+      "question_type": "file_category",
+      "difficulty": "easy",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "20b967bd624b5b3961a29cbc3f3a2c4a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  · 山东完成全国首次新能源机制电价竞价，光伏风电电价大幅下降  ·金风科技：拟约189.2亿元投建风电制氢氨醇项目  ·融资租赁8月发债规模同比“腰斩”，ABS缩"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250912",
+        "category": "重点要闻"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/e806a72e-6deb-499a-81d4-11eb2fa7df24/经营晨报 20250912/chunks.json"
+      ],
+      "notes": "分类=重点要闻"
+    },
+    {
+      "id": "q0061",
+      "question": "《经营晨报 20251219》里算力领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "bcaa48cb51023b7f3ed66849a837dd94",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251219",
+          "title": "3.算力领域",
+          "part": 1,
+          "snippet": "## 3.算力领域  谷歌Gemini 3 Flash突破性能极限，成本仅为竞争对手五分之一12月18日，谷歌发布其新一代轻量化大模型Gemini 3 Flash，在保持极高速度与"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251219",
+        "domain": "算力"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/1df43be4-34fa-4912-8ef4-2f5c06a89546/经营晨报 20251219/chunks.json"
+      ],
+      "notes": "领域=算力"
+    },
+    {
+      "id": "q0062",
+      "question": "《经营晨报 20251023》里算力领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "2099b2321929949fcf4f7b9a987abe6e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251023",
+          "title": "北美AI数据中心加速转向“自供电”模式",
+          "part": 1,
+          "snippet": "## 北美AI数据中心加速转向“自供电”模式  北美AI数据中心正加速从依赖电网向“自供电”模式转型，以应对AI算力激增与电网承载力的突出矛盾。这一趋势推动数据中心向“能源-计算一"
+        },
+        {
+          "content_hash": "648387393fd38a0b50ddb5c511ca31c9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251023",
+          "title": "商务部对原产于美国的进口模拟芯片发起反倾销调查",
+          "part": 1,
+          "snippet": "## 商务部对原产于美国的进口模拟芯片发起反倾销调查  商务部已于2025年9月13日正式对原产于美国的相关模拟芯片发起反倾销调查。涉案产品税号为85423990，税则号项下其他产"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251023",
+        "domain": "算力"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/13c4707f-d2a0-45bc-8f49-ff2ac7d41e82/经营晨报 20251023/chunks.json"
+      ],
+      "notes": "领域=算力"
+    },
+    {
+      "id": "q0063",
+      "question": "《经营晨报 20251014》里船舶领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "efab71a12503942b2536c521baeaa390",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251014",
+          "title": "3.船舶领域",
+          "part": 1,
+          "snippet": "## 3.船舶领域  航运减排迎来关键节点，IMO本周表决净零框架 国际海事组织（IMO）将于10月14至17日召开海洋环境保护委员会特别会议，核心议程是对净零框架修正案草案进行关"
+        },
+        {
+          "content_hash": "801853c55b6853ded12001d5118821a4",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251014",
+          "title": "SCFI指数上周止跌回升，周涨4.12%",
+          "part": 1,
+          "snippet": "## SCFI指数上周止跌回升，周涨4.12%  上海出口集装箱运价指数（SCFI）在十一长假后止跌回升，上周上涨 $4.12\\%$ 至1160.42点。四大远洋航线运价全线上扬，"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251014",
+        "domain": "船舶"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/1a42334f-d4cd-4427-bc2d-9216c730d60b/经营晨报 20251014/chunks.json"
+      ],
+      "notes": "领域=船舶"
+    },
+    {
+      "id": "q0064",
+      "question": "《经营晨报 20250818》里船舶领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "02d154e92bfa6fd9c79adda5f2514d36",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250818",
+          "title": "4.船舶领域",
+          "part": 1,
+          "snippet": "## 4.船舶领域  巴拿马运河拥堵推高 VLGC 运价，日租金逼近 10 万美元。波罗的海航运交易所数据显示，受巴拿马运河持续拥堵影响，VLGC（超大型气体运输船）中东至远东航线"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250818",
+        "domain": "船舶"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/40648a89-07a4-4aab-8d04-83811e139fe7/经营晨报 20250818/chunks.json"
+      ],
+      "notes": "领域=船舶"
+    },
+    {
+      "id": "q0065",
+      "question": "《经营晨报 20251125》里船舶领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "e3dbdf4ccc0c0b52739a123b7cc452ec",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251125",
+          "title": "2. 船舶领域",
+          "part": 1,
+          "snippet": "## 2. 船舶领域  10月全球新船订单量同比降近四成，中国接单量持续领跑根据克拉克森最新数据，2025年10月全球新船订单量同比环比均显著下滑，中国船企接单量继续领跑全球。10"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251125",
+        "domain": "船舶"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/179d8c80-88e7-463d-8c56-71608158a69b/经营晨报 20251125/chunks.json"
+      ],
+      "notes": "领域=船舶"
+    },
+    {
+      "id": "q0066",
+      "question": "《经营晨报 20250812》里算力领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "b988840c9244510dec6c84a6ab68e15f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250812",
+          "title": "4.算力领域",
+          "part": 1,
+          "snippet": "## 4.算力领域  常州出台全国首部地级市智能制造法规 8月8日公布10月实施。8月8日，《常州市促进智能制造发展条例》正式发布，将于10月1日实施。作为全国首部地级市智能制造专"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250812",
+        "domain": "算力"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/a114de5a-a2a0-4ddb-a295-049b44ccb4d4/经营晨报 20250812/chunks.json"
+      ],
+      "notes": "领域=算力"
+    },
+    {
+      "id": "q0067",
+      "question": "《经营晨报 20250822》里新能源领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "e1b324d0c28a13b4cac8dadcdb85974a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250822",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  国家能源局8月20日公示第五批能源领域首台（套）重大技术装备名单，共82项装备入选，其中多项氢能关键技术装备亮相，涵盖制氢、储氢、用氢等多个环节。具体包括P"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250822",
+        "domain": "新能源"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/6a5b68cd-036e-4a2e-9bea-6dd3833347a0/经营晨报 20250822/chunks.json"
+      ],
+      "notes": "领域=新能源"
+    },
+    {
+      "id": "q0068",
+      "question": "《经营晨报 20251117》里化工领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "f0e17375f10648c17fa7b54fc1e1ec81",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251117",
+          "title": "2.化工领域",
+          "part": 1,
+          "snippet": "## 2.化工领域  金科日化北方智能制造基地投产，填补高端过碳酸钠工艺空白   11月7日，天津金科日化新材料智能制造基地在天津经开区正式投产，总投资超10亿元，具备年产10万吨"
+        },
+        {
+          "content_hash": "bcab3e077c8d68914c199d1e714cc20b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251117",
+          "title": "辽宁探明国内首个千吨级金矿，资源量1444吨创历史纪录",
+          "part": 1,
+          "snippet": "## 辽宁探明国内首个千吨级金矿，资源量1444吨创历史纪录  自然资源部11月14日宣布，辽宁省成功探明国内首个千吨级低品位超大型金矿床——大东沟金矿。该矿床探明黄金资源量达14"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251117",
+        "domain": "化工"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/f68d0c4c-2bc0-4044-a3ac-6b862deea6ef/经营晨报 20251117/chunks.json"
+      ],
+      "notes": "领域=化工"
+    },
+    {
+      "id": "q0069",
+      "question": "《经营晨报 20251111》里新能源领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "1e682aa69cfad793a7e707e0227014ac",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251111",
+          "title": "国家能源局发文推进煤炭与新能源融合发展",
+          "part": 1,
+          "snippet": "## 国家能源局发文推进煤炭与新能源融合发展  11月7日，国家能源局发布《关于推进煤炭与新能源融合发展的指导意见》。《指导意见》提出，到“十五五”末，煤炭与新能源融合发展要求取得"
+        },
+        {
+          "content_hash": "9ab6e670fbac82c57b4a37ada31889ff",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251111",
+          "title": "新能源汽车购置税政策明年起全额免税调整为减半征收",
+          "part": 1,
+          "snippet": "## 新能源汽车购置税政策明年起全额免税调整为减半征收  从明年1月1日起，我国新能源汽车购置税将从全额免税调整为减半征收。近段时间，受车购税将调整及年底传统销售旺季影响，我国新能"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251111",
+        "domain": "新能源"
+      },
+      "raw_gold_size": 2,
+      "source_files": [
+        "output/20260910/199cdbf2-438e-4ab4-9be1-fed3ea70d0ba/经营晨报 20251111/chunks.json"
+      ],
+      "notes": "领域=新能源"
+    },
+    {
+      "id": "q0070",
+      "question": "《经营晨报 20250901》里化工领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "0d62b630425b85907a155f5398026a63",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250901",
+          "title": "2、化工领域",
+          "part": 1,
+          "snippet": "## 2、化工领域  前7月化学原料和制品制造业利润2133.9亿元。国家统计局数据显示，2025年1—7月，全国化学原料和化学制品制造业利润总额为2133.9亿元，同比下降 $8"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250901",
+        "domain": "化工"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/9c70b5a5-cdcb-4f0b-b5a5-0351ec1011f2/经营晨报 20250901/chunks.json"
+      ],
+      "notes": "领域=化工"
+    },
+    {
+      "id": "q0071",
+      "question": "《经营晨报 20251009》里船舶领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "7717fe771bcbbd984409c17e18ab7809",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "浙江首单船用绿色甲醇加注业务落地",
+          "part": 1,
+          "snippet": "## 浙江首单船用绿色甲醇加注业务落地  9月29日，宁波舟山港成功为“中远海运天秤座”轮加注230吨绿色甲醇，成为国内少数同时具备LNG、生物燃料和甲醇三类绿色燃料加注能力的港口"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251009",
+        "domain": "船舶"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json"
+      ],
+      "notes": "领域=船舶"
+    },
+    {
+      "id": "q0072",
+      "question": "《经营晨报 20251106》里钢铁领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "cab728f3fb088b070869c113556c0fd9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251106",
+          "title": "钢价延续跌势，市场呈现供需两弱态势",
+          "part": 1,
+          "snippet": "## 钢价延续跌势，市场呈现供需两弱态势  据My Steel消息，10月底以来钢价已环比下跌约100元/吨，其中螺纹钢主力合约较8月高点已下跌415元/吨，跌幅 $12\\%$ 。"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251106",
+        "domain": "钢铁"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/bee5de87-ba17-4650-9648-f4e4f326d485/经营晨报 20251106/chunks.json"
+      ],
+      "notes": "领域=钢铁"
+    },
+    {
+      "id": "q0073",
+      "question": "《经营晨报 20250811》里化工领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "b6a5ecd8b6600ee3714323290ca511a0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250811",
+          "title": "2.化工领域",
+          "part": 1,
+          "snippet": "## 2.化工领域  江苏拟升级化工产业限制淘汰目录，加速落后产能出清。8月5日，江苏省工信厅发布《江苏省化工产业结构调整限制和淘汰目录（2025年本，征求意见稿）》，拟对1000"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250811",
+        "domain": "化工"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/5656b5ba-07c8-44c3-a3dd-61c5c7617e78/经营晨报 20250811/chunks.json"
+      ],
+      "notes": "领域=化工"
+    },
+    {
+      "id": "q0074",
+      "question": "《经营晨报 20251218》里新能源领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "4dbb3b3451b9416bd663b1ea6de342a1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  江西2026年新能源竞价结果：光伏0.379元/度，风电0.365元/度12月15日，江西省完成2026年新能源机制电价竞价，共2859个项目入围。本次光伏"
+        },
+        {
+          "content_hash": "27e9330e5abb90a9a698a9e179b8715e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "国家电网公布2025年第十二批可再生能源发电补贴项目清单",
+          "part": 1,
+          "snippet": "## 国家电网公布2025年第十二批可再生能源发电补贴项目清单  12月15日，国家电网公布2025年第十二批可再生能源发电补贴项目清单，共纳入新增项目9个，总核准/备案容量165"
+        },
+        {
+          "content_hash": "34d606ac58703e2979a683bc527f2421",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "江苏苏盐储能项目1号机组首次实现300兆瓦满负荷运行",
+          "part": 1,
+          "snippet": "## 江苏苏盐储能项目1号机组首次实现300兆瓦满负荷运行  2025年12月13日，江苏省重大能源基础设施项目——苏盐储能发电项目取得关键进展：其1号机组首次成功实现300MW满"
+        },
+        {
+          "content_hash": "2a412f90a36fb9fc97f9bf31a243ddd6",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251218",
+          "title": "两部门：将建立全国统一电力市场评价制度，自2026年起实施",
+          "part": 1,
+          "snippet": "## 两部门：将建立全国统一电力市场评价制度，自2026年起实施  12月17日，国家发展改革委办公厅、国家能源局综合司发布关于建立全国统一电力市场评价制度的通知，全国统一电力市场"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251218",
+        "domain": "新能源"
+      },
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/20260910/a453dd07-bd71-49a4-b1dd-10e030619686/经营晨报 20251218/chunks.json"
+      ],
+      "notes": "领域=新能源"
+    },
+    {
+      "id": "q0075",
+      "question": "《经营晨报 20250731》里船舶领域有哪些动态？",
+      "question_type": "domain_facet",
+      "difficulty": "medium",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "f01b44a71f6e1643677d36c4339d2c08",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "4.船舶领域",
+          "part": 1,
+          "snippet": "## 4.船舶领域  2025 上半年中国 TOP20 港口排名发布。7 月 29 日，交通运输部发布上半年全国港口数据，货物吞吐量达 89.03 亿吨（同比 +4.0%），集装箱"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250731",
+        "domain": "船舶"
+      },
+      "raw_gold_size": 1,
+      "source_files": [
+        "output/20260910/d8c26ba9-c89a-4edb-998a-b0b8f130102a/经营晨报 20250731/chunks.json"
+      ],
+      "notes": "领域=船舶"
+    },
+    {
+      "id": "q0076",
+      "question": "2025年10月的经营晨报里，重点要闻方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "626669244a611abd6f1e75dc5dc8e91f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "·华友钴业：签订200亿元订单",
+          "part": 1,
+          "snippet": "## ·华友钴业：签订200亿元订单  ·海南华铁：终止36.9亿算力大单  ·云南完成增量新能源项目电价竞价，风光项目均价约0.33元/度  国际金价强势突破4000美元/盎司"
+        },
+        {
+          "content_hash": "a3493bbfd85851f59fea657d3f881741",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "·中材科技：拟定增募资44.81亿元扩产",
+          "part": 1,
+          "snippet": "## ·中材科技：拟定增募资44.81亿元扩产  ·我国将于2026年起在政府采购中正式实施本国产品标准并给予价格评审优惠"
+        },
+        {
+          "content_hash": "30040a9e07c15a4b125e22c3a8cd2a9a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "·全国首个大容量钠离子电池储能电站完成扩容投运",
+          "part": 1,
+          "snippet": "## ·全国首个大容量钠离子电池储能电站完成扩容投运  · 美国自10月14日起对中国船舶实施歧视性收费，中方已通过立法修订保留对等反制权利"
+        },
+        {
+          "content_hash": "af3831c016fd09e8868c15b21ec03164",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251011",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·我国将对高端锂电池及相关技术设备实施出口管制  · 中国电信26亿元宁波通信枢纽开工，打造区域性算力高地  ·我国将对美国相关船舶征收特别港务费，作为对美歧视性"
+        },
+        {
+          "content_hash": "77757fb58adcc5592b2befbd1652c9c9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·宁夏绿电直连新政：明确“以荷定源”，自发自用比例需超60%  ·青海新能源电价改革：存量执行固定电价，增量实施竞争竞价  · 中国强化关键战略资源管理，对多项涉"
+        },
+        {
+          "content_hash": "b019c3ce89e3648036e69e84f6cede88",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251014",
+          "title": "·恒力重工：连获12艘超百亿大单",
+          "part": 1,
+          "snippet": "## ·恒力重工：连获12艘超百亿大单  ·财政支持风光力度加大，前两批可再生能源补贴近650亿元  ·闻泰科技：营收147亿的半导体资产被荷兰政府冻结"
+        },
+        {
+          "content_hash": "83cc518e592addf47b22039579785a17",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251015",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  · 国家发改委就能源消费可再生能源最低比重管理办法征求意见  · 江苏深化新能源上网电价改革，存量增量分类施策  ·福斯达：拟10亿元投建海洋工程与装备智能制造项"
+        },
+        {
+          "content_hash": "6542b6d1af464f2c8c0f1027de3b0b9a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251016",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·盛屯矿业：拟13.5亿元买入非洲金矿  ·甘孜州3000P智算中心开工，打造绿电融合零碳园区  ·10.6亿元锂电回收负极项目落地湖北荆门"
+        }
+      ],
+      "gold_meta": {
+        "category": "重点要闻",
+        "date_from": "2025-10-01",
+        "date_to": "2025-10-31"
+      },
+      "raw_gold_size": 19,
+      "source_files": [
+        "output/20260910/1a42334f-d4cd-4427-bc2d-9216c730d60b/经营晨报 20251014/chunks.json",
+        "output/20260910/22fd7694-b093-421e-a4d8-9a7a9cb8df79/经营晨报 20251016/chunks.json",
+        "output/20260910/6611d3e7-4a68-4bf3-9b07-a9e2128183a3/经营晨报 20251013/chunks.json",
+        "output/20260910/826e6d3a-2f73-45a5-a570-f16300dc6ff8/经营晨报 20251015/chunks.json",
+        "output/20260910/87a0c64c-93a9-4a88-82c1-1e24a82381d2/经营晨报 20251011/chunks.json",
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json",
+        "output/20260910/a7eebaf4-df62-4b7a-9958-1c3c5d231ce0/经营晨报 20251010/chunks.json"
+      ],
+      "notes": "月份=2025-10，分类=重点要闻"
+    },
+    {
+      "id": "q0077",
+      "question": "2025年9月的经营晨报里，同业资讯方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "cc25379a7dc0fd174d587fff9aae8ab6",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "同业资讯",
+          "part": 1,
+          "snippet": "## 同业资讯  金融租赁行业2024年稳健增长，直租与国产装备成亮点。中国银行业协会发布的《中国金融租赁行业发展报告（2025）》显示，2024年金融租赁行业总资产达4.58万亿"
+        },
+        {
+          "content_hash": "4a7e4908ae2a872be7d5f95a921ea314",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "融资租赁8月发债规模同比“腰斩”，ABS缩水七成",
+          "part": 1,
+          "snippet": "## 融资租赁8月发债规模同比“腰斩”，ABS缩水七成  2025年8月融资租赁行业发债总额528.58亿元，同比锐减49.04%，环比下降29.63%，创近年新低。资产证券化产品"
+        },
+        {
+          "content_hash": "77b6725d94e94217948f548d6161e987",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "平安银行把融资租赁行业提升到“总行战略级”高度",
+          "part": 1,
+          "snippet": "## 平安银行把融资租赁行业提升到“总行战略级”高度  9月10日，第十三届中国租赁论坛在天津成功召开。活动中，平安银行党委委员、副行长方蔚豪表示：“在战略方面，平安银行把融资租赁"
+        },
+        {
+          "content_hash": "b716e913c0d7740c4f482204191ffd4d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "财政部：超六成的融资平台实现退出",
+          "part": 1,
+          "snippet": "## 财政部：超六成的融资平台实现退出  国新办12日举行“高质量完成‘十四五’规划”系列主题新闻发布会，介绍“十四五”时期财政改革发展成效。截至2025年6月末，超六成的融资平台"
+        },
+        {
+          "content_hash": "842e76e5ce6c1d29f14e47c164ea8253",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250916",
+          "title": "金管局总局将金融租赁公司纳入消保监管评价范围",
+          "part": 1,
+          "snippet": "## 金管局总局将金融租赁公司纳入消保监管评价范围  9月12日，国家金融监督管理总局明确评价对象为“在中华人民共和国境内依法设立、由金融监管总局及其派出机构依法监管的向消费者提供"
+        },
+        {
+          "content_hash": "7686a7c0bb79334c6a40117d5532547c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "同业资讯",
+          "part": 1,
+          "snippet": "## 同业资讯  中飞x冰岛航空：开展两架A321LR新飞机租赁合作   中飞租赁宣布与冰岛载旗航司：冰岛航空（Icelandair）开展首次合作，就两架全新空客A321LR飞机签"
+        },
+        {
+          "content_hash": "8458c01f7304329678fc9ab32fde49e9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250918",
+          "title": "山西省落地首单飞机租赁业务",
+          "part": 1,
+          "snippet": "## 山西省落地首单飞机租赁业务  9月13日，山西省落地首单飞机租赁业务，该空客A320民航客机货值达3070万美元，由太原航空集团有限公司在武宿综保区内设立的SPV公司购入，采"
+        },
+        {
+          "content_hash": "3e0dd54c428f900d7714ae1ab142deaa",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250919",
+          "title": "同业资讯",
+          "part": 1,
+          "snippet": "## 同业资讯  昆仑金租在仪征港务项目实现投放1.2亿元9月17日，昆仑金租称其产融事业部（北京）于9月向仪征港务有限公司投放1.2亿元融资，租赁物为核心港口运营设施。"
+        }
+      ],
+      "gold_meta": {
+        "category": "同业资讯",
+        "date_from": "2025-09-01",
+        "date_to": "2025-09-30"
+      },
+      "raw_gold_size": 24,
+      "source_files": [
+        "output/20260910/08fff2d9-52b4-4fc5-ad0a-a25a7072e871/经营晨报 20250917/chunks.json",
+        "output/20260910/14cd8247-b1a6-4bec-bf6e-5d94e0ec0681/经营晨报 20250919/chunks.json",
+        "output/20260910/1e8e7f81-f35a-473b-9971-081e050f8284/经营晨报 20250915/chunks.json",
+        "output/20260910/45608eac-1046-46a9-afe4-a8154d6f01a6/经营晨报 20250916/chunks.json",
+        "output/20260910/6793a9d4-897a-45f5-a32f-24fc850b751d/经营晨报 20250911/chunks.json",
+        "output/20260910/e806a72e-6deb-499a-81d4-11eb2fa7df24/经营晨报 20250912/chunks.json",
+        "output/20260910/ef904c48-4e6a-4802-8fbb-4b6ba432db8f/经营晨报 20250918/chunks.json"
+      ],
+      "notes": "月份=2025-09，分类=同业资讯"
+    },
+    {
+      "id": "q0078",
+      "question": "2025年10月的经营晨报里，行业动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "859aab2627ce99053ff471a36e1f5a86",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "2.钢铁领域",
+          "part": 1,
+          "snippet": "## 2.钢铁领域  国产首套1800米/分钟高速酸轧机组试车成功   中冶京诚自主研制的国产首套1800米/分钟高速酸轧联合机组在山东汇创一次性试车成功，标志着我国冷轧装备技术正"
+        },
+        {
+          "content_hash": "7b8c5e825540f19010a8fce26f814247",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "8月国内工商业储能备案规模创新高，江苏占比超六成",
+          "part": 1,
+          "snippet": "## 8月国内工商业储能备案规模创新高，江苏占比超六成  2025年8月国内用户侧工商业储能新增备案规模达4.8GW/10.41GWh，创历史新高，其中江苏省占比超六成。独立配置的"
+        },
+        {
+          "content_hash": "b443a577b562afa2d36ef4b5d14517cf",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "国庆假期我国新能源汽车充电量创历史同期新高",
+          "part": 1,
+          "snippet": "## 国庆假期我国新能源汽车充电量创历史同期新高  10月1日-10月3日，全国高速公路假期充电量达4380.93万千瓦时，同比增长超50%，日均充电量为平日的2.54倍。为保障出"
+        },
+        {
+          "content_hash": "45e5942d6dcd7253b4b311f75ed1e5b0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "宁德时代计划未来5年在海南建100座换电站",
+          "part": 1,
+          "snippet": "## 宁德时代计划未来5年在海南建100座换电站  9月29日，海南时代电服科技有限公司与海口市龙华区人民政府正式签订战略合作协议，宣布至2030年在海南全省投资建设100座换电站"
+        },
+        {
+          "content_hash": "7b85a73fc8140597230f2b3bf7162132",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "新势力车企9月成绩单：销量分化明显，零跑、小鹏等月交付均创历史新高",
+          "part": 1,
+          "snippet": "## 新势力车企9月成绩单：销量分化明显，零跑、小鹏等月交付均创历史新高  10月1日，新势力车企陆续公布9月销量，零跑汽车、小鹏汽车、小米汽车、蔚来、岚图汽车、极狐汽车、智己汽车"
+        },
+        {
+          "content_hash": "7717fe771bcbbd984409c17e18ab7809",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "浙江首单船用绿色甲醇加注业务落地",
+          "part": 1,
+          "snippet": "## 浙江首单船用绿色甲醇加注业务落地  9月29日，宁波舟山港成功为“中远海运天秤座”轮加注230吨绿色甲醇，成为国内少数同时具备LNG、生物燃料和甲醇三类绿色燃料加注能力的港口"
+        },
+        {
+          "content_hash": "f5d68b27ee84e443f00e55c0cc5b39cc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "美国投运全球首个由网级钠离子储能系统",
+          "part": 1,
+          "snippet": "## 美国投运全球首个由网级钠离子储能系统  美国投运全球首个电网级钠离子储能系统美国储能公司Peak Energy在科罗拉多州投运全球最大规模电网级钠离子储能系统，采用无转动器件"
+        },
+        {
+          "content_hash": "11a42fb1d2bd921c6c91b84c89f1387b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "腾亚精工：拟投资建设越南生产基地并签署定金合同",
+          "part": 1,
+          "snippet": "## 腾亚精工：拟投资建设越南生产基地并签署定金合同  9月29日，据腾亚精工（301125.SZ）公告披露，公司拟使用自有资金或自筹资金通过新加坡公司在越南设立全资孙公司越南公司"
+        }
+      ],
+      "gold_meta": {
+        "category": "行业动态",
+        "date_from": "2025-10-01",
+        "date_to": "2025-10-31"
+      },
+      "raw_gold_size": 200,
+      "source_files": [
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json"
+      ],
+      "notes": "月份=2025-10，分类=行业动态"
+    },
+    {
+      "id": "q0079",
+      "question": "2025年9月的经营晨报里，重点客户方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "e46d0bd44f9b32822d07c7ae94466ee9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  东阳光：280亿元领投秦淮数据。9月10日，东阳光（600673.SH）公告披露，深圳市东阳光实业发展有限公司携手上市公司东阳光及包括宜都国投在内的其他联合投资人"
+        },
+        {
+          "content_hash": "30aa8e0278569538765d29299c386867",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "包钢股份：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 包钢股份：大额项目中标候选人公示  9月10日，华电达茂旗至包头市区氢气长输管道工程项目氢气输送用钢管采购招标项目中标候选人公示，包钢股份（600010.SH）为第一候选人，"
+        },
+        {
+          "content_hash": "aa0ee18bf3d4d8a2acfd90563c541744",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "天合光能：签订合计2.48GWh储能销售合同",
+          "part": 1,
+          "snippet": "## 天合光能：签订合计2.48GWh储能销售合同  9月11日，据天合光能（688599.SH）公告披露，天合储能于近日分别与中国、拉美、亚太的三家客户签订合计2.48GWh的储"
+        },
+        {
+          "content_hash": "a7fc52ab767e373875b7bd2877b30113",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "正泰集团：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 正泰集团：大额项目中标候选人公示  9月10日，国家电投集团重庆电力有限公司奉节县50MW户用分布式光伏项目EPC总承包项目中标候选人公示，正泰安能为第二候选人，投标报价为1"
+        },
+        {
+          "content_hash": "52778ef94bec2b0bbad28e334fb7678b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "远景能源：航企能源企业共建绿氨燃料海运供应链",
+          "part": 1,
+          "snippet": "## 远景能源：航企能源企业共建绿氨燃料海运供应链  近日，交通运输部牵头联合中国船舶燃料有限责任公司、天津西南海运有限公司、远景能源有限公司、丸红（上海）有限公司、美商运安（上海"
+        },
+        {
+          "content_hash": "8f4e104de24c81df92cabcd47817df28",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "世纪互联：获40MW头部AI算力订单",
+          "part": 1,
+          "snippet": "## 世纪互联：获40MW头部AI算力订单  9月11日，据世纪互联（VNET.O）公告披露，获得头部互联网公司40MW批发AI算力订单，位于大北京地区中固安IDC园区，将分阶段交"
+        },
+        {
+          "content_hash": "afb675687a730fe6c510da8e81da1159",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "协鑫集成：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 协鑫集成：大额项目中标候选人公示  9月11日，据国家电投旗下子公司望谟县石屯喜满160MWp农业光伏电站项目组件采购中标候选人公示，协鑫集成（002506.SZ）为第一中标"
+        },
+        {
+          "content_hash": "f6954b4bdf239624bb1e1428a385b8cc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "孚能科技：与工控投发、广州储能签署战略合作协议",
+          "part": 1,
+          "snippet": "## 孚能科技：与工控投发、广州储能签署战略合作协议  9月9日，工控投发、广州储能、孚能科技（688567.SH）签署战略合作协议，三方将深度锚定新型储能千亿级赛道，助力粤港澳大"
+        }
+      ],
+      "gold_meta": {
+        "category": "重点客户",
+        "date_from": "2025-09-01",
+        "date_to": "2025-09-30"
+      },
+      "raw_gold_size": 49,
+      "source_files": [
+        "output/20260910/1e8e7f81-f35a-473b-9971-081e050f8284/经营晨报 20250915/chunks.json",
+        "output/20260910/6793a9d4-897a-45f5-a32f-24fc850b751d/经营晨报 20250911/chunks.json",
+        "output/20260910/e806a72e-6deb-499a-81d4-11eb2fa7df24/经营晨报 20250912/chunks.json"
+      ],
+      "notes": "月份=2025-09，分类=重点客户"
+    },
+    {
+      "id": "q0080",
+      "question": "2025年9月的经营晨报里，宏观动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "8eaff303d20557400e548b21e9594176",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250911",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  10年期国债收益率时隔五个月重返 $1.8\\%$ 。9月10日，10年期国债收益率上行3bp至 $1.825\\%$ ，主因核心CPI连续4个月上升及公募"
+        },
+        {
+          "content_hash": "87289c1af67f5a71984fb0c95fba3d89",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "六部门联合整治汽车行业网络乱象",
+          "part": 1,
+          "snippet": "## 六部门联合整治汽车行业网络乱象  工业和信息化部等六部门于9月10日启动汽车行业网络乱象专项整治行动，重点打击三类行为：一是虚假测评、胁迫合作及新型网络水军非法牟利；二是性能"
+        },
+        {
+          "content_hash": "de66ebb7fd2d4e8d738b2c00915c0b34",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250912",
+          "title": "国务院批复十省市开展要素市场化配置综合改革试点",
+          "part": 1,
+          "snippet": "## 国务院批复十省市开展要素市场化配置综合改革试点  国务院近日批复同意在北京、粤港澳大湾区、苏南重点城市等10个地区开展为期2年的要素市场化配置综合改革试点，破除体制机制障碍，"
+        },
+        {
+          "content_hash": "bd5d0ba2c4282afb937f44ee2a1fcb88",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250915",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  社融新增2.57万亿、人民币贷款新增5900亿，同比均少增中国人民银行2025年8月金融数据显示，社会融资规模新增2.57万亿元，同比少增4630亿元；"
+        },
+        {
+          "content_hash": "b3fb85517ed58402bd9559997758f23b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250916",
+          "title": "2025中国企业500强榜单发布",
+          "part": 1,
+          "snippet": "## 2025中国企业500强榜单发布  中国企业联合会发布“2025中国企业500强”榜单，营业收入总额突破110万亿元，入围门槛持续提升至479.6亿元，上榜企业净利润增长 $"
+        },
+        {
+          "content_hash": "51fcc2ca40db89df1f5362afd56e5102",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250916",
+          "title": "8月国民经济保持平稳恢复，工业与消费稳步增长",
+          "part": 1,
+          "snippet": "## 8月国民经济保持平稳恢复，工业与消费稳步增长  国家统计局数据显示，8月份我国规模以上工业增加值同比增长5.2%，社会消费品零售总额增长3.4%，经济保持平稳运行。其中装备制"
+        },
+        {
+          "content_hash": "5e13974e56c6573c1e55908d0c69ab30",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "《求是》发表习近平总书记重要文章：纵深推进全国统一大市场建",
+          "part": 1,
+          "snippet": "## 《求是》发表习近平总书记重要文章：纵深推进全国统一大市场建  9月16日出版的《求是》杂志发表习近平总书记重要文章《纵深推进全国统一大市场建设》，强调建设全国统一大市场是党中"
+        },
+        {
+          "content_hash": "b5c959655ae3f3f18fe4810624eabb84",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250917",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  中美就TikTok问题达成框架共识，中方反对经贸问题政治化   中国商务部表示，中美双方近日在西班牙马德里就TikTok等经贸问题举行会谈，围绕减少投资"
+        }
+      ],
+      "gold_meta": {
+        "category": "宏观动态",
+        "date_from": "2025-09-01",
+        "date_to": "2025-09-30"
+      },
+      "raw_gold_size": 28,
+      "source_files": [
+        "output/20260910/08fff2d9-52b4-4fc5-ad0a-a25a7072e871/经营晨报 20250917/chunks.json",
+        "output/20260910/1e8e7f81-f35a-473b-9971-081e050f8284/经营晨报 20250915/chunks.json",
+        "output/20260910/45608eac-1046-46a9-afe4-a8154d6f01a6/经营晨报 20250916/chunks.json",
+        "output/20260910/6793a9d4-897a-45f5-a32f-24fc850b751d/经营晨报 20250911/chunks.json",
+        "output/20260910/e806a72e-6deb-499a-81d4-11eb2fa7df24/经营晨报 20250912/chunks.json"
+      ],
+      "notes": "月份=2025-09，分类=宏观动态"
+    },
+    {
+      "id": "q0081",
+      "question": "2025年12月的经营晨报里，宏观动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "93dd15d37c55da2f9a893d5db8d933d0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  规上工业利润累计增速连增三月，传统产业“向新”显效11月27日，国家统计局发布数据显示，1-10月份，全国规模以上工业企业实现利润总额59,502.9亿"
+        },
+        {
+          "content_hash": "35eb18b3a7a651727f5a12826192a799",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251202",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  现货白银史上首次突破57美元/盎司，贵金属市场全线大涨   贵金属市场近日全线大涨，其中现货白银价格史上首次突破每盎司57美元，创下历史新高。市场分析认"
+        },
+        {
+          "content_hash": "bb8ebb6cc68ad6860cdc3f9912f03be4",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251203",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  12月1日，国家发改委发布新版基础设施REITs行业范围清单，将能源基础设施明确纳入可申报范围。清单共列出15类项目，能源类包括风电、光伏、储能、特高压"
+        },
+        {
+          "content_hash": "aa6d6210737ec2ef4970c1fa4e9818c9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "地方债发行规模再创新高，年内已超10万亿",
+          "part": 1,
+          "snippet": "## 地方债发行规模再创新高，年内已超10万亿  2025年全国地方政府债券发行规模首次突破10万亿元，创下历史新高。专家表示，此举旨在稳投资与置换存量隐性债务，目前债务余额控制在"
+        },
+        {
+          "content_hash": "365663ed2f6006da01f3129f472b6b32",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "浙江发布2026年经济高质量发展政策框架，部署八大重点任务",
+          "part": 1,
+          "snippet": "## 浙江发布2026年经济高质量发展政策框架，部署八大重点任务  12月3日，浙江省发布推动经济高质量发展若干政策（2026年版）征求意见稿，从八个方面系统部署了激发市场活力、促"
+        },
+        {
+          "content_hash": "0ba1abf6bdd64a84b41c9daf9947fc56",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "经合组织上调2025年中国经济增长预期至5.0%",
+          "part": 1,
+          "snippet": "## 经合组织上调2025年中国经济增长预期至5.0%  经济合作与发展组织（OECD）近日发布最新经济展望，将2025年中国经济增长预期上调至 $5.0\\%$ ，较此前预测高出0"
+        },
+        {
+          "content_hash": "8b45764cd33e10f9459dc4ee5345d390",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251205",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  欧盟达成协议，将在2027年底前逐步淘汰俄罗斯天然气进口欧盟正式通过协议，确定将在2027年底前逐步淘汰并最终停止进口俄罗斯天然气，以落实其能源脱钩战略"
+        },
+        {
+          "content_hash": "3851d86f641ac376ff5b38a004c1cc35",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251208",
+          "title": "江苏印发“21条”推动游艇业发展",
+          "part": 1,
+          "snippet": "## 江苏印发“21条”推动游艇业发展  12月3日，江苏省政府办公厅印发《关于推动游艇业发展若干措施的通知》，共包括创新游艇业发展政务服务、激活游艇消费、提高游艇综合服务能力、提"
+        }
+      ],
+      "gold_meta": {
+        "category": "宏观动态",
+        "date_from": "2025-12-01",
+        "date_to": "2025-12-31"
+      },
+      "raw_gold_size": 42,
+      "source_files": [
+        "output/20260910/0e20df4e-4db6-46a0-9597-4dc1d13f956c/经营晨报 20251202/chunks.json",
+        "output/20260910/1e0e3e45-7fe8-42e2-8236-55163a11c09a/经营晨报 20251203/chunks.json",
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json",
+        "output/20260910/e04e6d53-5f8f-4765-82e9-e43990ea46de/经营晨报 20251201/chunks.json",
+        "output/20260910/e155e6ed-7cba-4464-a181-a194097bb66d/经营晨报 20251205/chunks.json",
+        "output/20260910/f365d208-2eea-4d85-ac2b-e72f48a2ab62/经营晨报 20251208/chunks.json"
+      ],
+      "notes": "月份=2025-12，分类=宏观动态"
+    },
+    {
+      "id": "q0082",
+      "question": "2025年11月的经营晨报里，宏观动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "f76c0e055675e3ff62302ee661f4e9aa",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "10月制造业PMI回落至49.0%，非制造业指数微升",
+          "part": 1,
+          "snippet": "## 10月制造业PMI回落至49.0%，非制造业指数微升  国家统计局数据显示，10月制造业PMI为 $49.0\\%$ ，较上月回落0.8个百分点；非制造业商务活动指数微升至 $"
+        },
+        {
+          "content_hash": "1cc1ba257a445956e24e861fb1d9c523",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "商务部发布绿色贸易实施意见，推动外贸全链条低碳转型",
+          "part": 1,
+          "snippet": "## 商务部发布绿色贸易实施意见，推动外贸全链条低碳转型  10月30日，商务部发布《关于拓展绿色贸易的实施意见》。意见明确推动外贸运输“公转铁”“公转水”，推广绿色包装与船舶，支"
+        },
+        {
+          "content_hash": "843340d57bf4f678c10d21580834f7a2",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "央企战新产业发展基金启动，首期规模510亿元",
+          "part": 1,
+          "snippet": "## 央企战新产业发展基金启动，首期规模510亿元  中央企业战略性新兴产业发展专项基金10月29日在京启动，首期规模510亿元。该基金由国务院国资委发起、中国国新管理，获十余家央"
+        },
+        {
+          "content_hash": "b328c0c74648e84d0c93bffb8063d333",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  江苏前三季度制造业销售收入占比提升至44.1%根据江苏省税务局增值税发票数据，前三季度全省制造业销售收入同比增长4.9%，占全部销售收入比重达44.1%"
+        },
+        {
+          "content_hash": "3b01b9320278ceaeb5cd90ea6fa9fca6",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "美国参议院通过决议，终止特朗普全球关税政策",
+          "part": 1,
+          "snippet": "## 美国参议院通过决议，终止特朗普全球关税政策  美国参议院于当地时间10月30日以51票对47票通过决议，正式终止了前总统特朗普在全球范围内实施的全面关税政策。此次表决批准了终"
+        },
+        {
+          "content_hash": "1c26c674c1ce112361b38c5dfe10e4dc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "两部门明确黄金交易税收政策，2027年底前免征增值税",
+          "part": 1,
+          "snippet": "## 两部门明确黄金交易税收政策，2027年底前免征增值税  财政部、国家税务总局发布《关于黄金有关税收政策的公告》，明确黄金有关税收政策。根据公告，在2027年底前，对会员单位或"
+        },
+        {
+          "content_hash": "08799da0df813025922128110b53d733",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "无锡发布全国首个城市级车路云一体化示范项目",
+          "part": 1,
+          "snippet": "## 无锡发布全国首个城市级车路云一体化示范项目  “2025世界物联网博览会”10月31日于无锡开幕，集中发布了无锡城市级车路云一体化项目成果，是全国首个实现全城、全网、全覆盖的"
+        },
+        {
+          "content_hash": "55234b2d4fd8f2763f3680cdaa15d56b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  前三季度江苏省重大项目完成投资5438亿元前三季度，江苏507个省重大项目完成投资5438亿元，完成率 $83.2\\%$ ，283个计划新开工项目已经全"
+        }
+      ],
+      "gold_meta": {
+        "category": "宏观动态",
+        "date_from": "2025-11-01",
+        "date_to": "2025-11-30"
+      },
+      "raw_gold_size": 36,
+      "source_files": [
+        "output/20260910/8012addb-dfd3-424b-b0f6-70cb5ccb3626/经营晨报 20251104/chunks.json",
+        "output/20260910/a4223751-d297-4e86-a0a5-548c8ef52c83/经营晨报 20251103/chunks.json"
+      ],
+      "notes": "月份=2025-11，分类=宏观动态"
+    },
+    {
+      "id": "q0083",
+      "question": "2025年12月的经营晨报里，行业动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "84fe3d956b7dcadb9261575d4dcfac99",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  11月28日，甘肃省公示2026年度机制电价竞价结果，电量规模达15.2亿千瓦时，出清电价以每千瓦时0.1954元触及下限。本轮701个竞价项目中，分布式光"
+        },
+        {
+          "content_hash": "f52895c424a83ca0c931a2952d89d97d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "2.船舶领域",
+          "part": 1,
+          "snippet": "## 2.船舶领域  新加坡向三家企业颁发甲醇燃料加注许可证，含中国石油国际11月24日，新加坡海事及港务管理局（MPA）正式宣布，向Global Energy Trading、G"
+        },
+        {
+          "content_hash": "36addd47f136d514c97839e4cd4dd16e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "4.化工领域",
+          "part": 1,
+          "snippet": "## 4.化工领域  韩国石化业迎来首例重组，两大巨头拟整合NCC应对产能过剩   韩国乐天化学与HD现代化学近日向政府提交申请，拟整合双方石脑油裂解设施（NCC），以应对国内产能"
+        },
+        {
+          "content_hash": "98b14f0f1709611e768f7fd3beb77752",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "中企加速布局欧洲储能市场，前10月对欧订单达55GWh",
+          "part": 1,
+          "snippet": "## 中企加速布局欧洲储能市场，前10月对欧订单达55GWh  欧洲储能市场正迈向规模化与成熟化，为中国企业出海开启重大机遇，预计2030年装机目标将达500-780GWh。202"
+        },
+        {
+          "content_hash": "dd0db1c9ad150149476e4859e06f581c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "亿纬锂能获1.4GWh储能订单",
+          "part": 1,
+          "snippet": "## 亿纬锂能获1.4GWh储能订单  11月27日，亿纬锂能宣布公司与瑞典知名储能系统集成商Vimab BESS AB于11月19日在西班牙马德里能源与环保展现场签署为期三年的战"
+        },
+        {
+          "content_hash": "5a647cedfc54444435197ef1f74d13ea",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "国家发改委明确：充换电、储能等成本不得计入输配电价",
+          "part": 1,
+          "snippet": "## 国家发改委明确：充换电、储能等成本不得计入输配电价  11月27日，国家发改委正式印发修订版输配电价“四个办法”。其中《输配电定价成本监审办法》再次明确，电动汽车充换电服务、"
+        },
+        {
+          "content_hash": "e5a96ea4675959a63bdc8b82306f893c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "国家能源局启动“人工智能+”能源试点",
+          "part": 1,
+          "snippet": "## 国家能源局启动“人工智能+”能源试点  11月25日，国家能源局发布通知，正式启动“人工智能+”能源试点工作，旨在推动AI技术与能源行业深度融合。通知明确将聚焦八大类高价值应"
+        },
+        {
+          "content_hash": "edf23004134f54ac1cb1d9a5c8e38ccf",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "宁德时代100亿新能源电池项目落地江苏",
+          "part": 1,
+          "snippet": "## 宁德时代100亿新能源电池项目落地江苏  11月26日，江苏时代新能源灯塔工厂产业基地三期（LY9）项目于溧阳高新区管委会正式签约。该项目由宁德时代全资子公司江苏时代新能源科"
+        }
+      ],
+      "gold_meta": {
+        "category": "行业动态",
+        "date_from": "2025-12-01",
+        "date_to": "2025-12-31"
+      },
+      "raw_gold_size": 232,
+      "source_files": [
+        "output/20260910/e04e6d53-5f8f-4765-82e9-e43990ea46de/经营晨报 20251201/chunks.json"
+      ],
+      "notes": "月份=2025-12，分类=行业动态"
+    },
+    {
+      "id": "q0084",
+      "question": "2026年4月的经营晨报里，重点客户方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "d95fcc94eb48fa4d7ff7fc05f423d8a2",
+          "chunk_id": "",
+          "file_title": "经营晨报 20260410",
+          "title": "上海电气：大型铸锻件产能提升项目开工",
+          "part": 1,
+          "snippet": "## 上海电气：大型铸锻件产能提升项目开工  近日，上海电气上重铸锻“大型铸锻件产业能级提升项目”一期工程在闵行开工。项目将打造100MN数智化快锻生产线，建成后可实现30吨级钛合"
+        },
+        {
+          "content_hash": "7495d3157f7788eeeeaa6800e591a6be",
+          "chunk_id": "",
+          "file_title": "经营晨报 20260410",
+          "title": "东华能源：签约百万吨石墨产业链",
+          "part": 1,
+          "snippet": "## 东华能源：签约百万吨石墨产业链  4月8日，东华能源联合华矿实业和茂名滨海新区管委会，共同签署100万吨天然石墨深加工项目合作框架协议。该项目规划三期建设，其中一期产能30万"
+        },
+        {
+          "content_hash": "4d0fcfa42fdb1e74930aaaccc09caa7e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20260410",
+          "title": "协创数据：2026年拟申请800亿融资租赁额度",
+          "part": 1,
+          "snippet": "## 协创数据：2026年拟申请800亿融资租赁额度  4月8日，据协创数据披露，为满足公司及子公司日常经营和业务发展需要，公司及子公司拟合计申请不超过人民币200亿元或等值外币的"
+        },
+        {
+          "content_hash": "bd77f7d06843fba02954f1dcf193204f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20260410",
+          "title": "苏豪创科：6.35万吨散货船命名交付",
+          "part": 1,
+          "snippet": "## 苏豪创科：6.35万吨散货船命名交付  4月8日，苏豪创科集团为中建投和中波轮船公司建造的两艘63,500载重吨散货新船“中波安顺”、“中波安康”轮在仪征江滨苏豪船厂举行命名"
+        }
+      ],
+      "gold_meta": {
+        "category": "重点客户",
+        "date_from": "2026-04-01",
+        "date_to": "2026-04-30"
+      },
+      "raw_gold_size": 4,
+      "source_files": [
+        "output/经营晨报 20260410/chunks.json"
+      ],
+      "notes": "月份=2026-04，分类=重点客户"
+    },
+    {
+      "id": "q0085",
+      "question": "2025年11月的经营晨报里，重点要闻方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "5675860fdc5cb98339ad4e77455a8927",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "·恒力重工：大额船舶订单生效",
+          "part": 1,
+          "snippet": "## ·恒力重工：大额船舶订单生效  ·震裕科技：拟21.1亿元投建人形机器人精密模组及零部件等项目  ·民生金租落地全国首单跨境新能源SPV项目"
+        },
+        {
+          "content_hash": "cb6c323d886371ad6ddedb91d8d53500",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·光伏行业三季度现剧烈分化：23家亏326亿，阳光电源净利118亿领跑  ·六省完成新能源竞价，机制电价政策加速落地  ·华电能源拟开展3亿直租，成本不高于2.6"
+        },
+        {
+          "content_hash": "90c61dcb79bbc71e06cd1b560f5717de",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251105",
+          "title": "·财政部设立新机构“债务管理司”",
+          "part": 1,
+          "snippet": "## ·财政部设立新机构“债务管理司”  ·内蒙古乌兰察布18.5亿0.5GW/2GWh储能项目招标  · 多家信托公司提前兑付盐城、泰州等地政信项目"
+        },
+        {
+          "content_hash": "5811ca4343ca69f627f6e1a27277e8b0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251106",
+          "title": "·恒力重工：增资20亿&建设新码头",
+          "part": 1,
+          "snippet": "## ·恒力重工：增资20亿&建设新码头  ·中国对美加征关税措施调整：24%税率暂停一年，10%税率保留  马士基165亿元LNG双燃料箱船订单，新时代造船独揽12艘新船"
+        },
+        {
+          "content_hash": "6bbffb8e797429de5add1010f0c963e9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251107",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  · 湖南启动33.76亿千瓦时新能源竞价，风光电价区间0.26–0.38元/千瓦时  ·河南计划培育3个千亿级化工产业集群，园区产值占比将超85%  · 华尔泰："
+        },
+        {
+          "content_hash": "64985dd5ef0e252c8c77cdc248bb244d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251110",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·盛屯集团：投资59亿元建设矿化材一体磷酸铁锂正极材料项目  · 多晶硅重组联合体筹划设立700亿基金，拟采用承债式收购  ·濮阳11.9亿元大数据中心封顶，将成"
+        },
+        {
+          "content_hash": "d15b3e916874ec41eed27054e3283fdd",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251111",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·新霖飞&天合光能：董事会人员变动  ·新能源汽车购置税政策明年起全额免税调整为减半征收  ·10月CPI同比由降转涨，核心CPI涨幅连续6个月扩大"
+        },
+        {
+          "content_hash": "78fa6158b9d5cd50788a236c77e02462",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251112",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·陕西启动115亿千瓦时新能源竞价，风光电价区间0.23-0.3545元/千瓦时  新大洲本田新能源摩托车总部10亿元项目落户江苏太仓  ·江苏十三市前三季度GD"
+        }
+      ],
+      "gold_meta": {
+        "category": "重点要闻",
+        "date_from": "2025-11-01",
+        "date_to": "2025-11-30"
+      },
+      "raw_gold_size": 21,
+      "source_files": [
+        "output/20260910/199cdbf2-438e-4ab4-9be1-fed3ea70d0ba/经营晨报 20251111/chunks.json",
+        "output/20260910/298d27ae-5eb7-4e03-96c1-27176bdb4613/经营晨报 20251107/chunks.json",
+        "output/20260910/58cdedc0-6146-49a2-83ca-418d787c89e1/经营晨报 20251105/chunks.json",
+        "output/20260910/8012addb-dfd3-424b-b0f6-70cb5ccb3626/经营晨报 20251104/chunks.json",
+        "output/20260910/a4223751-d297-4e86-a0a5-548c8ef52c83/经营晨报 20251103/chunks.json",
+        "output/20260910/bee5de87-ba17-4650-9648-f4e4f326d485/经营晨报 20251106/chunks.json",
+        "output/20260910/dc580eef-866f-4f12-b9fa-262818331293/经营晨报 20251112/chunks.json",
+        "output/20260910/fd78dbc4-6b7b-48d8-bf69-e6f9934b0fbc/经营晨报 20251110/chunks.json"
+      ],
+      "notes": "月份=2025-11，分类=重点要闻"
+    },
+    {
+      "id": "q0086",
+      "question": "2025年7月的经营晨报里，行业动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "d2985916e600960dd7ce56114504a521",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  2025年《财富》中国500强，排名前十的主流光伏企业为：通威集团、特变电工、晶科能源、隆基绿能、天合光能、阳光电源、晶澳科技、正泰电器、阿特斯、合盛硅业。"
+        },
+        {
+          "content_hash": "6d89ddcda9e22fb4ea24d9e49392d35c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "2. 低空经济领域",
+          "part": 1,
+          "snippet": "## 2. 低空经济领域  黄石成立10亿低空经济公司，布局航空全产业链。7月29日，黄石全域低空经济发展有限公司正式成立，注册资本10亿元，由黄石产投控股集团全资持股，经营范围涵"
+        },
+        {
+          "content_hash": "d3bc001ea583bd0b09c43ff5b0a26835",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "3.算力领域",
+          "part": 1,
+          "snippet": "## 3.算力领域  启迪设计联合体签约8.6亿元智算中心项目。7月29日，启迪设计（300500.SZ）作为联合体牵头方，与神威信息、中农算力正式签约河南空港智算中心三期项目，合"
+        },
+        {
+          "content_hash": "f01b44a71f6e1643677d36c4339d2c08",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "4.船舶领域",
+          "part": 1,
+          "snippet": "## 4.船舶领域  2025 上半年中国 TOP20 港口排名发布。7 月 29 日，交通运输部发布上半年全国港口数据，货物吞吐量达 89.03 亿吨（同比 +4.0%），集装箱"
+        },
+        {
+          "content_hash": "2ff357b7962815f454749acc5ad15eff",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "5.钢铁领域",
+          "part": 1,
+          "snippet": "## 5.钢铁领域  西王金属科技 21.97 亿钢铁产能指标司法拍卖重启。7 月 28 日，山东省临沂市中级人民法院公告，将于 8 月 28 日拍卖西王金属科技有限公司名下钢铁产"
+        },
+        {
+          "content_hash": "478949a9fd4eea617756d351bfa591af",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "三、同业动态",
+          "part": 1,
+          "snippet": "## 三、同业动态  交银金租与易控智驾签署战略合作协议。7月27日，在2025世界人工智能大会论坛上，交银金租与矿山无人驾驶领域先行者易控智驾签署了战略合作协议，为矿山无人驾驶应"
+        },
+        {
+          "content_hash": "e067138528e1fc9e594ec6ad870dae38",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "四、监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 四、监管动态及政策要闻  江苏省委第八轮巡视全面进驻13个设区市。7月30日，十四届江苏省委第八轮巡视完成进驻，对南京、苏州等13个区市开展常规巡视，并同步督查51个县（市、"
+        },
+        {
+          "content_hash": "7f712cdfdfeb7105f80786b447e68bcd",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250731",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  青山集团签约涪陵70万吨不锈钢深加工项目，加码西部产业布局。7月29日，青拓集团（青山系核心企业）与重庆涪陵区正式签约年产70万吨不锈钢深加工项目"
+        }
+      ],
+      "gold_meta": {
+        "category": "行业动态",
+        "date_from": "2025-07-01",
+        "date_to": "2025-07-31"
+      },
+      "raw_gold_size": 8,
+      "source_files": [
+        "output/20260910/d8c26ba9-c89a-4edb-998a-b0b8f130102a/经营晨报 20250731/chunks.json"
+      ],
+      "notes": "月份=2025-07，分类=行业动态"
+    },
+    {
+      "id": "q0087",
+      "question": "2025年11月的经营晨报里，同业资讯方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "5fb61f756848bd0c22265f9a718883f8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "国银金租拟向国银航空增资8.6亿美元",
+          "part": 1,
+          "snippet": "## 国银金租拟向国银航空增资8.6亿美元  国银金租于10月29日公布，董事会审议公司拟以8.6亿美元向国银航空金融租赁有限公司进行增资。增资完成后，公司将继续全资持有国银航空的"
+        },
+        {
+          "content_hash": "3267037e2f752c481675df0a1a47f1f8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251103",
+          "title": "民生金租落地全国首单跨境新能源SPV项目",
+          "part": 1,
+          "snippet": "## 民生金租落地全国首单跨境新能源SPV项目  10月30日，民生金租向特变电工股份有限公司旗下子公司提供14.6亿元跨境直租额度，用于支持其位于几内亚的阿玛利亚水电站项目设备采"
+        },
+        {
+          "content_hash": "7f337448078b6f5454160510aaa40051",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "仕净科技被执行1.3亿，涉及海发宝诚等融资租赁公司",
+          "part": 1,
+          "snippet": "## 仕净科技被执行1.3亿，涉及海发宝诚等融资租赁公司  截至目前，仕净科技（301030.SZ）合计重大被执行1.3亿元。票据逾期金额为200万元，累计逾期发生额885万元，已"
+        },
+        {
+          "content_hash": "87cc3f876aa270b637410b4160ae14f1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "光大金租向中国南航成功交付“大美湾区号”C919飞机",
+          "part": 1,
+          "snippet": "## 光大金租向中国南航成功交付“大美湾区号”C919飞机  10月29日，光大金租在中国商用飞机有限责任公司总装制造中心向中国南方航空股份有限公司成功交付C919飞机，为中国商飞"
+        },
+        {
+          "content_hash": "8605a3b6b4c94c976d0f791523e8619f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251105",
+          "title": "厦门银行向福建海西金租提供50亿元授信额度",
+          "part": 1,
+          "snippet": "## 厦门银行向福建海西金租提供50亿元授信额度  10月29日，厦门银行将给予海西金租人民币50亿元授信额度（敞口34亿元），较此前35亿元额度增加15亿元。新增额度主要用于同业"
+        },
+        {
+          "content_hash": "9eb097de09ae33cf9c690425f6060c35",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251105",
+          "title": "金租行业再现大额股权转让",
+          "part": 1,
+          "snippet": "## 金租行业再现大额股权转让  11月4日，天津金融监管局信息显示，该局日前已批复同意中铁建锦鲤资产管理有限公司受让中再产险持有的中铁建金融租赁有限公司7亿股股份。股权转让完成后"
+        },
+        {
+          "content_hash": "726b69b94a47933aa1573e318446c39e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251106",
+          "title": "中欧鼎盛租赁公司违规展业被监管公示",
+          "part": 1,
+          "snippet": "## 中欧鼎盛租赁公司违规展业被监管公示  11月3日，据深圳市地方金融管理局公告：中欧鼎盛融资租赁（深圳）有限公司与个人消费者开展的融资租赁业务，存在租赁物不合规、租赁物低值高卖"
+        },
+        {
+          "content_hash": "adbe69528fde31aaafcfea9a64812839",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251106",
+          "title": "浦银金租携手海南航空交付首架A330neo飞机",
+          "part": 1,
+          "snippet": "## 浦银金租携手海南航空交付首架A330neo飞机  11月1日上午，浦银金租向海南航空交付首架A330neo飞机，为中国内地引进的首架A330neo飞机，也是浦银金租与海南航空"
+        }
+      ],
+      "gold_meta": {
+        "category": "同业资讯",
+        "date_from": "2025-11-01",
+        "date_to": "2025-11-30"
+      },
+      "raw_gold_size": 30,
+      "source_files": [
+        "output/20260910/58cdedc0-6146-49a2-83ca-418d787c89e1/经营晨报 20251105/chunks.json",
+        "output/20260910/8012addb-dfd3-424b-b0f6-70cb5ccb3626/经营晨报 20251104/chunks.json",
+        "output/20260910/a4223751-d297-4e86-a0a5-548c8ef52c83/经营晨报 20251103/chunks.json",
+        "output/20260910/bee5de87-ba17-4650-9648-f4e4f326d485/经营晨报 20251106/chunks.json"
+      ],
+      "notes": "月份=2025-11，分类=同业资讯"
+    },
+    {
+      "id": "q0088",
+      "question": "2025年10月的经营晨报里，重点客户方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "c4cbc985b58e854f01e26a6ab0e696ed",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "中国天楹：18万吨/年绿色LNG项目获批",
+          "part": 1,
+          "snippet": "## 中国天楹：18万吨/年绿色LNG项目获批  9月30日，黑龙江省投资项目在线审批监管平台信息显示，安达市天楹18万吨/年绿色LNG项目审批通过，项目总投资额430亿元，项目将"
+        },
+        {
+          "content_hash": "975d385dcec53d64d7ce4b53d628f80f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "华友钴业：签订200亿元订单",
+          "part": 1,
+          "snippet": "## 华友钴业：签订200亿元订单  9月30日，据华友钴业（603799.SH）公告披露，旗下子公司与全球动力电池龙头LG新能源及其子公司签署长期供货合同，涉及三元前驱体与三元正"
+        },
+        {
+          "content_hash": "463055b785aa391769f3ebad4a297641",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "南京金龙：大额项目中标公示",
+          "part": 1,
+          "snippet": "## 南京金龙：大额项目中标公示  9月30日，西宁市2025年新能源公交车更新项目中标结果公示，南京金龙客车制造有限公司中标包二，中标价格为4595万元。"
+        },
+        {
+          "content_hash": "08fc77f349bda0bc1dd45b1f89e0c4a5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "海南华铁：终止36.9亿算力大单",
+          "part": 1,
+          "snippet": "## 海南华铁：终止36.9亿算力大单  10月1日，据海南华铁（603300.SH）公告披露，全资子公司华铁大黄蜂于2025年3月与杭州X公司签署了《算力服务协议》(以下简称“原"
+        },
+        {
+          "content_hash": "bb7d9331fe12cde7bf5c65881e2a7b91",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  洲际船务：4.82亿元收购中集鑫德租赁 $40\\%$ 股权9月30日，据洲际船务（2409.HK）公告披露，通过其全资子公司SGXindeInvestment(H"
+        },
+        {
+          "content_hash": "e81746c3f8fe8b8340cf09306514ad8f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "光谷东国资运营：大额项目招标",
+          "part": 1,
+          "snippet": "## 光谷东国资运营：大额项目招标  9月30日，大冶市临空氢能源产业基地项目招标公告发布，项目占地面积115亩，建设制储加用为一体的绿氢产业基地及相关配套设施，合同估算价为3.5"
+        },
+        {
+          "content_hash": "8a607acc120956bce3cb46219955c0f0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "天合光能：大额项目中标候选人公示",
+          "part": 1,
+          "snippet": "## 天合光能：大额项目中标候选人公示  近日，龙源电力发布第五批储能电站储能液冷电池系统标段1、2框架采购中标候选人公示，天合储能为标段1、2第二中标候选人，投标报价分别为2.4"
+        },
+        {
+          "content_hash": "b273ee3dd9247acbe28a3c0ee5ff5350",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "海南华铁：第二大股东减持改增持",
+          "part": 1,
+          "snippet": "## 海南华铁：第二大股东减持改增持  10月9日，据海南华铁（603300.SH）公告披露，公司第二大股东胡丹锋终止原定的减持计划，并将在未来一个月内以集中竞价方式增持公司股份，"
+        }
+      ],
+      "gold_meta": {
+        "category": "重点客户",
+        "date_from": "2025-10-01",
+        "date_to": "2025-10-31"
+      },
+      "raw_gold_size": 60,
+      "source_files": [
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json",
+        "output/20260910/a7eebaf4-df62-4b7a-9958-1c3c5d231ce0/经营晨报 20251010/chunks.json"
+      ],
+      "notes": "月份=2025-10，分类=重点客户"
+    },
+    {
+      "id": "q0089",
+      "question": "2025年10月的经营晨报里，宏观动态方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "b6436986ad99545d4299c849865cc060",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "9月制造业PMI持续回升，经济景气度稳步改善",
+          "part": 1,
+          "snippet": "## 9月制造业PMI持续回升，经济景气度稳步改善  9月份制造业采购经理指数为 $49.8\\%$ ，较上月上升0.4个百分点，生产指数升至近6个月高点，装备制造、高技术制造等重点"
+        },
+        {
+          "content_hash": "15542e95f08954ffe192eebc33418caa",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "两部门部署消费新业态试点，50城将获财政补助",
+          "part": 1,
+          "snippet": "## 两部门部署消费新业态试点，50城将获财政补助  财政部、商务部联合启动消费新业态新模式新场景试点，计划支持约50个地市级以上城市，重点向超大特大城市倾斜。中央财政将分两年给予"
+        },
+        {
+          "content_hash": "ab3072df78a5c1937a56f35ca2a23ac4",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "国际金价强势突破4000美元/盎司",
+          "part": 1,
+          "snippet": "## 国际金价强势突破4000美元/盎司  COMEX黄金期货与现货黄金价格双双史上首次突破4000美元/盎司大关，年内涨幅已超52%。在此背景下，高盛将2026年底的金价预估大幅"
+        },
+        {
+          "content_hash": "0fb87ec439b2d5e5aa6e70c9cb9e5057",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "我国外汇储备与黄金储备在2025年9月实现双增",
+          "part": 1,
+          "snippet": "## 我国外汇储备与黄金储备在2025年9月实现双增  央行连续第11个月增持黄金，9月末黄金储备环比增加约1.24吨至2303.52吨；同时，国家外汇管理局数据显示，9月末我国外"
+        },
+        {
+          "content_hash": "a799e8c0f502c70ad7a37b5f0e094f98",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "江苏4465万元质量奖补资金“免申直达”166家企业",
+          "part": 1,
+          "snippet": "## 江苏4465万元质量奖补资金“免申直达”166家企业  江苏4465万元质量奖补资金“免申直达”166家企业江苏省通过“一企来办”平台向166家企业拨付质量强省奖补资金446"
+        },
+        {
+          "content_hash": "ba078bfcb46f026af1dc1f4cdd5c2c2f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251009",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  新型政策性金融工具落地，5000亿元资金将用于补充项目资本金9月29日，为促进金融更好地服务实体经济，推动扩大有效投资，国家发改委表示会积极推进新型政策"
+        },
+        {
+          "content_hash": "d052a806fc89ff33a493cb97ffcc7dba",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "国庆长假后A股迎来“开门红”，主要股指创下多年新高",
+          "part": 1,
+          "snippet": "## 国庆长假后A股迎来“开门红”，主要股指创下多年新高  国庆长假后A股迎来“开门红”，主要股指创下多年新高  10月9日，上证指数突破3900点，创2015年8月以来十年新高；"
+        },
+        {
+          "content_hash": "2ae9396cf0fc162927a376ca06b7c515",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251010",
+          "title": "我国将于2026年起在政府采购中正式实施本国产品标准并给予价格评审优惠",
+          "part": 1,
+          "snippet": "## 我国将于2026年起在政府采购中正式实施本国产品标准并给予价格评审优惠  根据国务院办公厅印发的《关于在政府采购中实施本国产品标准及相关政策的通知》，自2026年1月1日起，"
+        }
+      ],
+      "gold_meta": {
+        "category": "宏观动态",
+        "date_from": "2025-10-01",
+        "date_to": "2025-10-31"
+      },
+      "raw_gold_size": 41,
+      "source_files": [
+        "output/20260910/92ddd399-2cb5-423f-b187-bd43badd9104/经营晨报 20251009/chunks.json",
+        "output/20260910/a7eebaf4-df62-4b7a-9958-1c3c5d231ce0/经营晨报 20251010/chunks.json"
+      ],
+      "notes": "月份=2025-10，分类=宏观动态"
+    },
+    {
+      "id": "q0090",
+      "question": "2025年12月的经营晨报里，重点要闻方面有哪些值得关注的？",
+      "question_type": "time_category",
+      "difficulty": "hard",
+      "requires_filter": true,
+      "gold": [
+        {
+          "content_hash": "0a0f99c5f3eafd3fb36931eaf349128c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251201",
+          "title": "·恒力重工：再签三型12艘船订单",
+          "part": 1,
+          "snippet": "## ·恒力重工：再签三型12艘船订单  ·甘肃2026年机制电价以下限出清，电量15.2亿千瓦时  · 国银金租签订12亿16年的光伏融资租赁大单"
+        },
+        {
+          "content_hash": "c5526269f18c918b1b284337529a8771",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251202",
+          "title": "·新能源电价市场化改革落地，12省完成机制电价竞价",
+          "part": 1,
+          "snippet": "## ·新能源电价市场化改革落地，12省完成机制电价竞价  ·西芒杜铁矿全面达产后或需180艘好望角型船，重塑航运市场  ·专项债迎密集收官潮：11月发行近5000亿，环比激增71"
+        },
+        {
+          "content_hash": "a279bb45440cc8eb2febe83440c1afe0",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251203",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·恒逸石化：恒逸集团与恒逸投资拟六个月内增持15亿-25亿元  ·工银金租累计交付飞机700余架  ·能源项目可申报REITs，新规助力盘活存量资产与投资循环"
+        },
+        {
+          "content_hash": "50a7eaeea0c05bd0d46e450239c8d6ce",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251204",
+          "title": "山东发布新能源结算细则，明确各类项目机制电量比例",
+          "part": 1,
+          "snippet": "## 山东发布新能源结算细则，明确各类项目机制电量比例  ·招商船舶工业获6艘34.2万吨超大型矿砂船订单  地方债发行规模再创新高，年内已超10万亿"
+        },
+        {
+          "content_hash": "8f77855f1ab5361df7a3989bbf6b02dc",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251205",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "# 重点要闻  ·安阳钢铁：向中国金谷国际信托有限责任公司申请信托借款  · 多省 “十五五” 规划明确储能目标，11月储能政策密集出台  · 芜湖造船厂五项签约超十亿订单落地"
+        },
+        {
+          "content_hash": "7b3e7cc00095d1e32e211095ac94b80e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251208",
+          "title": "·11月低空经济招投标总额超7亿元，环比大幅增长",
+          "part": 1,
+          "snippet": "## ·11月低空经济招投标总额超7亿元，环比大幅增长  中材国际：子公司联合体签27亿元钼矿采选工程合同"
+        },
+        {
+          "content_hash": "f115762412ca59eb8cd39a3fe9a68e0a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251208",
+          "title": "·金融监管总局发布《金融租赁公司融资租赁业务管理办法》",
+          "part": 1,
+          "snippet": "## ·金融监管总局发布《金融租赁公司融资租赁业务管理办法》"
+        },
+        {
+          "content_hash": "9e4bb0a4055881cde0e0571bb27479bd",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251209",
+          "title": "- 国家能源局公告能源领域氢能试点名单",
+          "part": 1,
+          "snippet": "## - 国家能源局公告能源领域氢能试点名单  ·扬州出台零碳园区方案，目标2030年建成20家零碳工厂  ·中共中央政治局会议研究明年经济工作，强调坚持稳中求进、积极宏观政策"
+        }
+      ],
+      "gold_meta": {
+        "category": "重点要闻",
+        "date_from": "2025-12-01",
+        "date_to": "2025-12-31"
+      },
+      "raw_gold_size": 25,
+      "source_files": [
+        "output/20260910/0e20df4e-4db6-46a0-9597-4dc1d13f956c/经营晨报 20251202/chunks.json",
+        "output/20260910/1e0e3e45-7fe8-42e2-8236-55163a11c09a/经营晨报 20251203/chunks.json",
+        "output/20260910/5d587519-44ed-4ce8-b517-fb28e8388230/经营晨报 20251204/chunks.json",
+        "output/20260910/99fd0949-5ccd-4de8-b604-425005184ebb/经营晨报 20251209/chunks.json",
+        "output/20260910/e04e6d53-5f8f-4765-82e9-e43990ea46de/经营晨报 20251201/chunks.json",
+        "output/20260910/e155e6ed-7cba-4464-a181-a194097bb66d/经营晨报 20251205/chunks.json",
+        "output/20260910/f365d208-2eea-4d85-ac2b-e72f48a2ab62/经营晨报 20251208/chunks.json"
+      ],
+      "notes": "月份=2025-12，分类=重点要闻"
+    },
+    {
+      "id": "q0091",
+      "question": "《经营晨报 20250829》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "5d79251e993f2f67346b7cd3c2b2e6e7",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250829",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  上海公示2025年2.1GW“风光同场”海上光伏竞争配置结果，申能、上海电力等6家企业入选。上海市发改委于8月25日公示2025年度“风光同场”海上光伏竞争"
+        },
+        {
+          "content_hash": "b14317ed11afc8a2ddad9cd2f9742686",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250829",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  世纪互联：大额项目中标公示。8月27日，北京世纪互联宽带数据中心有限公司中标光大科技数据中心服务采购项目，成交价格为1242.97万元。  宏景科技：拟发不超"
+        },
+        {
+          "content_hash": "26ba9ddacd2c830147993b54fc626572",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250829",
+          "title": "2.化工行业",
+          "part": 1,
+          "snippet": "## 2.化工行业  草甘膦价格触底反弹，行业供需改善推动景气回升。在经历三年低位运行后，草甘膦近期价格显著上涨，95%原粉从2.2万元/吨涨至2.6万元/吨，涨幅近20%，行业毛"
+        },
+        {
+          "content_hash": "93f5fc77d6f55ca8845fcad1fb4a3f9b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250829",
+          "title": "3.航运领域",
+          "part": 1,
+          "snippet": "## 3.航运领域  我国首座大型 FLNG 装置启航，开创中国企业主导国际项目先例。8 月 26 日，由惠生清洁能源承建的我国首座大型浮式液化天然气生产装置（FLNG）“NGUY"
+        },
+        {
+          "content_hash": "6fc8d8a6a105142ac6987392f6a96eb7",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250829",
+          "title": "4.煤炭领域",
+          "part": 1,
+          "snippet": "## 4.煤炭领域  山西炼焦煤矿安全检查趋严，局部停产致供应偏紧但整体影响有限。据 Mysteel 对山西 153 座炼焦煤矿的调研显示，近期省内安全监管力度加大，临汾等地部分煤"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250829"
+      },
+      "raw_gold_size": 11,
+      "source_files": [
+        "output/20260910/66838cfc-04f7-4300-aa8b-bb7cdea8a770/经营晨报 20250829/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0092",
+      "question": "《经营晨报 20251104》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "cb6c323d886371ad6ddedb91d8d53500",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·光伏行业三季度现剧烈分化：23家亏326亿，阳光电源净利118亿领跑  ·六省完成新能源竞价，机制电价政策加速落地  ·华电能源拟开展3亿直租，成本不高于2.6"
+        },
+        {
+          "content_hash": "a83e258dca4082b9dd4dc2d0158e0d57",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "孚能科技：第一代硫化物全固态电池即将交付",
+          "part": 1,
+          "snippet": "## 孚能科技：第一代硫化物全固态电池即将交付  孚能科技：第一代硫化物全固态电池即将交付 10月31日，据孚能科技（688567.SH）投资者平台披露，第代硫化物全固态电池已正式"
+        },
+        {
+          "content_hash": "8592d7cbc95d14792927c911c24d0c45",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "1.新能源领域光伏行业三季度现剧烈分化",
+          "part": 1,
+          "snippet": "## 1.新能源领域光伏行业三季度现剧烈分化  2025年第三季度光伏行业呈现剧烈分化格局：23家企业合计亏损326亿元，TCL中环、通威股份等巨头亏损超50亿元；而盈利阵营的30"
+        },
+        {
+          "content_hash": "87cc3f876aa270b637410b4160ae14f1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "光大金租向中国南航成功交付“大美湾区号”C919飞机",
+          "part": 1,
+          "snippet": "## 光大金租向中国南航成功交付“大美湾区号”C919飞机  10月29日，光大金租在中国商用飞机有限责任公司总装制造中心向中国南方航空股份有限公司成功交付C919飞机，为中国商飞"
+        },
+        {
+          "content_hash": "55234b2d4fd8f2763f3680cdaa15d56b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251104",
+          "title": "监管动态及政策要闻",
+          "part": 1,
+          "snippet": "## 监管动态及政策要闻  前三季度江苏省重大项目完成投资5438亿元前三季度，江苏507个省重大项目完成投资5438亿元，完成率 $83.2\\%$ ，283个计划新开工项目已经全"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251104"
+      },
+      "raw_gold_size": 20,
+      "source_files": [
+        "output/20260910/8012addb-dfd3-424b-b0f6-70cb5ccb3626/经营晨报 20251104/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0093",
+      "question": "《经营晨报 20250815》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "4a5fc0b99c90ea7bd87dcdea1924e98e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250815",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  光伏产业链目标价格发布，行业自律机制加速落地。近日，中国光伏行业协会发布产业链四大核心环节目标价格：多晶硅44元/公斤、210mm硅片1.93元/片、TOP"
+        },
+        {
+          "content_hash": "48e5fa7a9f48128168f8e861ed92d702",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250815",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  隆基绿能：投建全球最大绿氢耦合绿色甲醇项目，总投资超百亿。8月11日，西安隆基清洁能源有限公司（隆基绿能子公司）在内蒙古乌拉特后旗工业园区正式开工全球最大绿氢"
+        },
+        {
+          "content_hash": "613da6f8f5950954ffc5a9375723a210",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250815",
+          "title": "2.化工领域",
+          "part": 1,
+          "snippet": "## 2.化工领域  榆树 214 亿绿色甲醇项目签约。8 月 12 日，吉林省榆树市绿电耦合生物质绿色甲醇项目在北京完成集中签约，总投资 214 亿元，由华锦能源联合中建六局、中"
+        },
+        {
+          "content_hash": "a96d6a15f5efe3e579c19689262c49c1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250815",
+          "title": "3.算力领域",
+          "part": 1,
+          "snippet": "## 3.算力领域  中国限制英伟达 H2O 芯片使用。近日，有传闻中国监管机构向本土企业发出通知，建议避免使用英伟达 H2O 芯片，尤其在政务、国企及涉安领域。外交部发言人林剑在"
+        },
+        {
+          "content_hash": "b374d1954406a5e20bf8588a210e7631",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250815",
+          "title": "4.船舶领域",
+          "part": 1,
+          "snippet": "## 4.船舶领域  美国 LNG 出口激增引发全球供应过剩担忧。2025 年，美国 Golden Pass、Corpus Christi Stage 3 等 LNG 项目投产，推"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250815"
+      },
+      "raw_gold_size": 10,
+      "source_files": [
+        "output/20260910/df26626c-7209-4e4e-8aa1-e0e45c631202/经营晨报 20250815/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0094",
+      "question": "《经营晨报 20250806》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "68aed99b69bfd63ee5f7f8e3a642c654",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250806",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  我国首部储能锂电池强制国标正式实施,全面强化全产业链安全监管。8月1日起实施的《电能存储系统用锂蓄电池和电池组安全要求》（GB 44240-2024）作为储"
+        },
+        {
+          "content_hash": "63d4eefb07bf5f941280e95134e10d0b",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250806",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  正泰集团：总投资50亿元正泰新能源装备制造项目签约。8月4日，正泰新能源装备制造项目正式签约，位于射阳港经济开发区，总投资约50亿元，用地约200亩。计划分两"
+        },
+        {
+          "content_hash": "a925dd1ec38a312532851e45eeb906ee",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250806",
+          "title": "2.化工领域",
+          "part": 1,
+          "snippet": "## 2.化工领域  万华化学合资成立万美新材料公司。8月5日，万华化学（持股70%）与合肥新美材料（持股30%）合资成立烟台万美新材料有限公司，注册资本1亿元，聚焦合成材料及专用"
+        },
+        {
+          "content_hash": "a7ea4b5fee296f78179c21c96b77d784",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250806",
+          "title": "3.算力领域",
+          "part": 1,
+          "snippet": "## 3.算力领域  福建莆田签约42亿元AI算力中心项目，打造\"一带一路\"数字枢纽。7月30日，莆田城厢区与北京信唐智创签约共建10000P级人工智能计算中心，项目总投资42亿元"
+        },
+        {
+          "content_hash": "e5e6bdce1a4066d8f7d9c414ee086c77",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250806",
+          "title": "4.低空经济领域",
+          "part": 1,
+          "snippet": "## 4.低空经济领域  无锡苏州低空经济法规同步落地。7月30日，江苏省人大常委会批准无锡、苏州两市《促进低空经济法规》，均于10月1日施行，重点包括统一飞行服务平台建设、跨区域"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250806"
+      },
+      "raw_gold_size": 8,
+      "source_files": [
+        "output/20260910/454ea6bb-0bff-4e61-ba1a-a31ad8ac00a5/经营晨报 20250806/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0095",
+      "question": "《经营晨报 20251210》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "5e0adbffa2402a9f3b0c9276a867fa03",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251210",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·中远海运与中国船舶签约500亿元新船订单  ·华电明确各类储能项目投资收益标准  ·美方拟批准英伟达H200芯片对华出口"
+        },
+        {
+          "content_hash": "7a774f9c8fb1bd32374710174ea7008a",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251210",
+          "title": "安阳钢铁：拟向河南安钢周口钢铁提供不超过4亿元借款",
+          "part": 1,
+          "snippet": "## 安阳钢铁：拟向河南安钢周口钢铁提供不超过4亿元借款  安阳钢铁：拟向河南安钢周口钢款提供不超过4亿元借款12月8日，据安阳钢铁（600569.SH）公告披露，拟向控股子公司河"
+        },
+        {
+          "content_hash": "8cf93ea10fa294760bd442555ccdcb32",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251210",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  全球首个“核热光储”示范工程，200万千瓦海上光伏项目并网全国最大单体海上光伏项目——中核田湾200万千瓦滩涂光伏示范项目近日首批并网发电。该项目位于江苏连"
+        },
+        {
+          "content_hash": "bd6b0b9f868886105de1f2f881a5d3c8",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251210",
+          "title": "中建投租赁落地首单低空经济直租业务",
+          "part": 1,
+          "snippet": "## 中建投租赁落地首单低空经济直租业务  近日，中建投租赁与江苏某企业达成合作，通过直租模式向其提供专项资金，用于购置亿航智能EH216-S电动垂直起降飞行器，支持其在南京紫金山"
+        },
+        {
+          "content_hash": "4cc2c76ae1cbaeda74189827dd8ec510",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251210",
+          "title": "美方拟批准英伟达H200芯片对华出口",
+          "part": 1,
+          "snippet": "## 美方拟批准英伟达H200芯片对华出口  美国总统特朗普表示将允许英伟达H200 AI芯片对华出口，但需对每块芯片收取 $25\\%$ 的费用。此举被视为在禁止最新Blackwe"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251210"
+      },
+      "raw_gold_size": 18,
+      "source_files": [
+        "output/20260910/903c9b48-ed63-45e7-8b89-d81aa14448dd/经营晨报 20251210/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0096",
+      "question": "《经营晨报 20250910》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "95b56e9043edacdbb9c9d5e12ee7cd59",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250910",
+          "title": "1、新能源领域",
+          "part": 1,
+          "snippet": "## 1、新能源领域  500Ah+电芯加速接棒，储能行业技术迭代提速。2025年9月行业数据显示，主流电芯企业已全面转向500Ah+大容量储能电芯研发量产，亿纬锂能628Ah、宁"
+        },
+        {
+          "content_hash": "aa0e16d84b772bd125e94451dd700362",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250910",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  华友钴业：出售参股公司部分股权。9月8日，据华友钴业（603799.SH）公告披露，公司拟将其与LG化学合资的BCM公司25%股权以1.21亿美元转让给丰田通"
+        },
+        {
+          "content_hash": "24eb8295143651e9652e93c0590ce59e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250910",
+          "title": "2、算力领域",
+          "part": 1,
+          "snippet": "## 2、算力领域  中移动芜湖数据中心20.45亿机电工程协议落地。中国移动通信集团设计院、华为技术服务与香江系统工程组成的联合体，于9月4日正式签署《联合体实施伙伴协议》，承接"
+        },
+        {
+          "content_hash": "1240d03105a24dad6b8293512604662c",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250910",
+          "title": "3、航运领域",
+          "part": 1,
+          "snippet": "## 3、航运领域  国内修造船企业首次完成甲醇燃料船对船加注。9月6日，上海中远海运重工在长兴岛基地完成国内首次修造船厂内甲醇燃料“船对船”加注作业，为中远海运天秤座轮加注210"
+        },
+        {
+          "content_hash": "5533bc10ed5f993527d40876e8d819b1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250910",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  林洋能源斩获澳洲3.83亿智能电表订单。林洋能源（601222.SH）于9月8日公告，与澳洲兰吉尔（Landis&Gyr Pty Ltd）签署智能"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250910"
+      },
+      "raw_gold_size": 7,
+      "source_files": [
+        "output/20260910/87a6e3bb-b9b4-4ef5-ab8d-dfbc3244a9c8/经营晨报 20250910/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0097",
+      "question": "《经营晨报 20251224》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "eff9e8921a0ff56b1ebfe33942ea5b87",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251224",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·协创数据：与浦银金租达成20亿元算力融资租赁合作  ·英伟达：拟明年2月对华运送H200芯片  · 江苏明年一季度拟发债超千亿，全国已披露地方债计划规模近660"
+        },
+        {
+          "content_hash": "ffb7b9dd0a72a6dc3c30140f67437ba1",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251224",
+          "title": "重点客户",
+          "part": 1,
+          "snippet": "## 重点客户  协创数据：与浦银金租达成20亿元算力融资租赁合作12月22日，据协创数据（300857.SZ）公告披露，公司与浦银金租签订《战略合作协议》，努力扩大算力融资租赁业"
+        },
+        {
+          "content_hash": "2a12838c874960f95cce0c692ef3579d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251224",
+          "title": "（一）行业前沿",
+          "part": 1,
+          "snippet": "## （一）行业前沿  山东明确2026年新能源竞价规则：户用非自然人光伏2027年起退出，深远海风电联动定价  12月23日，山东省明确2026年新能源机制电价竞价安排，明确自2"
+        },
+        {
+          "content_hash": "016b1a202f6abcac1f122fa38b103114",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251224",
+          "title": "中信金租与西部航空首架全新A320neo飞机顺利交付",
+          "part": 1,
+          "snippet": "## 中信金租与西部航空首架全新A320neo飞机顺利交付  12月16日，中信金租在空客法国图卢兹工厂向西部航空交付首架全新空客A320neo飞机。本架飞机是中信金租与西部航空合"
+        },
+        {
+          "content_hash": "49aed0f54db7bc16bf84bd2b8253239e",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251224",
+          "title": "江苏明年一季度拟发债超千亿，全国已披露地方债计划规模近6600亿元",
+          "part": 1,
+          "snippet": "## 江苏明年一季度拟发债超千亿，全国已披露地方债计划规模近6600亿元  江苏省明年一季度预计发行1056亿元地方债券，其中新增债券700亿元，再融资债券356亿元。截至12月1"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251224"
+      },
+      "raw_gold_size": 13,
+      "source_files": [
+        "output/20260910/0389fd7d-7605-4195-9ab2-c1b809d06e4b/经营晨报 20251224/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0098",
+      "question": "《经营晨报 20251013》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "77757fb58adcc5592b2befbd1652c9c9",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "重点要闻",
+          "part": 1,
+          "snippet": "## 重点要闻  ·宁夏绿电直连新政：明确“以荷定源”，自发自用比例需超60%  ·青海新能源电价改革：存量执行固定电价，增量实施竞争竞价  · 中国强化关键战略资源管理，对多项涉"
+        },
+        {
+          "content_hash": "e1efaddf1b93dad30201c5206e914195",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "敬业集团：携手金风科技拓展“钢铁+储能”模式",
+          "part": 1,
+          "snippet": "## 敬业集团：携手金风科技拓展“钢铁+储能”模式  近日，金风科技（002202.SZ）全资子公司金风零碳与敬业钢铁集团子公司敬业新能源合作，为同属敬业集团的华西特钢建设并投运了"
+        },
+        {
+          "content_hash": "a6414e2f0d0c704b121c5337a29844bf",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  宁夏绿电直连新政：明确“以荷定源”，自发自用比例需超 $60\\%$ 宁夏拟推动绿电直连发展，明确项目须以负荷定规模，强化绿电自发自用比例。根据征求意见稿，项"
+        },
+        {
+          "content_hash": "ee3087d420266625cc80346ce2d32f70",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "无锡联投租赁发行全国首单数据资产质押租赁ABS",
+          "part": 1,
+          "snippet": "## 无锡联投租赁发行全国首单数据资产质押租赁ABS  国泰海通资管助力无锡联投融资租赁有限公司在上交所发行全国首单数据资产质押租赁ABS，基础资产全部由数据资产提供质押担保，发行"
+        },
+        {
+          "content_hash": "f3cdceccf2dfbceacb7a3610d82a5a65",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251013",
+          "title": "中小企业发展动能稳固，创新与出口双轮驱动",
+          "part": 1,
+          "snippet": "## 中小企业发展动能稳固，创新与出口双轮驱动  前八个月我国中小企业运行平稳，创新活力与出口表现突出。数据显示，规模以上工业中小企业增加值同比增长 $7.6\\%$ ，专精特新企业"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251013"
+      },
+      "raw_gold_size": 18,
+      "source_files": [
+        "output/20260910/6611d3e7-4a68-4bf3-9b07-a9e2128183a3/经营晨报 20251013/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0099",
+      "question": "《经营晨报 20251119》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "4adbb4750ecb5e17c6cb601770a227f5",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "· 恒力重工：新签6艘船舶制造合同",
+          "part": 1,
+          "snippet": "## · 恒力重工：新签6艘船舶制造合同  · 浙江启动光伏行业 “反内卷” 对策研究，全省产能利用率不足 60%  ·阿里千问与蚂蚁灵光同步上线，杭州AI产业形成集群优势"
+        },
+        {
+          "content_hash": "d51371116f5c76877001a9dc5c3b36ba",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "天合光能：新签2.66GWh储能销售合同",
+          "part": 1,
+          "snippet": "## 天合光能：新签2.66GWh储能销售合同  11月18日，据天合光能（688599.SH）公告披露，天合储能于近日分别与北美、欧洲、拉美三大区域的客户签订了合计2.66GWh"
+        },
+        {
+          "content_hash": "0ef4ba1e55635106af0c17da91f49683",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "1.新能源领域",
+          "part": 1,
+          "snippet": "## 1.新能源领域  浙江启动光伏行业“反内卷”对策研究，全省产能利用率不足60%。11月12日，浙江省发改委发布光伏行业“反内卷”对策研究招标公告，直面当前产业严峻挑战。公告显"
+        },
+        {
+          "content_hash": "0ce432634d338142b9fafdc5adf71f3d",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "航天金租首艘经营租赁新造船成功签约",
+          "part": 1,
+          "snippet": "## 航天金租首艘经营租赁新造船成功签约  11月6日，航天金租与舟山锦桥航运有限公司、浙江铭飞造船有限公司正式签订合作协议，成功落地1艘63500吨内外贸兼营散货船建造项目。此次"
+        },
+        {
+          "content_hash": "5d9ad3fae6e45af15d4f839f76b038da",
+          "chunk_id": "",
+          "file_title": "经营晨报 20251119",
+          "title": "债市走强国债期货全线上涨，隔夜回购利率升至1.51%",
+          "part": 1,
+          "snippet": "## 债市走强国债期货全线上涨，隔夜回购利率升至1.51%  国内债市目前呈现偏强走势，利率债收益率普遍下行但幅度普遍不超过1bp，国债期货主力合约全线上扬。央行当日开展2830亿"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20251119"
+      },
+      "raw_gold_size": 18,
+      "source_files": [
+        "output/20260910/5c5eacad-991b-4b97-87a1-618852b8efd3/经营晨报 20251119/chunks.json"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "q0100",
+      "question": "《经营晨报 20250903》这一期主要讲了哪些内容？",
+      "question_type": "file_overview",
+      "difficulty": "easy",
+      "requires_filter": false,
+      "gold": [
+        {
+          "content_hash": "0556ae6c5ca60efa4eda24c09b198d50",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250903",
+          "title": "1、新能源领域",
+          "part": 1,
+          "snippet": "## 1、新能源领域  浙江虚拟电厂今夏削峰92万千瓦，成为电网“隐形调节器”。2025年夏浙江全社会最高用电负荷达1.31亿千瓦，创历史新高。虚拟电厂通过聚合分布式储能、充电桩、"
+        },
+        {
+          "content_hash": "88cff513290a9e2204f2188edc3be48f",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250903",
+          "title": "一、重点客户",
+          "part": 1,
+          "snippet": "## 一、重点客户  正泰安能：分拆上市告败，触发对赌回购。上海证券交易所网站显示，正泰安能数字能源科技股份有限公司及其保荐人已于9月1日撤回发行上市申请，上市审核终止。其母公司正"
+        },
+        {
+          "content_hash": "5a62199c116ceb4aee684eb0136d9b72",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250903",
+          "title": "2、船舶领域",
+          "part": 1,
+          "snippet": "## 2、船舶领域  绿色船舶技术密集落地，多元路径加速实船应用。近期，绿色船舶技术应用迎来多项突破：芜湖造船厂全球首艘 PACK 换电船舶“河豚蔚蓝01”完成定型试验，创新“车船"
+        },
+        {
+          "content_hash": "3ccc00123bf2962fb55c04f32546e6ee",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250903",
+          "title": "（二）头部及域内企业要闻",
+          "part": 1,
+          "snippet": "## （二）头部及域内企业要闻  欧洲电池企业艾维斯塔亚洲首站落户常州金坛。8月27日，比利时艾维斯塔控股（Avesta Holding）正式签约落户江苏常州金坛经济开发区，成为首"
+        },
+        {
+          "content_hash": "d4b15e44fcf256c7ec82e95cc3132807",
+          "chunk_id": "",
+          "file_title": "经营晨报 20250903",
+          "title": "三、同业资讯",
+          "part": 1,
+          "snippet": "## 三、同业资讯  中银协发布2025金融租赁行业发展报告。中国银行业协会于2025年9月1日正式发布《中国金融租赁行业发展报告（2025）》，报告显示截至2024年末，金融租赁"
+        }
+      ],
+      "gold_meta": {
+        "file_title": "经营晨报 20250903"
+      },
+      "raw_gold_size": 6,
+      "source_files": [
+        "output/20260910/475e52de-9074-431e-8665-265b7d2809fd/经营晨报 20250903/chunks.json"
+      ],
+      "notes": ""
+    }
+  ]
+}

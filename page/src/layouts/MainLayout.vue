@@ -4,7 +4,7 @@
     <el-aside :width="sidebarCollapsed ? '64px' : '220px'" class="main-sidebar">
       <div class="sidebar-logo" @click="$router.push('/dashboard')">
         <el-icon :size="24"><OfficeBuilding /></el-icon>
-        <span v-show="!sidebarCollapsed" class="logo-text">企业AI办公平台</span>
+        <span v-show="!sidebarCollapsed" class="logo-text">苏银助手</span>
       </div>
 
       <el-menu
@@ -24,19 +24,11 @@
 
         <el-menu-item index="/ai/chat">
           <el-icon><ChatDotRound /></el-icon>
-          <span>AI聊天</span>
-        </el-menu-item>
-        <el-menu-item index="/ai/morning-report">
-          <el-icon><Sunrise /></el-icon>
-          <span>晨报助手</span>
+          <span>苏银AI问答助手</span>
         </el-menu-item>
         <el-menu-item index="/ai/application">
           <el-icon><DocumentAdd /></el-icon>
           <span>申请书生成</span>
-        </el-menu-item>
-        <el-menu-item index="/ai/due-diligence">
-          <el-icon><Search /></el-icon>
-          <span>尽调助手</span>
         </el-menu-item>
 
         <el-menu-item index="/workflow/confirmation-letter">
@@ -46,7 +38,7 @@
 
         <el-menu-item index="/analysis/news">
           <el-icon><Notebook /></el-icon>
-          <span>新闻中心</span>
+          <span>经营晨报新闻中心</span>
         </el-menu-item>
 
         <el-sub-menu index="system" v-if="authStore.isAdmin">

@@ -7,8 +7,14 @@ from app.utils.task_utils import add_running_task, add_done_task
 from app.llm.lm_utils import *
 from app.llm.qwen_embedding_utils import *
 from app.utils.qdrant_utils import *
+from app.conf.retrieval_config import retrieval_config
 from app.core.logger import logger
 from app.core.load_prompt import load_prompt
+# 结构化过滤条件 → Qdrant Filter（由 Python 构造，见 retrieval 包）
+from app.rag.query_process.retrieval.qdrant_filter_builder import (
+    build_qdrant_filter,
+    describe_filters,
+)
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
@@ -34,12 +40,13 @@ def step_1_create_hyde_doc(rewritten_query):
     return hyde_doc
 
 
-def step_2_search_embedding_hyde(rewritten_query, hyde_doc, item_names):
+def step_2_search_embedding_hyde(rewritten_query, hyde_doc, query_filter=None):
     """
     根据问题+假设性答案查询向量数据库，进行混合查询
     :param rewritten_query:
     :param hyde_doc:
-    :param item_names:
+    :param query_filter: 由 Query Analyzer 的结构化条件构造出来的 Qdrant Filter；
+                         必须和主检索路用同一个，否则两路候选集口径不一致，RRF 融合会失真
     :return: [[] -> 结果  id 分数 实体列信息 ]
     """
     # 1.拼接重写问题 + lm生成的假设性答案
@@ -57,8 +64,26 @@ def step_2_search_embedding_hyde(rewritten_query, hyde_doc, item_names):
                         client=qdrant_client,
                         collection_name=qdrant_config.chunks_collection,
                         dense_vector=dense_vector,
-                        sparse_vector=sparse_vector    
+                        sparse_vector=sparse_vector,
+                        # 召回池大小由调用方决定，取值统一来自 retrieval_config
+                        limit=retrieval_config.fused_limit,
+                        dense_limit=retrieval_config.prefetch_limit,
+                        sparse_limit=retrieval_config.prefetch_limit,
+                        query_filter=query_filter,
                         )
+
+    # 兜底：带过滤条件召回为空时去掉过滤重查（与主检索路保持一致的策略）
+    if not (response.points or []) and query_filter is not None:
+        logger.warning("[HyDE 检索] 带过滤条件检索为空，放宽条件重查")
+        response = rrf_hybrid_search(
+                            client=qdrant_client,
+                            collection_name=qdrant_config.chunks_collection,
+                            dense_vector=dense_vector,
+                            sparse_vector=sparse_vector,
+                            limit=retrieval_config.fused_limit,
+                            dense_limit=retrieval_config.prefetch_limit,
+                            sparse_limit=retrieval_config.prefetch_limit,
+                            )
 
     result=[
            {"id":p.id,"score":p.score,"payload":p.payload}
@@ -79,13 +104,16 @@ def node_search_embedding_hyde(state):
     print("---HyDE 开始处理---")
     add_running_task(state["session_id"], sys._getframe().f_code.co_name, state.get("is_stream"))
 
-    # 1. 提取参数 （item_names || rewritten_query）
+    # 1. 提取参数
     rewritten_query = state.get("rewritten_query")
-    item_names = state.get("item_names")
+    # 1.1 结构化过滤条件（与主检索路同一份，保证两路口径一致）
+    retrieval_filters = state.get("retrieval_filters") or {}
+    query_filter = build_qdrant_filter(retrieval_filters)
+    logger.info(f"[HyDE 检索] 结构化过滤条件：{describe_filters(retrieval_filters)}")
     # 2. 调用 LLM 生成假设性答案 rewritten_query
     hyde_doc = step_1_create_hyde_doc(rewritten_query)
     # 3. 问题+答案，进行向量检索（混合检索）
-    resp = step_2_search_embedding_hyde(rewritten_query,hyde_doc,item_names)
+    resp = step_2_search_embedding_hyde(rewritten_query, hyde_doc, query_filter=query_filter)
     # 4. 赋值和返回结果  hyde_embedding_chunks
     # ...
     add_done_task(state["session_id"], sys._getframe().f_code.co_name, state.get("is_stream"))
@@ -105,7 +133,6 @@ if __name__ == "__main__":
         "session_id": "test_hyde_session_001",
         "original_query": "上海电气做了什么",
         "rewritten_query": "上海电气做了什么",
-        "item_names": ["HAK 180 烫金机"],
         "is_stream": False
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="news-page">
     <div class="page-header">
-      <h2 class="page-title">企业新闻中心</h2>
+      <h2 class="page-title">经营晨报新闻中心</h2>
     </div>
 
     <!-- Stats -->
@@ -58,12 +58,7 @@
         <div class="detail-summary">{{ currentNews.summary }}</div>
         <div class="detail-body">
           <p>{{ currentNews.summary }}</p>
-          <p style="margin-top: 12px">
-            此为模拟新闻详情内容。在实际部署后，这里将展示完整的新闻文章内容，包括正文、相关数据和图片来源等信息。
-          </p>
-          <p style="margin-top: 12px">
-            企业新闻中心自动采集与行业相关的新闻资讯，帮助员工及时了解市场动态和行业趋势。
-          </p>
+          <p style="margin-top: 12px">新闻详情后端接口待接入。</p>
         </div>
       </div>
     </el-dialog>

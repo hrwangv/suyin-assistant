@@ -23,25 +23,13 @@ const routes = [
         path: 'ai/chat',
         name: 'AIChat',
         component: () => import('@/views/ai/ChatView.vue'),
-        meta: { title: 'AI聊天', icon: 'ChatDotRound' },
-      },
-      {
-        path: 'ai/morning-report',
-        name: 'MorningReport',
-        component: () => import('@/views/ai/MorningReportView.vue'),
-        meta: { title: '晨报助手', icon: 'Sunrise' },
+        meta: { title: '苏银AI问答助手', icon: 'ChatDotRound' },
       },
       {
         path: 'ai/application',
         name: 'Application',
         component: () => import('@/views/ai/ApplicationView.vue'),
         meta: { title: '申请书生成', icon: 'DocumentAdd' },
-      },
-      {
-        path: 'ai/due-diligence',
-        name: 'DueDiligence',
-        component: () => import('@/views/ai/DueDiligenceView.vue'),
-        meta: { title: '尽调助手', icon: 'Search' },
       },
       {
         path: 'knowledge/knowledge-base',
@@ -59,7 +47,7 @@ const routes = [
         path: 'analysis/news',
         name: 'News',
         component: () => import('@/views/analysis/NewsView.vue'),
-        meta: { title: '新闻中心', icon: 'Notebook' },
+        meta: { title: '经营晨报新闻中心', icon: 'Notebook' },
       },
       {
         path: 'system/users',

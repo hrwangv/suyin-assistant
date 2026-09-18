@@ -146,7 +146,7 @@ def step_2_upload_and_poll(other_path_obj)->str:
     # 循环获取！确保获取到结果，再先后执行！！
     # 设计一个循环，3秒获取一次！ 最多等待10分钟600 -> 600页pdf
     url = f"{mineru_config.base_url}/extract-results/batch/{batch_id}" # 轮询url
-    timeout_seconds = 600  # 超时时间
+    timeout_seconds = 600  # 超时时间10分钟
     poll_interval = 3  # 间隔轮询时间是3秒
     start_time = time.time() # 进去起始时间
 
@@ -288,8 +288,8 @@ def node_to_md(state: ImportGraphState) -> ImportGraphState:
         # 参数：1.要下载的地址 2. local_dir_obj 解压的文件夹地址  3. 文件名（去掉后缀的） 
         # 返回值：解压后md文件的真实本地路径
         md_path = step_3_download_and_extract(zip_url,local_dir_obj,other_path_obj.stem)
-        #  5. 把md_path地址进行赋值，读取md的文件内容 md_content赋值（文本内容）
-        #  更新数据
+        # 5. 把md_path地址进行赋值，读取md的文件内容 md_content赋值（文本内容）
+        # 更新数据
         state['md_path'] = md_path #  字符串
         state['local_dir'] = str(local_dir_obj) #主要处理下！是str类型 todo 从这开始
         # md的内容读取，配置给md_content
