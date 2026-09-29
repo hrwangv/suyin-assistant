@@ -5,6 +5,7 @@ from app.utils.sse_utils import push_to_session, SSEEvent
 from app.rag.query_process.agent.state import QueryGraphState
 from app.core.logger import logger
 from app.core.load_prompt import load_prompt
+from app.core.tracing import llm_config, observe, update_current_span
 from app.llm.lm_utils import get_llm_client
 from app.memory.recent_message_service import get_recent_message_service
 from app.memory.utils.scope import build_long_term_scope, build_scope, parse_scope
@@ -21,6 +22,28 @@ from app.conf.answer_config import answer_config
 import re
 
 _IMAGE_BLOCK_MARKER = "【图片】"
+_URL_LINE_RE = re.compile(r"^(https?://|www\.)\S+$", re.IGNORECASE)
+
+
+def _strip_image_block(answer: str) -> str:
+    """摘掉模型按老 prompt 约定追加的【图片】区块（标记 + 每行一个 URL）。
+
+    图片地址由 step_4 从检索结果里提取、经 SSE final 的 image_urls 结构化下发，
+    正文里再挂一串裸链接，用户看到的就是「一行 COS 地址」而不是图。
+    """
+    if not answer or _IMAGE_BLOCK_MARKER not in answer:
+        return answer
+    head, _, tail = answer.partition(_IMAGE_BLOCK_MARKER)
+    kept = [
+        line
+        for line in tail.splitlines()
+        # 纯链接行属于图片区块；模型额外写的正文保留
+        if line.strip() and not _URL_LINE_RE.match(line.strip())
+    ]
+    body = head.rstrip()
+    if kept:
+        body = f"{body}\n" + "\n".join(kept)
+    return body.strip()
 
 # ------------------------------------------------------------------ #
 # 最终 prompt 的 token 预算
@@ -280,6 +303,7 @@ def step_2_load_long_term_memory(state):
     return memories
 
 
+@observe(name="answer-generation", as_type="chain", capture_output=True)
 def step_3_create_answer(state, prompt):
     """
     使用模型生成最终的答案
@@ -295,18 +319,42 @@ def step_3_create_answer(state, prompt):
     if is_stream:
         # 3. 调用模型进行生成 sse . stream  ||  set_result . invoke
         # 1 2 3 4 5 6 7
-        for chunk in model.stream(prompt):
+        pushed = 0            # 已经推给前端的字符数
+        hold = len(_IMAGE_BLOCK_MARKER) - 1   # 可能只是半个标记的尾巴，先攒着
+        for chunk in model.stream(prompt, config=llm_config()):
             # 3.1 推到sse
             delta = chunk.content # 1 | 2 3 | 4 | 5 6 7 |
             answer += delta #累加答案
-            push_to_session(state["session_id"], SSEEvent.DELTA, {"delta": delta})
+            cut = answer.find(_IMAGE_BLOCK_MARKER)
+            if cut != -1:
+                # 已经写到了图片区块：从这里往后都不进正文（图片走 final.image_urls）
+                if cut > pushed:
+                    push_to_session(
+                        state["session_id"],
+                        SSEEvent.DELTA,
+                        {"delta": answer[pushed:cut].rstrip()},
+                    )
+                    pushed = cut
+                continue
+            safe_end = len(answer) - hold
+            # 行尾空白也先攒着：图片区块前面通常跟两个换行，
+            # 提前推出去会让气泡在流式过程中多出空行
+            while safe_end > pushed and answer[safe_end - 1].isspace():
+                safe_end -= 1
+            if safe_end > pushed:
+                push_to_session(state["session_id"], SSEEvent.DELTA, {"delta": answer[pushed:safe_end]})
+                pushed = safe_end
+        # 收尾：整段没有出现图片区块时，把最后 hold 个字符补推出去
+        if _IMAGE_BLOCK_MARKER not in answer and len(answer) > pushed:
+            push_to_session(state["session_id"], SSEEvent.DELTA, {"delta": answer[pushed:]})
     else:
         # 4. 最终的答案赋值给state['answer'] = 答案
-        response = model.invoke(prompt)
+        response = model.invoke(prompt, config=llm_config())
         content = response.content
         answer = content
         set_task_result(state["session_id"], "answer", content)
-    # 5. 返回结果answer即可
+    # 5. 正文不保留图片区块（历史记录 / 记忆 / final.answer 都用这份干净文本）
+    answer = _strip_image_block(answer)
     state['answer'] = answer
     logger.info(f"lm模型最终返回的结果：{answer}")
     return answer
@@ -433,6 +481,7 @@ def step_6_extract_long_term_memory(state):
         logger.warning(f"长期记忆抽取触发失败，session_id={session_id}：{exc}")
 
 
+@observe(name="node:answer_output", as_type="span", capture_input=False, capture_output=False)
 def node_answer_output(state):
     """
     宏观：将最终topk -> 大模型 -> 润色 -> 结果 -> 【 【流式】 sse -》 前端 （push_to_session）  【非流式】set_task_result】
@@ -446,6 +495,14 @@ def node_answer_output(state):
     """
     print("---node_answer_output 节点处理开始---")
     add_running_task(state["session_id"], sys._getframe().f_code.co_name, state.get("is_stream"))
+    update_current_span(
+        input={
+            "original_query": state.get("original_query") or "",
+            "rewritten_query": state.get("rewritten_query") or "",
+            "reranked_docs": len(state.get("reranked_docs") or []),
+            "answer_prefilled": bool(state.get("answer")),
+        }
+    )
     # 1. 检查state中是否存在answer回答  
     # 【item_name (1.明确 【 2.不确定 3.没有】 answer -> state)】
     answer_exists = step_1_check_answer(state)
@@ -469,6 +526,12 @@ def node_answer_output(state):
     step_5_write_history(state)
     # 6. 自动触发长期记忆抽取，使用后台线程，不阻塞本轮对话结束
     step_6_extract_long_term_memory(state)
+    update_current_span(
+        output={
+            "answer": state.get("answer") or "",
+            "images": len(state.get("image_urls") or []),
+        }
+    )
     add_done_task(state['session_id'], sys._getframe().f_code.co_name, state.get("is_stream"))
     print("---node_answer_output 节点处理结束---")
     return state

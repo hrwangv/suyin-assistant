@@ -49,7 +49,7 @@ def node_entry(state: ImportGraphState) -> ImportGraphState:
         state['md_path'] = input_file_path
         # 处理其他格式的文件，字符元组，以下结尾的文件都能识别处理
     elif input_file_path.lower().endswith((
-        ".pdf", ".doc", ".docx", ".xls", ".xlsx","ppt","pptx","png","jpg","jpeg","jp2","webp","gif","bmp"
+        ".pdf", ".doc", ".docx", ".xls", ".xlsx",".ppt",".pptx",".png",".jpg",".jpeg",".jp2",".webp",".gif",".bmp"
         )):
         # 处理需要转化成md的文件
         state['is_pdf_read_enabled'] = True

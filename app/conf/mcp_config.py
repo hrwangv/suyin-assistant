@@ -1,6 +1,8 @@
 """MCP 服务配置。
 
-仅负责从环境变量读取配置，不在模块导入时建立连接。
+Agent 侧 MCP（OCR / Company / 企业预警通）的**连接信息与工具名已经挪到代码声明**：
+`app/agent/mcp/builtin.py`（对照 Yuxi 的 agents/mcp/builtin.py），
+这里只保留老 RAG 链路仍在读的几个字段，不做任何连接。
 """
 import os
 from dataclasses import dataclass

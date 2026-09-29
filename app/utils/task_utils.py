@@ -48,6 +48,26 @@ _NODE_NAME_TO_CN: Dict[str, str] = {
     "node_multi_search": "多路搜索",
     "node_query_kg": "查询知识图谱",
     "node_join": "多路搜索合并",
+    # --- 企业业务智能 Agent（app/agent/graph.py）---
+    "node_supervisor": "任务理解与调度",
+    "node_knowledge": "检索企业知识库",
+    "node_answer": "生成回答",
+    "node_ask_user": "等待用户补充",
+    "document_skill": "文档理解",
+    "application_skill": "业务申请书",
+    # Document 子图（node_prepare_document 合并了原来的 读取附件 + OCR 识别）
+    "node_prepare_document": "读取附件并识别",
+    "node_understand_document": "理解文档内容",
+    "node_confirm_address": "确认地址",
+    "node_finalize_document": "汇总文档信息",
+    # Application 子图（node_prepare_application 合并了 合并/校验/选模板；
+    #                    node_render_and_finalize 合并了 渲染 + 整理结果）
+    "node_parse_application_request": "解析申请请求",
+    "node_resolve_company": "查询企业信息",
+    "node_company_select": "确认企业主体",
+    "node_prepare_application": "准备申请数据",
+    "node_human_confirmation": "等待用户确认",
+    "node_render_and_finalize": "生成并整理申请书",
 }
 
 

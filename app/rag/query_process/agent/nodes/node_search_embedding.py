@@ -13,9 +13,11 @@ from app.rag.query_process.retrieval.qdrant_filter_builder import (
     describe_filters,
 )
 from app.core.logger import logger
+from app.core.tracing import observe, update_current_span
 from dotenv import load_dotenv,find_dotenv
 load_dotenv(find_dotenv())
 
+@observe(name="node:search_embedding", as_type="span", capture_input=False, capture_output=False)
 def node_search_embedding(state):
     """
     节点功能：进行向量内容检索
@@ -43,6 +45,13 @@ def node_search_embedding(state):
     # 没有任何条件时返回 None，此时就是改造前的纯语义检索。
     retrieval_filters = state.get("retrieval_filters") or {}
     qdrant_filter = build_qdrant_filter(retrieval_filters)
+    update_current_span(
+        input={
+            "rewritten_query": rewritten_query,
+            "retrieval_filters": retrieval_filters,
+            "fused_limit": retrieval_config.fused_limit,
+        }
+    )
     logger.info(
         f"[内容检索] 语义查询：{rewritten_query} | 结构化过滤条件：{describe_filters(retrieval_filters)}"
     )
@@ -85,6 +94,21 @@ def node_search_embedding(state):
        {"id":p.id,"score":p.score,"payload":p.payload}
         for p in (response.points or[])
    ]
+    # 出参：召回条数 + 前几条的标题/分数，用来快速判断「是不是真检索到了」
+    update_current_span(
+        output={
+            "chunks": len(embedding_chunks),
+            "top": [
+                {
+                    "score": round(float(item.get("score") or 0), 4),
+                    "title": (item.get("payload") or {}).get("title")
+                    or (item.get("payload") or {}).get("file_title")
+                    or "",
+                }
+                for item in embedding_chunks[:5]
+            ],
+        }
+    )
 
 
     """

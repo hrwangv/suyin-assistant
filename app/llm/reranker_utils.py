@@ -11,6 +11,7 @@ import dashscope
 from dotenv import load_dotenv
 
 from app.core.logger import logger
+from app.core.tracing import observe, update_current_span
 
 load_dotenv()
 
@@ -24,6 +25,7 @@ RERANK_MODEL = os.getenv("RERANK_MODEL")
 DEBUG_EMBEDDING = False
 
 
+@observe(name="rerank:qwen", as_type="retriever", capture_input=False, capture_output=False)
 def text_rerank(query: str, chunks_list: List, top_n: int):
     '''
     入参
@@ -48,6 +50,14 @@ def text_rerank(query: str, chunks_list: List, top_n: int):
     if not DASHSCOPE_API_KEY:
         raise ValueError("缺少 DASHSCOPE_API_KEY，请在 .env 中配置")
 
+    update_current_span(
+        input={
+            "query": query,
+            "documents": len(chunks_list or []),
+            "top_n": top_n,
+            "model": RERANK_MODEL,
+        }
+    )
     # ---- 2. 配置 DashScope ----
     dashscope.base_http_api_url = DASHSCOPE_BASE_URL
     dashscope.api_key = DASHSCOPE_API_KEY
@@ -76,6 +86,18 @@ def text_rerank(query: str, chunks_list: List, top_n: int):
 
         if resp.status_code == HTTPStatus.OK:
             logger.info(f"重排序成功，返回 {len(resp.output.results)} 条结果")
+            update_current_span(
+                output={
+                    "results": len(resp.output.results),
+                    "top": [
+                        {
+                            "index": item.get("index"),
+                            "score": round(float(item.get("relevance_score") or 0), 4),
+                        }
+                        for item in resp.output.results[:5]
+                    ],
+                }
+            )
             return resp.output.results  # 包含 document 和 relevance_score
         else:
             error_msg = f"API 返回错误: {resp.status_code} - {resp.message}"
@@ -97,4 +119,3 @@ if __name__ == '__main__':
     ]
     # top_n 传全部候选：全部参与打分，交由调用方决定最终保留几条
     text_rerank("什么是文本排序模型", demo_docs, top_n=len(demo_docs))
-

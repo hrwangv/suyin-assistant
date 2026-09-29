@@ -4,6 +4,7 @@ from typing import List, Optional
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
+from app.core.tracing import llm_config
 from app.llm.lm_utils import get_llm_client
 from app.memory.extraction.parser import parse_json
 from app.memory.extraction.prompts import (
@@ -47,6 +48,7 @@ class MemoryExtractor:
             [
                 SystemMessage(content=system_prompt),
                 HumanMessage(content=user_prompt),
-            ]
+            ],
+            config=llm_config(),
         )
         return parse_json(response.content)

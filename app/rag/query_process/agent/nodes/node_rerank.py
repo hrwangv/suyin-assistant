@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import sys
 from app.llm.reranker_utils import text_rerank
 from app.core.logger import logger
+from app.core.tracing import observe, update_current_span
 from app.utils.task_utils import add_running_task
 from app.conf.retrieval_config import retrieval_config
 
@@ -183,6 +184,7 @@ def step_3_topk_and_gap(rerank_score_list):
     # 5.返回结果
     return topk_doc_list
 
+@observe(name="node:rerank", as_type="span", capture_input=False, capture_output=False)
 def node_rerank(state):
     """
     节点作用： rrf + mcp -> 精排序 rerank -> chunk - 打分  -> 算法 -> top k
@@ -194,6 +196,13 @@ def node_rerank(state):
     """
     print("---Rerank处理---")
     add_running_task(state["session_id"], sys._getframe().f_code.co_name, state.get("is_stream"))
+    update_current_span(
+        input={
+            "rewritten_query": state.get("rewritten_query"),
+            "rrf_chunks": len(state.get("rrf_chunks") or []),
+            "web_docs": len(state.get("web_search_docs") or []),
+        }
+    )
     
     """
     约定返回值
@@ -231,6 +240,19 @@ def node_rerank(state):
     final_doc_list = step_3_topk_and_gap(rerank_score_list)
     # 4. 结果装到state中即可
     state["reranked_docs"] = final_doc_list
+    update_current_span(
+        output={
+            "reranked_docs": len(final_doc_list),
+            "top": [
+                {
+                    "score": round(float(doc.get("score") or 0), 4),
+                    "source": doc.get("source") or "",
+                    "title": doc.get("title") or "",
+                }
+                for doc in final_doc_list[:5]
+            ],
+        }
+    )
     add_done_task(state['session_id'], sys._getframe().f_code.co_name, state.get("is_stream"))
     return state
 

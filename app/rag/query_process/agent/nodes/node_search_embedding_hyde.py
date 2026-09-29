@@ -10,6 +10,7 @@ from app.utils.qdrant_utils import *
 from app.conf.retrieval_config import retrieval_config
 from app.core.logger import logger
 from app.core.load_prompt import load_prompt
+from app.core.tracing import llm_config, observe
 # 结构化过滤条件 → Qdrant Filter（由 Python 构造，见 retrieval 包）
 from app.rag.query_process.retrieval.qdrant_filter_builder import (
     build_qdrant_filter,
@@ -19,6 +20,7 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 
+@observe(name="hyde-doc", as_type="chain", capture_output=True)
 def step_1_create_hyde_doc(rewritten_query):
     """
     调用模型根据问题，生成一份答案
@@ -34,7 +36,7 @@ def step_1_create_hyde_doc(rewritten_query):
         HumanMessage(content=hyde_prompt)
     ]
     # 发起请求
-    response = llm.invoke(messages)
+    response = llm.invoke(messages, config=llm_config())
     hyde_doc = response.content
     logger.info(f"使用模型生成假设性答案，问题：{rewritten_query},答案：{hyde_doc}")
     return hyde_doc
@@ -94,6 +96,7 @@ def step_2_search_embedding_hyde(rewritten_query, hyde_doc, query_filter=None):
     logger.info(f"假设性问题检索结果：{result}")
     return result
 
+@observe(name="node:search_embedding_hyde", as_type="span", capture_input=False, capture_output=False)
 def node_search_embedding_hyde(state):
     """
     假设性答案 ： 问题 -》 lm -> 给一个假设性答案  -》 问题+假设性答案 -》 搜索
@@ -112,8 +115,29 @@ def node_search_embedding_hyde(state):
     logger.info(f"[HyDE 检索] 结构化过滤条件：{describe_filters(retrieval_filters)}")
     # 2. 调用 LLM 生成假设性答案 rewritten_query
     hyde_doc = step_1_create_hyde_doc(rewritten_query)
+    update_current_span(
+        input={
+            "rewritten_query": rewritten_query,
+            "retrieval_filters": retrieval_filters,
+            "hyde_doc": hyde_doc,
+        }
+    )
     # 3. 问题+答案，进行向量检索（混合检索）
     resp = step_2_search_embedding_hyde(rewritten_query, hyde_doc, query_filter=query_filter)
+    update_current_span(
+        output={
+            "chunks": len(resp),
+            "top": [
+                {
+                    "score": round(float(item.get("score") or 0), 4),
+                    "title": (item.get("payload") or {}).get("title")
+                    or (item.get("payload") or {}).get("file_title")
+                    or "",
+                }
+                for item in resp[:5]
+            ],
+        }
+    )
     # 4. 赋值和返回结果  hyde_embedding_chunks
     # ...
     add_done_task(state["session_id"], sys._getframe().f_code.co_name, state.get("is_stream"))

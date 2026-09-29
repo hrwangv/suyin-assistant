@@ -6,6 +6,7 @@ from qdrant_client import QdrantClient, models
 import uuid
 from app.conf.qdrant_config import qdrant_config
 from app.core.logger import logger
+from app.core.tracing import observe, update_current_span
 from app.utils.date_utils import to_rfc3339_date
 
 
@@ -293,6 +294,7 @@ def upsert_chunks(
     return chunks
 
 
+@observe(name="qdrant:hybrid-search", as_type="retriever", capture_input=False, capture_output=False)
 def rrf_hybrid_search(
     client: QdrantClient,
     collection_name: str,
@@ -322,6 +324,22 @@ def rrf_hybrid_search(
     sparse_indices = list(sparse_vector.keys())
     sparse_values = list(sparse_vector.values())
 
+    # 检索参数补进当前 span 的元数据（未启用追踪时是 no-op）：
+    # 向量本身太大不抓，但「查了哪个 collection、召回池多大、有没有过滤」是排查的关键。
+    update_current_span(
+        input={
+            "dense_dim": len(dense_vector),
+            "sparse_terms": len(sparse_vector),
+        },
+        metadata={
+            "collection": collection_name,
+            "limit": limit,
+            "dense_limit": dense_limit,
+            "sparse_limit": sparse_limit,
+            "filtered": query_filter is not None,
+        }
+    )
+
     result= client.query_points(
         collection_name=collection_name,
         prefetch=[
@@ -349,6 +367,16 @@ def rrf_hybrid_search(
         query_filter=query_filter,
 
         with_payload=True
+    )
+    points = list(getattr(result, "points", None) or [])
+    update_current_span(
+        output={
+            "points": len(points),
+            "top": [
+                {"id": str(point.id), "score": round(float(point.score or 0), 4)}
+                for point in points[:5]
+            ],
+        }
     )
     logger.success(f"混合搜索完成~")
     return result

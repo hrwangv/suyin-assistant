@@ -10,6 +10,8 @@ from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 from starlette.middleware.cors import CORSMiddleware
 from app.core.logger import logger
+from app.core.tracing import flush as flush_traces
+from app.core.tracing import trace_scope
 from app.db.mysql import safe_init_db
 from app.rag.query_process.agent.state import create_query_default_state
 from app.utils.path_util import PROJECT_ROOT
@@ -23,6 +25,8 @@ from app.memory.extraction_trigger import maybe_trigger_extraction
 from app.memory.config import MEMORY_DEFAULT_USER_ID
 from app.memory.api import memory_router
 from app.api.import_file import import_router
+from app.api.agent import agent_router
+from app.conf.agent_config import agent_config
 from app.rag.query_process.agent.main_graph import query_app
 
 
@@ -43,6 +47,8 @@ async def lifespan(_app: FastAPI):
     """
     await run_in_threadpool(safe_init_db)
     yield
+    # 服务关闭：把 Langfuse 缓冲区里剩下的 span 推出去（未启用追踪时是 no-op）
+    await run_in_threadpool(flush_traces)
 
 
 # 定义fastapi对象
@@ -53,6 +59,11 @@ app.include_router(memory_router)
 
 # 挂载文件上传/导入路由，统一与查询服务共用同一个端口。
 app.include_router(import_router)
+
+# 挂载企业业务智能 Agent 的统一入口（/api/agent/*）。
+# 开关默认打开；设 AGENT_ENABLED=false 时后端行为与改造前完全一致。
+if agent_config.enabled:
+    app.include_router(agent_router)
 
 # 跨域配置
 app.add_middleware(
@@ -94,27 +105,30 @@ def run_query_graph(query: str, session_id: str, is_stream: bool, user_id: str =
     # 一会回调用 main_graph执行
     # 本次任务开启了！ is_stream = True 把结果加入到队列，sse可以取到
     # 任务ID、状态名称、是否开启流式输出（开启则创建相应队列）
-    
-    update_task_status(session_id, "processing", is_stream)# 更新任务状态为
 
-    # 创建默认状态
-    state = create_query_default_state(
-        session_id=session_id,
-        user_id=user_id or "",
-        original_query=query,
-        is_stream=is_stream
-    )
-    try:
-        query_app.invoke(state)
-        # 本次任务开启了！ is_stream = True 把结果加入到队列，sse可以取到
-        update_task_status(session_id, "completed", is_stream)
-    except Exception as e:
-        logger.exception(f"---session_id = {session_id},查询流程出现异常！！{str(e)}")
-        # 修改 event = process
-        update_task_status(session_id, "failed", is_stream)
-        # 推送指定类型的事件
-        # 只推统一文案：原始异常（含 SQL、内部路径）已经进了日志
-        push_to_session(session_id, SSEEvent.ERROR, {"error": USER_FACING_ERROR_MESSAGE})
+    # 一次 /query = 一条 Langfuse trace；下面的节点/检索/模型调用都会挂在它下面。
+    # 未配置 Langfuse 时 trace_scope 是 no-op，行为与接入前一致。
+    with trace_scope("query", session_id=session_id, user_id=user_id, input=query, tags=["query"]):
+        update_task_status(session_id, "processing", is_stream)# 更新任务状态为
+
+        # 创建默认状态
+        state = create_query_default_state(
+            session_id=session_id,
+            user_id=user_id or "",
+            original_query=query,
+            is_stream=is_stream
+        )
+        try:
+            query_app.invoke(state)
+            # 本次任务开启了！ is_stream = True 把结果加入到队列，sse可以取到
+            update_task_status(session_id, "completed", is_stream)
+        except Exception as e:
+            logger.exception(f"---session_id = {session_id},查询流程出现异常！！{str(e)}")
+            # 修改 event = process
+            update_task_status(session_id, "failed", is_stream)
+            # 推送指定类型的事件
+            # 只推统一文案：原始异常（含 SQL、内部路径）已经进了日志
+            push_to_session(session_id, SSEEvent.ERROR, {"error": USER_FACING_ERROR_MESSAGE})
 
 
 @app.post("/query")  # 客户端 -》 问题 -》 graph开启了 -》 查到rag的结果 -》 返回即可！！

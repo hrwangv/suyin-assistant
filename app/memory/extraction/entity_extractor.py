@@ -6,6 +6,7 @@ from typing import List
 
 from langchain_core.messages import HumanMessage
 
+from app.core.tracing import llm_config
 from app.llm.lm_utils import get_llm_client
 from app.memory.extraction.parser import parse_json
 
@@ -43,7 +44,7 @@ def extract_entities(text: str, max_entities: int = 8) -> List[dict]:
         max_entities=max_entities,
     )
     llm = get_llm_client(json_mode=True)
-    response = llm.invoke([HumanMessage(content=prompt)])
+    response = llm.invoke([HumanMessage(content=prompt)], config=llm_config())
     result = parse_json(response.content)
     entities = result.get("entities", [])
     if not isinstance(entities, list):

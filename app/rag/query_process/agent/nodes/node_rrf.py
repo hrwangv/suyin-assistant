@@ -2,6 +2,7 @@ import sys
 from typing import List, Dict, Any
 from app.utils.task_utils import add_running_task, add_done_task
 from app.core.logger import logger
+from app.core.tracing import observe, update_current_span
 from app.conf.retrieval_config import retrieval_config
 
 
@@ -55,6 +56,7 @@ def step_3_reciprocal_rank_fusion(source_with_weight, top_k: int = retrieval_con
     logger.info(f"完成了rrf排序处理完毕，结果为：{rank_chunks}")
     return rank_chunks
 
+@observe(name="node:rrf", as_type="span", capture_input=False, capture_output=False)
 def node_rrf(state):
     """
     节点功能：Reciprocal Rank Fusion
@@ -70,6 +72,13 @@ def node_rrf(state):
     #                     [向量1]  =》 【{id: 实体的主键,distance:得分 0.8,entity:{chunk_id,content,title..}} ,{} ,{}】
     embedding_chunks = state.get("embedding_chunks")
     hyde_embedding_chunks = state.get("hyde_embedding_chunks")
+    update_current_span(
+        input={
+            "embedding_chunks": len(embedding_chunks or []),
+            "hyde_embedding_chunks": len(hyde_embedding_chunks or []),
+            "web_docs": len(state.get("web_search_docs") or []),
+        }
+    )
     # 2. 数据进行整合 （捏到一起）
     # 权重后续方便动态调整！ 相同 1.0 1.0
     source_with_weight = [
@@ -80,6 +89,20 @@ def node_rrf(state):
     rrf_response = step_3_reciprocal_rank_fusion(source_with_weight)
     # 4. 将排序后的数据添加到state [rrf_chunks] 属性即可
     state["rrf_chunks"] = rrf_response
+    update_current_span(
+        output={
+            "rrf_chunks": len(rrf_response),
+            "top": [
+                {
+                    "score": round(float(chunk.get("score") or 0), 4),
+                    "title": (chunk.get("payload") or {}).get("title")
+                    or (chunk.get("payload") or {}).get("file_title")
+                    or "",
+                }
+                for chunk in rrf_response[:5]
+            ],
+        }
+    )
     add_done_task(state['session_id'], sys._getframe().f_code.co_name, state.get("is_stream"))
     return state
 

@@ -15,6 +15,7 @@ import dashscope
 from dotenv import load_dotenv
 
 from app.core.logger import logger
+from app.core.tracing import observe, update_current_span
 
 load_dotenv()
 
@@ -27,6 +28,7 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 # 是否开启调试输出
 DEBUG_EMBEDDING = False
 
+@observe(name="embedding:qwen-v4", as_type="embedding", capture_input=False, capture_output=False)
 def generate_embeddings(texts: List[str]) -> Dict:
     """
     为文本列表生成稠密+稀疏混合向量嵌入（调用阿里云 DashScope API）
@@ -46,6 +48,15 @@ def generate_embeddings(texts: List[str]) -> Dict:
     if not DASHSCOPE_API_KEY:
         raise ValueError("缺少 DASHSCOPE_API_KEY，请在 .env 中配置")
 
+    # 入参/出参显式上报：向量本身是几千维浮点数组，上报没有意义，
+    # 有用的是「几条文本、首条长什么样、出来多少维」。
+    update_current_span(
+        input={
+            "texts": len(texts),
+            "preview": str(texts[0])[:120],
+            "model": EMBEDDING_MODEL,
+        }
+    )
     # ---- 2. 配置 DashScope ----
     dashscope.base_http_api_url = DASHSCOPE_BASE_URL
     dashscope.api_key = DASHSCOPE_API_KEY
@@ -149,7 +160,14 @@ def generate_embeddings(texts: List[str]) -> Dict:
             "dense": dense_vectors,
             "sparse": sparse_vectors,
         }
-        
+
+        update_current_span(
+            output={
+                "vectors": len(dense_vectors),
+                "dim": len(dense_vectors[0]) if dense_vectors else 0,
+                "sparse_terms": len(sparse_vectors[0]) if sparse_vectors else 0,
+            }
+        )
         logger.success(f"{len(texts)}条文本向量生成完成")
         return result
 
@@ -158,5 +176,3 @@ def generate_embeddings(texts: List[str]) -> Dict:
     except Exception as e:
         logger.error(f"文本向量生成失败：{str(e)}", exc_info=True)
         raise
-
-

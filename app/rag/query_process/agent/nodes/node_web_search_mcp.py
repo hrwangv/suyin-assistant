@@ -5,6 +5,7 @@ from agents.mcp import MCPServerStreamableHttp # pip install openai-agents
 from app.core.logger import  logger
 
 from app.conf.mcp_config import mcp_config
+from app.core.tracing import observe, update_current_span
 from app.utils.task_utils import add_running_task,add_done_task
 
 
@@ -35,7 +36,7 @@ async def mcp_call_streamable(query):
 
         # print(f"工具列表：{tools}")
 
-        # 获取枚举指
+        # 获取枚举值
         # result = await search_mcp.call_tool(    
         #             tool_name="caihui_mcp_metadata",  # 工具名称 
         #             arguments={
@@ -110,6 +111,7 @@ def _extract_web_search_docs(result_json: dict) -> list[dict]:
     return docs
 
 
+@observe(name="node:web_search_mcp", as_type="span", capture_input=False, capture_output=False)
 def node_web_search_mcp(state):
     """
     节点功能，调用外部搜索引擎补充信息
@@ -121,6 +123,7 @@ def node_web_search_mcp(state):
 
     # 1. 获取问题 （rewritten_query）
     query = state.get("rewritten_query")
+    update_current_span(input={"rewritten_query": query})
     # 2. 调用streamable网络搜索方法
     # 在同步（普通）Python环境中，启动一个异步事件循环，
     # 来执行一个名为 mcp_call_streamable 的异步协程，并等待它彻底完成后，把返回值赋给 result。
@@ -142,6 +145,9 @@ def node_web_search_mcp(state):
 
     logger.info(f"mcp搜索的结果为:{json.dumps(docs, ensure_ascii=False)}")
     print("---node-web-search-mcp处理结束---")
+    update_current_span(
+        output={"docs": len(docs), "top": [doc.get("title") for doc in docs[:5]]}
+    )
     add_done_task(state["session_id"], sys._getframe().f_code.co_name, state["is_stream"])
     # 并行的 不要直接返回state
     return {

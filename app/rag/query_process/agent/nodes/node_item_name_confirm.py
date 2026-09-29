@@ -29,10 +29,12 @@ from app.memory.recent_message_service import get_recent_message_service
 from app.memory.utils.scope import build_scope
 from dotenv import load_dotenv,find_dotenv
 from app.core.logger import logger
+from app.core.tracing import llm_config, observe, update_current_span
 
 load_dotenv(find_dotenv())
 
 
+@observe(name="query-analyzer", as_type="chain", capture_output=True)
 def step_3_analyze_query(original_query, history_chats):
     """
     Query Analyzer：一次大模型调用，同时产出两样东西
@@ -77,7 +79,8 @@ def step_3_analyze_query(original_query, history_chats):
     messages = [
         HumanMessage(content=prompt)
     ]
-    response = lm_client.invoke(messages)
+    # config 里挂 Langfuse callback（未开启追踪时是空 dict，行为不变）
+    response = lm_client.invoke(messages, config=llm_config())
     # 怎么确保，模型一定能返回格式化数据？ 【面试题】
     # json!  1.设置json格式化！   2. 提示词中明确   3. 一定要给模型参考示例  4. 做好返回格式的校验
     # 3. 结果解析
@@ -366,6 +369,7 @@ def step_6_deal_list(state,item_results, history_chats,rewritten_query):
     logger.info(f"没有匹配的的item_name")
     return state
 
+@observe(name="node:item_name_confirm", as_type="span", capture_input=False, capture_output=False)
 def node_item_name_confirm(state):
     """
     节点功能：Query Analyzer —— 提问后的第一个大模型节点。
@@ -385,6 +389,12 @@ def node_item_name_confirm(state):
     print(f"---node_item_name_confirm---开始处理")
     # 记录任务开始
     add_running_task(state["session_id"], sys._getframe().f_code.co_name,state["is_stream"])
+    update_current_span(
+        input={
+            "original_query": state.get("original_query") or state.get("request_text") or "",
+            "history": len(state.get("history") or []),
+        }
+    )
 
     #  1. 统一用 scope 作为最近消息维度，取出最近的对话
     memory_service = get_recent_message_service() # 获取短期记忆
@@ -430,6 +440,15 @@ def node_item_name_confirm(state):
     state['rewritten_query'] = rewritten_query
     state['retrieval_filters'] = retrieval_filters
     state['history'] = history_chats
+    # 出参：改写后的问题 + 抽出来的结构化过滤条件，是排查「检索为什么跑偏」的第一现场
+    update_current_span(
+        output={
+            "rewritten_query": rewritten_query,
+            "retrieval_filters": retrieval_filters,
+            "history_used": len(history_chats),
+            "history_dropped": dropped_history,
+        }
+    )
     # 确保不会因为历史 state 残留 answer 而跳过检索。
     if "answer" in state:
         del state['answer']
