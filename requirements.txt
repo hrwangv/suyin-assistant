@@ -42,12 +42,30 @@ openai==2.46.0
 openai-agents==0.19.4
 mcp==1.29.0
 
+# ---------- 企业业务智能 Agent ----------
+# 业务申请书 DOCX 渲染的兜底实现（必装；docxtpl 缺失时自动回退到它）
+python-docx==1.2.0
+# 可选：装了就用 docxtpl 渲染 {{ 占位符 }} 模板（对复杂模板支持更好）
+# docxtpl
+# MCP 客户端复用上面的 openai-agents / mcp，不额外引入框架
+
 # ---------- 其它运行时依赖 ----------
 requests==2.34.2
 # app/utils/mongo_history_utils*.py 使用（当前查询流程未调用）
 pymongo==4.17.0
 # Markdown 图片上传到腾讯云 COS
 cos-python-sdk-v5==1.9.44
+# PostgreSQL：Agent 执行记录（app/agent/services/execution_store.py）
+psycopg[binary]==3.3.6
 typing-extensions==4.15.0
 
 # 注：app/test/*.py 里的临时调试脚本还用到 numpy / matplotlib，主流程不需要，故不列入。
+
+# ---------- 可选：检查点持久化（不装则用进程内 InMemorySaver）----------
+# 本项目采用：单机持久化，重启不丢，也支持同机跨进程的 HITL 恢复
+langgraph-checkpoint-sqlite==3.1.1
+
+# ---------- 可选：Langfuse 链路追踪与评测上报 ----------
+# 未安装 / 未配置 LANGFUSE_* 时，app/core/tracing.py 自动退化成 no-op，业务行为不变。
+# v4 基于 OpenTelemetry，会自动带上同版本的 opentelemetry-* 依赖。
+langfuse==4.15.6
