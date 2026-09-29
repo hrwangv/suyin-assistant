@@ -1,5 +1,8 @@
 """LLM Judge：Faithfulness（忠实度）与 Answer Relevancy（答案相关性）。
 
+生成层面：RAG 生成层：judge.py
+回答：答案是否忠实于检索内容？是否切题
+
 两个指标的算法都是 **RAGAS 风格的精简实现**，但都把"打分"从模型手里拿回来，
 只让模型做它擅长的判断，数值由 Python 计算 —— 这样分数可复现、可追溯：
 
@@ -25,6 +28,7 @@ import math
 import re
 
 from app.core.logger import logger
+from app.core.tracing import llm_config, observe
 from app.llm.lm_utils import get_llm_client
 from app.llm.qwen_embedding_utils import generate_embeddings
 from evaluation.cache import cached
@@ -94,6 +98,7 @@ RELEVANCY_PROMPT = """你是一个 RAG 评测员。请根据【回答】反推 {
 """
 
 
+@observe(name="judge-faithfulness", as_type="evaluator", capture_input=False, capture_output=False)
 def judge_faithfulness(
     question: str,
     answer: str,
@@ -116,7 +121,7 @@ def judge_faithfulness(
 
     def _call() -> dict:
         llm = get_llm_client(json_mode=True, model=JUDGE_MODEL)
-        response = llm.invoke(prompt)
+        response = llm.invoke(prompt, config=llm_config())
         return _parse_json(getattr(response, "content", "") or "")
 
     payload = cached(
@@ -137,6 +142,12 @@ def judge_faithfulness(
     }
 
 
+@observe(
+    name="judge-answer-relevancy",
+    as_type="evaluator",
+    capture_input=False,
+    capture_output=False,
+)
 def judge_answer_relevancy(
     question: str,
     answer: str,
@@ -153,7 +164,7 @@ def judge_answer_relevancy(
 
     def _call() -> dict:
         llm = get_llm_client(json_mode=True, model=JUDGE_MODEL)
-        response = llm.invoke(prompt)
+        response = llm.invoke(prompt, config=llm_config())
         return _parse_json(getattr(response, "content", "") or "")
 
     payload = cached(

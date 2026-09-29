@@ -18,10 +18,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
 from evaluation import answering, judge, metrics, report
+from evaluation import tracing as eval_tracing
 from evaluation.cache import cached
 from evaluation.config import (
     CANDIDATE_TOP_K,
@@ -111,6 +113,113 @@ def check_gold_coverage(items, collection: str = CHUNKS_COLLECTION) -> dict:
     }
 
 
+def run_item(
+    item,
+    level,
+    *,
+    top_k: int,
+    do_answer: bool,
+    do_judge: bool,
+    refresh: bool,
+    offline_corpus=None,
+    client=None,
+) -> dict:
+    """跑一道题并返回逐题记录（不含追踪，追踪在外层 run_level 包）。"""
+    offline = offline_corpus is not None
+    gold_keys = item.gold_keys()
+    retrieval_raw = cached(
+        "retrieval",
+        _retrieval_cache_payload(level.level_id, item.question, top_k, offline),
+        lambda: retrieve(
+            item.question,
+            level,
+            top_k=top_k,
+            client=client,
+            offline_corpus=offline_corpus,
+        ).to_dict(),
+        refresh=refresh,
+    )
+    retrieval = RetrievalResult.from_dict(retrieval_raw)
+
+    record: dict = {
+        "id": item.id,
+        "question": item.question,
+        "question_type": item.question_type,
+        "difficulty": item.difficulty,
+        "requires_filter": item.requires_filter,
+        "level_id": level.level_id,
+        "level_name": level.name,
+        "rewritten_query": retrieval.rewritten_query,
+        "filters": retrieval.filters,
+        "filter_applied": retrieval.filter_applied,
+        "fallback_relaxed": retrieval.fallback_relaxed,
+        "gold_keys": sorted(gold_keys),
+        "retrieved_keys": [
+            match_payload(chunk.payload, gold_keys, f"miss:{position}")
+            for position, chunk in enumerate(retrieval.candidates)
+        ],
+        "retrieved_titles": [
+            {
+                "score": round(chunk.score, 4),
+                "file_title": chunk.payload.get("file_title"),
+                "title": chunk.payload.get("title"),
+                "category": chunk.payload.get("category"),
+                "domain": chunk.payload.get("domain"),
+            }
+            for chunk in retrieval.candidates
+        ],
+        "n_candidates": len(retrieval.candidates),
+        "latency_ms": retrieval.latency_ms,
+    }
+
+    if do_answer:
+        question_for_answer = retrieval.rewritten_query or item.question
+        context = answering.build_context(retrieval.candidates)
+        answer_raw = cached(
+            "answer",
+            {
+                "v": 1,
+                "level": level.level_id,
+                "question": question_for_answer,
+                "context": context,
+            },
+            lambda: answering.generate_answer(
+                question_for_answer, retrieval.candidates
+            ).to_dict(),
+            refresh=refresh,
+        )
+        answer_result = answering.AnswerResult.from_dict(answer_raw)
+        record["answer"] = answer_result.answer
+        record["answer_latency_ms"] = answer_result.latency_ms
+        record["prompt_tokens"] = answer_result.prompt_tokens
+
+        if do_judge:
+            faith = judge.judge_faithfulness(
+                question_for_answer,
+                answer_result.answer,
+                answer_result.context,
+                refresh=refresh,
+            )
+            relevancy = judge.judge_answer_relevancy(
+                item.question,
+                answer_result.answer,
+                refresh=refresh,
+            )
+            record["faithfulness"] = faith["faithfulness"]
+            record["faithfulness_detail"] = {
+                "n_statements": faith["n_statements"],
+                "n_supported": faith["n_supported"],
+                "statements": faith["statements"],
+            }
+            record["answer_relevancy"] = relevancy["answer_relevancy"]
+            record["relevancy_detail"] = {
+                "generated_questions": relevancy["generated_questions"],
+                "similarities": relevancy["similarities"],
+            }
+
+    return record
+
+
 def run_level(
     level,
     items,
@@ -122,103 +231,37 @@ def run_level(
     offline_corpus=None,
     client=None,
     verbose: bool = True,
+    run_id: str = "",
+    suite: str = "",
 ) -> tuple[list[dict], dict]:
-    """跑一个层级的所有题目，返回 (逐题记录, 聚合指标)。"""
+    """跑一个层级的所有题目，返回 (逐题记录, 聚合指标)。
+
+    每题包一条 Langfuse trace（未配置追踪时是 no-op），逐题指标以 score 回写。
+    """
     records: list[dict] = []
-    offline = offline_corpus is not None
 
     for index, item in enumerate(items, start=1):
-        gold_keys = item.gold_keys()
-        retrieval_raw = cached(
-            "retrieval",
-            _retrieval_cache_payload(level.level_id, item.question, top_k, offline),
-            lambda item=item: retrieve(
-                item.question,
+        with eval_tracing.question_scope(
+            run_id=run_id,
+            suite=suite,
+            level_id=level.level_id,
+            question=item.question,
+            item_id=item.id,
+            question_type=item.question_type,
+            difficulty=item.difficulty,
+            requires_filter=item.requires_filter,
+        ):
+            record = run_item(
+                item,
                 level,
                 top_k=top_k,
-                client=client,
-                offline_corpus=offline_corpus,
-            ).to_dict(),
-            refresh=refresh,
-        )
-        retrieval = RetrievalResult.from_dict(retrieval_raw)
-
-        record: dict = {
-            "id": item.id,
-            "question": item.question,
-            "question_type": item.question_type,
-            "difficulty": item.difficulty,
-            "requires_filter": item.requires_filter,
-            "level_id": level.level_id,
-            "level_name": level.name,
-            "rewritten_query": retrieval.rewritten_query,
-            "filters": retrieval.filters,
-            "filter_applied": retrieval.filter_applied,
-            "fallback_relaxed": retrieval.fallback_relaxed,
-            "gold_keys": sorted(gold_keys),
-            "retrieved_keys": [
-                match_payload(chunk.payload, gold_keys, f"miss:{position}")
-                for position, chunk in enumerate(retrieval.candidates)
-            ],
-            "retrieved_titles": [
-                {
-                    "score": round(chunk.score, 4),
-                    "file_title": chunk.payload.get("file_title"),
-                    "title": chunk.payload.get("title"),
-                    "category": chunk.payload.get("category"),
-                    "domain": chunk.payload.get("domain"),
-                }
-                for chunk in retrieval.candidates
-            ],
-            "n_candidates": len(retrieval.candidates),
-            "latency_ms": retrieval.latency_ms,
-        }
-
-        if do_answer:
-            question_for_answer = retrieval.rewritten_query or item.question
-            context = answering.build_context(retrieval.candidates)
-            answer_raw = cached(
-                "answer",
-                {
-                    "v": 1,
-                    "level": level.level_id,
-                    "question": question_for_answer,
-                    "context": context,
-                },
-                lambda: answering.generate_answer(
-                    question_for_answer, retrieval.candidates
-                ).to_dict(),
+                do_answer=do_answer,
+                do_judge=do_judge,
                 refresh=refresh,
+                offline_corpus=offline_corpus,
+                client=client,
             )
-            answer_result = answering.AnswerResult.from_dict(answer_raw)
-            record["answer"] = answer_result.answer
-            record["answer_latency_ms"] = answer_result.latency_ms
-            record["prompt_tokens"] = answer_result.prompt_tokens
-
-            if do_judge:
-                faith = judge.judge_faithfulness(
-                    question_for_answer,
-                    answer_result.answer,
-                    answer_result.context,
-                    refresh=refresh,
-                )
-                relevancy = judge.judge_answer_relevancy(
-                    item.question,
-                    answer_result.answer,
-                    refresh=refresh,
-                )
-                record["faithfulness"] = faith["faithfulness"]
-                record["faithfulness_detail"] = {
-                    "n_statements": faith["n_statements"],
-                    "n_supported": faith["n_supported"],
-                    "statements": faith["statements"],
-                }
-                record["answer_relevancy"] = relevancy["answer_relevancy"]
-                record["relevancy_detail"] = {
-                    "generated_questions": relevancy["generated_questions"],
-                    "similarities": relevancy["similarities"],
-                }
-
+            eval_tracing.score_record(record)
         records.append(record)
         if verbose and index % 10 == 0:
             print(f"  [{level.level_id}] {index}/{len(items)}")
@@ -252,15 +295,18 @@ def run_suite(
     offline_corpus=None,
     title: str = "RAG 消融评测结果",
     extra_notes: list[str] | None = None,
+    suite: str = "custom",
 ) -> dict:
     """跑一组实验层级，落盘逐题记录 / 指标 / 报告，返回结果对象。
 
     run_eval.py 和 ablation.py 共用这个函数，保证两个入口口径完全一致。
-    """
+
+   """
     out_dir.mkdir(parents=True, exist_ok=True)
     rows: list[dict] = []
     by_type: dict[str, dict] = {}
     all_metrics: dict[str, dict] = {}
+    run_id = out_dir.name
 
     for level in levels:
         print(f"[run_suite] 开始层级：{level.name}（{level.level_id}）")
@@ -272,7 +318,11 @@ def run_suite(
             do_judge=do_judge,
             refresh=refresh,
             offline_corpus=offline_corpus,
+            run_id=run_id,
+            suite=suite,
         )
+        # 层级汇总也挂一条 trace，方便在 Langfuse 里按 level 直接看总览
+        eval_tracing.score_level(overall, level_id=level.level_id)
         write_jsonl(out_dir / f"records_{level.level_id}.jsonl", records)
         rows.append(report.build_level_row(level.level_id, level.name, level.note, overall))
         by_type[level.level_id] = overall.get("by_question_type", {})
@@ -315,6 +365,8 @@ def run_suite(
         json.dumps(all_metrics, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     report.write_csv(out_dir / "table.csv", rows)
+    # 评测收尾：把缓冲区推给 Langfuse（未启用追踪时是 no-op）
+    eval_tracing.flush()
     return {
         "rows": rows,
         "by_type": by_type,
@@ -342,7 +394,14 @@ def main() -> None:
     parser.add_argument("--offline-smoke", action="store_true", help="本地词法冒烟，不联网")
     parser.add_argument("--check-gold", action="store_true", help="只检查金标在索引里的覆盖率")
     parser.add_argument("--out", default=None, help="结果目录")
+    parser.add_argument(
+        "--no-trace", action="store_true", help="本次运行不上报 Langfuse（临时关闭追踪）"
+    )
     args = parser.parse_args()
+
+    if args.no_trace:
+        # 在初始化客户端之前落开关，保证本次进程完全不产生跨网调用
+        os.environ["LANGFUSE_ENABLED"] = "false"
 
     items, dataset_meta = load_dataset(args.dataset)
     problems = validate(items)
@@ -394,6 +453,7 @@ def main() -> None:
         do_judge=do_answer and not args.no_judge,
         refresh=args.refresh,
         offline_corpus=offline_corpus,
+        suite=args.suite or "custom",
     )
     print("\n" + result["markdown"])
     print(f"\n[run_eval] 结果目录：{result['out_dir']}")

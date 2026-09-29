@@ -1,0 +1,50 @@
+{
+  "name": "document_extraction",
+  "description": "文档理解评测：分类 + 字段抽取（文本为 OCR 结果，可直接喂给 Document Skill）",
+  "cases": [
+    {
+      "id": "doc01",
+      "filename": "询证函.png",
+      "expected_type": "inquiry_letter",
+      "expected": {},
+      "text": "询证函\n致：江苏某某科技有限公司\n本公司聘请的会计师事务所正在对本公司财务报表进行审计，按照中国注册会计师审计准则的要求，应当询证本公司与贵公司的往来款项。\n截至2026年8月31日，贵公司欠本公司货款余额1,234,567.89元。\n回函地址：江苏省南京市鼓楼区中山路1号苏银大厦12层\n联系人：王会计 电话：025-88886666\n"
+    },
+    {
+      "id": "doc02",
+      "filename": "营业执照.png",
+      "expected_type": "business_license",
+      "expected": {
+        "company_name": "江苏欣旺达新能源科技有限公司",
+        "unified_social_credit_code": "91320100MA1XXXXX9K",
+        "registered_address": "江苏省南京市江宁区秣周东路9号",
+        "province": "江苏省"
+      },
+      "text": "营业执照\n名称：江苏欣旺达新能源科技有限公司\n统一社会信用代码：91320100MA1XXXXX9K\n类型：有限责任公司\n法定代表人：李四\n注册资本：5000万元\n成立日期：2020年3月18日\n住所：江苏省南京市江宁区秣周东路9号\n经营范围：新能源技术研发；电池制造\n"
+    },
+    {
+      "id": "doc03",
+      "filename": "他行营业执照.png",
+      "expected_type": "business_license",
+      "expected": {
+        "company_name": "广东XX能源集团有限公司",
+        "unified_social_credit_code": "91440300MA5YYYYY8L",
+        "province": "广东省"
+      },
+      "text": "营业执照\n统一社会信用代码：91440300MA5YYYYY8L\n名称：广东XX能源集团有限公司\n类型：有限责任公司\n法定代表人：张三\n住所：广东省深圳市南山区科技园南路1号\n成立日期：2015年6月1日\n"
+    },
+    {
+      "id": "doc04",
+      "filename": "会议通知.png",
+      "expected_type": "generic_document",
+      "expected": {},
+      "text": "关于召开2026年第三季度经营分析会的通知\n各部门：\n定于2026年9月28日上午9:00在公司12楼会议室召开季度经营分析会，请各部门负责人准时参加并准备汇报材料。\n特此通知。\n"
+    },
+    {
+      "id": "doc05",
+      "filename": "模糊扫描件.png",
+      "expected_type": "unknown",
+      "expected": {},
+      "text": "   "
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import time
 from dataclasses import dataclass, field
 
 from app.core.load_prompt import load_prompt
+from app.core.tracing import llm_config, observe
 from app.llm.lm_utils import get_llm_client
 from app.utils.token_budget import count_tokens
 from evaluation.retrieval import RetrievedChunk
@@ -88,6 +89,7 @@ def doc_keys(candidates: list[RetrievedChunk], max_docs: int = 10) -> list[str]:
     return keys
 
 
+@observe(name="eval-answer", as_type="chain", capture_input=False, capture_output=False)
 def generate_answer(
     question: str,
     candidates: list[RetrievedChunk],
@@ -106,7 +108,8 @@ def generate_answer(
         question=question,
     )
     llm = llm or get_llm_client()
-    response = llm.invoke(prompt)
+    # config 里挂 Langfuse callback（未开启追踪时是空 dict，行为不变）
+    response = llm.invoke(prompt, config=llm_config())
     answer = response.content if isinstance(response.content, str) else str(response.content)
     return AnswerResult(
         question=question,

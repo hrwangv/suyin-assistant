@@ -1,0 +1,39 @@
+{
+  "name": "agent_intent_routing",
+  "description": "Main Agent 一级路由评测：给定请求 + 当前 State，判断 next_action",
+  "cases": [
+    {"id": "k01", "request": "2026年8月欣旺达有什么动态？", "state": {}, "expected": "knowledge"},
+    {"id": "k02", "request": "今年上半年新能源领域有哪些重要动态？", "state": {}, "expected": "knowledge"},
+    {"id": "k03", "request": "经营晨报里提到过哪些算力领域的项目？", "state": {}, "expected": "knowledge"},
+    {"id": "k04", "request": "我们知识库里有没有关于船舶行业的研报？", "state": {}, "expected": "knowledge"},
+    {"id": "k05", "request": "帮我查一下润泽科技最近的消息", "state": {}, "expected": "knowledge"},
+    {"id": "k06", "request": "什么是 RAG？", "state": {}, "expected": "knowledge"},
+    {"id": "k07", "request": "上周重点客户有哪些动态？", "state": {}, "expected": "knowledge"},
+    {"id": "k08", "request": "光伏行业的政策有什么变化？", "state": {}, "expected": "knowledge"},
+
+    {"id": "d01", "request": "帮我看看这个文件", "state": {"has_attachment": true}, "expected": "document"},
+    {"id": "d02", "request": "这是我刚拍的扫描件", "state": {"has_attachment": true}, "expected": "document"},
+    {"id": "d03", "request": "识别一下", "state": {"has_attachment": true}, "expected": "document"},
+    {"id": "d04", "request": "帮我看看这份材料，然后告诉我怎么办", "state": {"has_attachment": true}, "expected": "document"},
+    {"id": "d05", "request": "收到一份回函，先看看内容", "state": {"has_attachment": true}, "expected": "document"},
+
+    {"id": "x01", "request": "帮我提取邮寄地址", "state": {"document_type": "inquiry_letter", "candidate_addresses": ["江苏省南京市鼓楼区中山路1号"]}, "expected": "answer", "expected_document_action": "extract_mailing_address"},
+    {"id": "x02", "request": "回函地址是哪个？", "state": {"document_type": "inquiry_letter", "candidate_addresses": ["江苏省南京市鼓楼区中山路1号"]}, "expected": "answer", "expected_document_action": "extract_mailing_address"},
+    {"id": "x03", "request": "帮我总结一下这份文件", "state": {"document_type": "inquiry_letter", "candidate_addresses": ["江苏省南京市鼓楼区中山路1号"]}, "expected": "answer", "expected_document_action": "summarize_document"},
+    {"id": "x04", "request": "这份营业执照里公司叫什么？", "state": {"document_type": "business_license"}, "expected": "answer", "expected_document_action": "extract_company_info"},
+    {"id": "x05", "request": "把这份文件的企业信息提取出来", "state": {"document_type": "business_license"}, "expected": "answer", "expected_document_action": "extract_company_info"},
+    {"id": "x06", "request": "欣旺达有什么动态？", "state": {"retrieved": true}, "expected": "answer"},
+
+    {"id": "a01", "request": "帮我生成欣旺达公司的业务申请书", "state": {}, "expected": "application"},
+    {"id": "a02", "request": "给南京XX能源出一份业务申请书", "state": {}, "expected": "application"},
+    {"id": "a03", "request": "根据这个文件生成业务申请书", "state": {"document_type": "business_license"}, "expected": "application"},
+    {"id": "a04", "request": "帮我做一份授信申请书", "state": {}, "expected": "application"},
+    {"id": "a05", "request": "申请书还没生成好？", "state": {"retrieved": true}, "expected": "answer"},
+
+    {"id": "q01", "request": "帮我看看这个文件", "state": {"document_type": "inquiry_letter", "candidate_addresses": ["江苏省南京市鼓楼区中山路1号"]}, "expected": "ask_user"},
+    {"id": "q02", "request": "这个能用吗", "state": {"document_type": "generic_document"}, "expected": "ask_user"},
+    {"id": "q03", "request": "看看", "state": {"document_type": "business_license"}, "expected": "ask_user"},
+    {"id": "q04", "request": "帮我处理一下这份材料", "state": {"document_type": "inquiry_letter"}, "expected": "ask_user"},
+    {"id": "q05", "request": "写一份材料", "state": {}, "expected": "ask_user"}
+  ]
+}

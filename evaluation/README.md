@@ -47,6 +47,15 @@ PYTHONPATH=. python -m evaluation.ablation
 改 prompt / 调参数后重跑用 `--refresh` 忽略缓存；只跑一小部分用 `--limit 20`
 （按题型分层抽样，不会只抽到某一类题）。
 
+## Langfuse 追踪（可选）
+
+配好 `.env` 里的 `LANGFUSE_*` 后，评测会自动上报：一道题 = 一条 trace，
+逐题指标（Recall / Hit / MRR / nDCG / Faithfulness / Answer Relevancy）写成该 trace 的 score，
+一次运行 = 一个 Langfuse session，一个消融层级 = 一个 tag。
+
+自检与开关、span 结构、常见排查见 [docs/langfuse接入.md](../docs/langfuse接入.md)。
+本次运行不想上报就加 `--no-trace`。未配置密钥时整套逻辑是 no-op，评测结果与接入前完全一致。
+
 ## 实验阶梯（消融）
 
 | 层级 | 名称 | 打开的开关 | 对应线上节点 |

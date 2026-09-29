@@ -1,0 +1,112 @@
+{
+  "name": "company_resolution",
+  "description": "企业名称匹配评测：完整名称 / 简称 / 去后缀 / 空格 / 模糊 / 多候选 / 无结果",
+  "cases": [
+    {
+      "id": "c01",
+      "query": "欣旺达电子股份有限公司",
+      "candidates": [
+        {"company_name": "欣旺达电子股份有限公司", "unified_social_credit_code": "914403001921901585", "province": "广东省"},
+        {"company_name": "深圳市欣旺达物业管理有限公司", "unified_social_credit_code": "91440300MA5XXXXX1A", "province": "广东省"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "欣旺达电子股份有限公司"
+    },
+    {
+      "id": "c02",
+      "query": "欣旺达",
+      "candidates": [
+        {"company_name": "欣旺达电子股份有限公司", "unified_social_credit_code": "914403001921901585", "province": "广东省"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "欣旺达电子股份有限公司"
+    },
+    {
+      "id": "c03",
+      "query": " 欣 旺 达 电子有限公司 ",
+      "candidates": [
+        {"company_name": "欣旺达电子股份有限公司", "unified_social_credit_code": "914403001921901585", "province": "广东省"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "欣旺达电子股份有限公司"
+    },
+    {
+      "id": "c04",
+      "query": "南京XX能源",
+      "candidates": [
+        {"company_name": "南京XX能源有限公司", "unified_social_credit_code": "91320100MA1AAAAA1A", "province": "江苏省"},
+        {"company_name": "南京XX新能源有限公司", "unified_social_credit_code": "91320100MA1BBBBB2B", "province": "江苏省"},
+        {"company_name": "江苏XX能源科技有限公司", "unified_social_credit_code": "91320100MA1CCCCC3C", "province": "江苏省"}
+      ],
+      "expected_action": "hitl"
+    },
+    {
+      "id": "c05",
+      "query": "江苏XX能源科技有限公司",
+      "candidates": [
+        {"company_name": "南京XX能源有限公司", "unified_social_credit_code": "91320100MA1AAAAA1A", "province": "江苏省"},
+        {"company_name": "江苏XX能源科技有限公司", "unified_social_credit_code": "91320100MA1CCCCC3C", "province": "江苏省"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "江苏XX能源科技有限公司"
+    },
+    {
+      "id": "c06",
+      "query": "ABC能源",
+      "candidates": [],
+      "expected_action": "not_found"
+    },
+    {
+      "id": "c07",
+      "query": "南京欣旺达新能源",
+      "candidates": [
+        {"company_name": "南京欣旺达新能源有限公司", "unified_social_credit_code": "91320100MA1DDDDD4D", "province": "江苏省"},
+        {"company_name": "欣旺达电子股份有限公司", "unified_social_credit_code": "914403001921901585", "province": "广东省"}
+      ],
+      "expected_action": "hitl"
+    },
+    {
+      "id": "c08",
+      "query": "中国石化",
+      "candidates": [
+        {"company_name": "中国石油化工股份有限公司", "unified_social_credit_code": "91110000710920000X", "province": "北京市"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "中国石油化工股份有限公司"
+    },
+    {
+      "id": "c09",
+      "query": "润泽科技",
+      "candidates": [
+        {"company_name": "润泽科技发展有限公司", "unified_social_credit_code": "91131000MA07AAAA1B", "province": "河北省"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "润泽科技发展有限公司"
+    },
+    {
+      "id": "c10",
+      "query": "南京XX能源有限公司",
+      "candidates": [
+        {"company_name": "南京XX能源有限公司", "unified_social_credit_code": "91320100MA1AAAAA1A", "province": "江苏省"},
+        {"company_name": "南京XX新能源有限公司", "unified_social_credit_code": "91320100MA1BBBBB2B", "province": "江苏省"}
+      ],
+      "expected_action": "auto",
+      "expected_company": "南京XX能源有限公司"
+    },
+    {
+      "id": "c11",
+      "query": "不存在的企业名称测试",
+      "candidates": [],
+      "expected_action": "not_found"
+    },
+    {
+      "id": "c12",
+      "query": "苏州XX精密",
+      "candidates": [
+        {"company_name": "苏州XX精密制造有限公司", "unified_social_credit_code": "91320500MA1EEEEE5E", "province": "江苏省"},
+        {"company_name": "苏州XX精密模具有限公司", "unified_social_credit_code": "91320500MA1FFFFF6F", "province": "江苏省"}
+      ],
+      "expected_action": "hitl"
+    }
+  ]
+}

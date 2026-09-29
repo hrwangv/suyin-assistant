@@ -25,6 +25,7 @@ import time
 from dataclasses import asdict, dataclass, field
 
 from app.core.logger import logger
+from app.core.tracing import observe
 from app.conf.retrieval_config import retrieval_config
 from app.llm.qwen_embedding_utils import generate_embeddings
 from app.llm.reranker_utils import text_rerank
@@ -217,6 +218,7 @@ def _to_retrieved(chunks: list[dict]) -> list[RetrievedChunk]:
     ]
 
 
+@observe(name="eval-rerank", as_type="retriever", capture_input=False, capture_output=False)
 def _apply_rerank(
     question: str,
     chunks: list[dict],
@@ -331,6 +333,7 @@ def _offline_retrieve(
 # ------------------------------------------------------------------ #
 # 对外入口
 # ------------------------------------------------------------------ #
+@observe(name="eval-retrieve", as_type="span", capture_input=False, capture_output=False)
 def retrieve(
     question: str,
     level: EvalLevel,

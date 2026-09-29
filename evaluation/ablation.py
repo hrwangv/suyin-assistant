@@ -135,6 +135,7 @@ def main() -> None:
         refresh=args.refresh,
         offline_corpus=offline_corpus,
         title="RAG 消融阶梯：Baseline → 优化方案",
+        suite="ablation_ladder",
     )
 
     portfolio = build_portfolio_summary(
