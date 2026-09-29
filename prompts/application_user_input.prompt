@@ -1,0 +1,21 @@
+你正在和用户确认业务申请书的信息。用户刚刚回复了一句话，请判断他的意图。
+
+当前正在等待用户处理的事情：
+{pending}
+
+可选项（如果是让用户在多个企业里选，这些是候选）：
+{options}
+
+请只输出一个 JSON 对象，不要解释、不要 Markdown 代码块。
+输出结构（花括号只是格式示意）：
+{{"confirm": null, "selected_index": null, "company_name": null, "unified_social_credit_code": null, "province": null, "registered_address": null, "city": null, "notes": null}}
+
+字段说明：
+- confirm：用户是否明确同意/确认（true 同意，false 拒绝或取消，null 没表态）
+- selected_index：用户选择第几个候选（从 1 开始，没选填 null）
+- company_name / unified_social_credit_code / province / registered_address / city：
+  用户在回复里**明确给出**的字段值，没提到的一律 null，不要推测
+- notes：其它补充信息
+
+用户回复：
+{text}
