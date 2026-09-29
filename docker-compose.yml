@@ -1,0 +1,46 @@
+# 苏银助手 —— 后端编排
+#
+# 只包含 api 一个服务。Nginx 用宿主机上已有的那份（它已经占了 80/443），
+# 前端静态文件由宿主机 Nginx 直接托管，见 README 或部署说明。
+#
+# 变量都放在仓库根目录的 .env 里（compose 的 env_file 注入容器）。
+
+name: suyin-assistant
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: suyin-assistant-api:latest
+    restart: unless-stopped
+
+    # MySQL / Redis / Qdrant 都只监听 127.0.0.1（见 ss -lntp 实测），
+    # 桥接网络下的容器访问不到它们，所以直接用宿主机网络栈：
+    # 容器里的 127.0.0.1 就是宿主机，.env 里的连接串一个字都不用改。
+    # 代价是不能用 ports 映射（也不需要）。
+    network_mode: host
+
+    env_file:
+      - .env
+
+    environment:
+      TZ: Asia/Shanghai
+      # 容器里没有 .env 文件，app/utils/path_util.py 靠它定位项目根
+      PROJECT_ROOT: /app
+      # .env 里的 PYTHONPATH 是开发机绝对路径，在容器里不存在，覆盖掉
+      PYTHONPATH: /app
+
+    volumes:
+      - ./templates:/app/templates
+      - ./prompts:/app/prompts
+      - ./output:/app/output
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8001/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s

@@ -1,0 +1,33 @@
+# 构建上下文排除清单。
+# 注意：.env 一定要排除——Dockerfile 里有 COPY . .，
+# 不排除就会把密钥烙进镜像层，而运行期用的是 compose 的 env_file。
+
+.git
+.agents
+.claude
+.codex
+.venv
+
+.env
+.env.*
+!.env.example
+
+node_modules
+page/
+
+output
+outputs
+logs
+
+__pycache__
+**/__pycache__
+*.py[cod]
+*.log
+
+.DS_Store
+**/.DS_Store
+
+evaluation/results/*
+evaluation/agent/results/*
+
+doc/
