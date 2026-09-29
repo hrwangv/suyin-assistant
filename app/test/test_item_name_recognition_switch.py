@@ -88,7 +88,8 @@ def test_query_side_ignores_item_name_filter_when_disabled():
                    ' "filters": {"item_name": "欣旺达"}}')
 
     class FakeLLM:
-        def invoke(self, messages):
+        # config 是追踪用参数（Langfuse callback），桩函数要一起接住
+        def invoke(self, messages, config=None):
             return FakeResponse()
 
     confirm.get_llm_client = lambda *a, **k: FakeLLM()
