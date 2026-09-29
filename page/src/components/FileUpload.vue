@@ -14,26 +14,25 @@
       :before-upload="beforeUpload"
       v-bind="$attrs"
     >
-      <el-icon :size="48" color="#c0c4cc"><UploadFilled /></el-icon>
-      <div class="upload-text">
-        <p>将文件拖到此处，或<em>点击上传</em></p>
-        <p v-if="tip" class="upload-tip">{{ tip }}</p>
-      </div>
+      <el-icon :size="34" class="upload-icon"><UploadFilled /></el-icon>
+      <p class="upload-title">将文件拖到此处，或<em>点击上传</em></p>
+      <p v-if="tip" class="upload-tip">{{ tip }}</p>
     </el-upload>
 
-    <div v-if="uploadingList.length" class="upload-progress">
-      <div v-for="item in uploadingList" :key="item.uid" class="progress-item">
-        <div class="progress-info">
-          <el-icon><Document /></el-icon>
+    <ul v-if="uploadingList.length" class="upload-progress">
+      <li v-for="item in uploadingList" :key="item.uid" class="progress-item">
+        <span class="progress-info">
+          <el-icon :size="14"><Document /></el-icon>
           <span class="progress-name">{{ item.name }}</span>
-        </div>
+        </span>
         <el-progress
           :percentage="item.percentage"
           :status="item.status"
-          style="width: 200px"
+          :stroke-width="6"
+          class="progress-bar"
         />
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -90,47 +89,65 @@ function beforeUpload(file) {
   width: 100%;
 }
 
-.upload-text {
-  margin-top: 12px;
+.upload-icon {
+  color: var(--brand-400);
+}
+
+.upload-title {
+  margin-top: 10px;
   font-size: 14px;
   color: var(--text-regular);
 }
 
-.upload-text em {
-  color: var(--color-primary);
+.upload-title em {
   font-style: normal;
+  color: var(--color-primary);
 }
 
 .upload-tip {
+  margin-top: 5px;
   font-size: 12px;
   color: var(--text-placeholder);
-  margin-top: 4px;
 }
 
 .upload-progress {
-  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: var(--space-4);
+  list-style: none;
 }
 
 .progress-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  gap: var(--space-4);
+  padding: 10px 0;
+}
+
+.progress-item + .progress-item {
+  border-top: 1px solid var(--color-border-light);
 }
 
 .progress-info {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  min-width: 0;
+  font-size: 13.5px;
   color: var(--text-regular);
 }
 
 .progress-name {
-  max-width: 300px;
+  max-width: 320px;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.progress-bar {
+  flex-shrink: 0;
+  width: 200px;
 }
 </style>

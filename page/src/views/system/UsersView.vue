@@ -1,48 +1,57 @@
 <template>
   <div class="users-page">
-    <div class="page-header flex-between">
-      <h2 class="page-title">用户管理</h2>
-      <el-button type="primary" :icon="Plus" @click="handleAdd">新增用户</el-button>
-    </div>
+    <PageHeader title="用户管理" description="维护系统账号、角色与启用状态">
+      <template #extra>
+        <el-button type="primary" :icon="Plus" @click="handleAdd">新增用户</el-button>
+      </template>
+    </PageHeader>
 
     <div class="content-card">
-      <el-table :data="userList" stripe v-loading="loading" style="width: 100%">
-        <el-table-column prop="username" label="用户名" width="140" />
-        <el-table-column prop="role" label="角色" width="100">
+      <div class="list-head">
+        <h3 class="section-title">账号列表</h3>
+        <span class="list-count">共 {{ userList.length }} 个账号</span>
+      </div>
+
+      <el-table :data="userList" v-loading="loading">
+        <el-table-column prop="username" label="用户名" width="160" />
+        <el-table-column prop="role" label="角色" width="120">
           <template #default="{ row }">
-            <el-tag :type="row.roleType === 'admin' ? 'danger' : 'primary'" size="small">
+            <el-tag :type="row.roleType === 'admin' ? 'warning' : 'primary'" effect="plain">
               {{ row.role }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="140">
+        <el-table-column prop="status" label="状态" width="150">
           <template #default="{ row }">
             <el-switch
               :model-value="row.status === '正常'"
-              @change="(val) => handleToggleStatus(row, val)"
               active-text="正常"
               inactive-text="禁用"
-              style="--el-switch-on-color: #67c23a; --el-switch-off-color: #f56c6c"
+              inline-prompt
+              @change="(val) => handleToggleStatus(row, val)"
             />
           </template>
         </el-table-column>
         <el-table-column prop="email" label="邮箱" min-width="200" />
-        <el-table-column prop="createdAt" label="创建时间" width="150" />
-        <el-table-column label="操作" width="160" fixed="right">
+        <el-table-column prop="createdAt" label="创建时间" width="160" />
+        <el-table-column label="操作" width="140" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link size="small" @click="handleEdit(row)">修改</el-button>
-            <el-button type="danger" link size="small" @click="handleDelete(row)">删除</el-button>
+            <el-button type="primary" link @click="handleEdit(row)">修改</el-button>
+            <el-button type="danger" link @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
+        <template #empty>
+          <div class="empty-block">
+            <el-icon :size="28"><User /></el-icon>
+            <p class="empty-title">暂无账号数据</p>
+            <p class="empty-desc">后端用户接口接入后，账号列表将在此展示</p>
+          </div>
+        </template>
       </el-table>
     </div>
 
-    <!-- Add/Edit Dialog -->
-    <el-dialog
-      v-model="dialogVisible"
-      :title="isEdit ? '修改用户' : '新增用户'"
-      width="500px"
-    >
+    <!-- 新增 / 修改 -->
+    <el-dialog v-model="dialogVisible" :title="isEdit ? '修改用户' : '新增用户'" width="480px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username" placeholder="请输入用户名" />
@@ -57,7 +66,12 @@
           <el-input v-model="form.email" placeholder="请输入邮箱" />
         </el-form-item>
         <el-form-item v-if="!isEdit" label="密码" prop="password">
-          <el-input v-model="form.password" type="password" placeholder="请输入密码" show-password />
+          <el-input
+            v-model="form.password"
+            type="password"
+            placeholder="请输入密码"
+            show-password
+          />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -71,6 +85,8 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { getUserList, createUser, updateUser, deleteUser } from '@/api/system'
 
 const userList = ref([])
@@ -153,7 +169,7 @@ async function handleSave() {
     }
     dialogVisible.value = false
   } catch (e) {
-    ElMessage.error('操作失败')
+    ElMessage.error(e?.message || '操作失败')
   }
 }
 
@@ -163,14 +179,50 @@ function handleToggleStatus(row, val) {
 }
 
 function handleDelete(row) {
-  ElMessageBox.confirm(`确定删除用户 "${row.username}" 吗？`, '确认删除', { type: 'warning' }).then(async () => {
-    try {
-      await deleteUser(row.id)
-      userList.value = userList.value.filter((u) => u.id !== row.id)
-      ElMessage.success('删除成功')
-    } catch (e) {
-      ElMessage.error('删除失败')
-    }
-  }).catch(() => {})
+  ElMessageBox.confirm(`确定删除用户 "${row.username}" 吗？`, '确认删除', { type: 'warning' })
+    .then(async () => {
+      try {
+        await deleteUser(row.id)
+        userList.value = userList.value.filter((u) => u.id !== row.id)
+        ElMessage.success('删除成功')
+      } catch (e) {
+        ElMessage.error(e?.message || '删除失败')
+      }
+    })
+    .catch(() => {})
 }
 </script>
+
+<style scoped>
+.list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.list-count {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.empty-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 46px 0;
+  color: var(--text-placeholder);
+}
+
+.empty-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-regular);
+}
+
+.empty-desc {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+</style>

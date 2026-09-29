@@ -182,7 +182,16 @@ export const useChatStore = defineStore('chat', () => {
   const currentConversation = () =>
     conversations.value.find((c) => c.id === currentConversationId.value) || null
 
-  function sendMessage(content, role = 'user') {
+  /**
+   * 追加一条消息。
+   *
+   * extra 用来挂聊天页需要的附加信息（不属于后端历史的一部分）：
+   *   - attachments: [{name}]  这一轮带的附件（仅展示）
+   *   - file: {name, url}      后端生成的 DOCX（渲染下载卡片）
+   * 刷新后从 /history 恢复的消息只有 role/content，这些附加信息会丢失——
+   * 那是预期行为：文件本身还在服务器上，答案正文里也有文件名。
+   */
+  function sendMessage(content, role = 'user', extra = {}) {
     const conv = conversations.value.find((c) => c.id === currentConversationId.value)
     if (conv) {
       conv.messages.push({
@@ -190,6 +199,7 @@ export const useChatStore = defineStore('chat', () => {
         role,
         content,
         timestamp: new Date().toISOString(),
+        ...extra,
       })
       // Update title from first user message
       if (role === 'user' && conv.title === '新对话') {

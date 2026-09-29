@@ -1,16 +1,19 @@
 <template>
   <div class="settings-page">
-    <div class="page-header">
-      <h2 class="page-title">系统配置</h2>
-    </div>
+    <PageHeader title="系统配置" description="配置系统名称、上传限制与会话策略" />
+
+    <el-alert
+      type="info"
+      :closable="false"
+      show-icon
+      class="settings-alert"
+      title="系统配置后端接口尚未接入，当前保存仅在前端生效"
+    />
 
     <div class="content-card">
-      <el-form
-        ref="formRef"
-        :model="form"
-        label-width="140px"
-        style="max-width: 600px"
-      >
+      <h3 class="section-title">基础配置</h3>
+
+      <el-form ref="formRef" :model="form" label-width="150px" class="settings-form">
         <el-form-item label="系统名称">
           <el-input v-model="form.systemName" placeholder="请输入系统名称" />
         </el-form-item>
@@ -23,22 +26,25 @@
             :auto-upload="false"
           >
             <div class="logo-placeholder">
-              <el-icon :size="32"><Plus /></el-icon>
-              <span>上传Logo</span>
+              <el-icon :size="20"><Plus /></el-icon>
+              <span>上传 Logo</span>
             </div>
           </el-upload>
         </el-form-item>
 
         <el-form-item label="最大上传大小(MB)">
           <el-input-number v-model="form.maxUploadSize" :min="1" :max="500" />
+          <span class="field-tip">单次上传文件的体积上限</span>
         </el-form-item>
 
         <el-form-item label="会话超时(分钟)">
           <el-input-number v-model="form.sessionTimeout" :min="5" :max="1440" />
+          <span class="field-tip">超过该时长无操作需重新登录</span>
         </el-form-item>
 
         <el-form-item label="允许注册">
           <el-switch v-model="form.enableRegistration" />
+          <span class="field-tip">开启后允许用户自行注册账号</span>
         </el-form-item>
 
         <el-form-item>
@@ -53,6 +59,8 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { getSettings, updateSettings } from '@/api/system'
 
 const formRef = ref(null)
@@ -82,7 +90,7 @@ async function handleSave() {
     originalForm.value = { ...form }
     ElMessage.success('配置已保存')
   } catch (e) {
-    ElMessage.error('保存失败')
+    ElMessage.error(e?.message || '保存失败')
   } finally {
     saving.value = false
   }
@@ -97,21 +105,40 @@ function handleReset() {
 </script>
 
 <style scoped>
-.logo-upload {
-  border: 1px dashed #dcdfe6;
-  border-radius: 6px;
-  cursor: pointer;
+.settings-alert {
+  margin-bottom: var(--space-5);
+  border-radius: var(--radius-md);
+}
+
+.settings-form {
+  max-width: 620px;
+}
+
+.logo-upload :deep(.el-upload) {
+  border: 1px dashed var(--el-border-color);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.logo-upload :deep(.el-upload:hover) {
+  border-color: var(--brand-400);
 }
 
 .logo-placeholder {
-  width: 100px;
-  height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #c0c4cc;
+  gap: 6px;
+  width: 96px;
+  height: 96px;
   font-size: 12px;
-  gap: 4px;
+  color: var(--text-placeholder);
+}
+
+.field-tip {
+  margin-left: 12px;
+  font-size: 12.5px;
+  color: var(--text-placeholder);
 }
 </style>

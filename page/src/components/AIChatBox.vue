@@ -8,8 +8,8 @@
         :class="['message-item', msg.role]"
       >
         <div class="message-avatar">
-          <el-avatar v-if="msg.role === 'user'" :size="36" icon="UserFilled" />
-          <el-avatar v-else :size="36" style="background: #409eff">
+          <el-avatar v-if="msg.role === 'user'" :size="36" icon="UserFilled" class="avatar-user" />
+          <el-avatar v-else :size="36" class="avatar-assistant">
             <el-icon :size="20"><Cpu /></el-icon>
           </el-avatar>
         </div>
@@ -18,11 +18,11 @@
 
       <div v-if="loading" class="message-item assistant">
         <div class="message-avatar">
-          <el-avatar :size="36" style="background: #409eff">
+          <el-avatar :size="36" class="avatar-assistant">
             <el-icon :size="20"><Cpu /></el-icon>
           </el-avatar>
         </div>
-        <div class="message-bubble">
+        <div class="message-bubble is-typing">
           <div class="typing-indicator">
             <span></span><span></span><span></span>
           </div>
@@ -39,11 +39,7 @@
           @keydown.enter="handleSend"
         >
           <template #append>
-            <el-button
-              :icon="Promotion"
-              :loading="loading"
-              @click="handleSend"
-            />
+            <el-button :icon="Promotion" :loading="loading" @click="handleSend" />
           </template>
         </el-input>
       </slot>
@@ -53,6 +49,7 @@
 
 <script setup>
 import { ref, nextTick, watch } from 'vue'
+import { Promotion } from '@element-plus/icons-vue'
 
 const props = defineProps({
   messages: { type: Array, default: () => [] },
@@ -93,20 +90,21 @@ watch(
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: #fff;
-  border-radius: 8px;
   overflow: hidden;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
 }
 
 .chat-messages {
   flex: 1;
+  padding: var(--space-5);
   overflow-y: auto;
-  padding: 20px;
 }
 
 .message-item {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 20px;
 }
 
@@ -114,46 +112,81 @@ watch(
   flex-direction: row-reverse;
 }
 
+.message-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-user {
+  color: var(--brand-700);
+  background: var(--brand-100);
+}
+
+.avatar-assistant {
+  color: #fff;
+  background: linear-gradient(135deg, #4e7bff, #1c3190);
+}
+
 .message-bubble {
   max-width: 70%;
   padding: 12px 16px;
-  border-radius: 8px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.75;
+  border-radius: var(--radius-md);
+  word-break: break-word;
 }
 
 .message-item.user .message-bubble {
-  background: #ecf5ff;
+  color: #fff;
+  background: linear-gradient(135deg, #3358e8, #1d38b0);
+  border-top-right-radius: var(--radius-xs);
 }
 
 .message-item.assistant .message-bubble {
-  background: #f5f7fa;
+  color: var(--text-primary);
+  background: var(--color-bg-sunken);
+  border: 1px solid var(--color-border-light);
+  border-top-left-radius: var(--radius-xs);
+}
+
+.message-bubble.is-typing {
+  padding: 0;
 }
 
 .typing-indicator {
   display: flex;
   gap: 4px;
-  padding: 8px;
+  padding: 14px 16px;
 }
 
 .typing-indicator span {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #c0c4cc;
+  background: var(--brand-300);
   animation: typing 1.4s infinite ease-in-out;
 }
 
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 @keyframes typing {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-6px); }
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-6px);
+  }
 }
 
 .chat-input {
-  padding: 12px 20px;
-  border-top: 1px solid #ebeef5;
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border-light);
 }
 </style>

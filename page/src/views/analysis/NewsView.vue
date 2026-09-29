@@ -1,65 +1,79 @@
 <template>
   <div class="news-page">
-    <div class="page-header">
-      <h2 class="page-title">经营晨报新闻中心</h2>
-    </div>
+    <PageHeader
+      title="经营晨报新闻中心"
+      description="每日经营资讯汇总，支持按标题或来源检索"
+    >
+      <template #extra>
+        <el-button :icon="Refresh" :loading="loading" @click="load">刷新</el-button>
+      </template>
+    </PageHeader>
 
-    <!-- Stats -->
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-num">{{ todayCount }}</div>
-        <div class="stat-txt">今日新闻数量</div>
+    <!-- 概览 -->
+    <div class="overview">
+      <div v-for="stat in stats" :key="stat.label" class="overview-item">
+        <span class="overview-icon" :style="{ '--tone': stat.tone }">
+          <el-icon :size="18"><component :is="stat.icon" /></el-icon>
+        </span>
+        <span class="overview-body">
+          <span class="overview-value">{{ stat.value }}</span>
+          <span class="overview-label">{{ stat.label }}</span>
+        </span>
       </div>
     </div>
 
-    <!-- News List -->
+    <!-- 新闻列表 -->
     <div class="content-card">
-      <div class="table-header flex-between">
+      <div class="card-head">
         <h3 class="section-title">新闻列表</h3>
         <el-input
           v-model="searchKeyword"
-          placeholder="搜索新闻标题"
+          placeholder="搜索标题或来源"
           :prefix-icon="Search"
-          style="width: 260px"
           clearable
+          class="search-input"
         />
       </div>
 
-      <el-table :data="filteredNews" stripe v-loading="loading">
+      <el-table :data="filteredNews" v-loading="loading">
         <el-table-column prop="title" label="标题" min-width="280">
           <template #default="{ row }">
-            <span class="news-title">{{ row.title }}</span>
+            <button type="button" class="news-title" @click="handleDetail(row)">
+              {{ row.title }}
+            </button>
           </template>
         </el-table-column>
-        <el-table-column prop="source" label="来源" width="120">
+        <el-table-column prop="source" label="来源" width="140">
           <template #default="{ row }">
-            <el-tag type="info" size="small">{{ row.source }}</el-tag>
+            <el-tag type="info" size="small" effect="plain">{{ row.source }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="time" label="时间" width="180" />
-        <el-table-column prop="summary" label="摘要" min-width="300" show-overflow-tooltip />
-        <el-table-column label="操作" width="80" fixed="right">
+        <el-table-column prop="summary" label="摘要" min-width="280" show-overflow-tooltip />
+        <el-table-column label="操作" width="90" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link size="small" @click="handleDetail(row)">
-              查看
-            </el-button>
+            <el-button type="primary" link @click="handleDetail(row)">查看</el-button>
           </template>
         </el-table-column>
+        <template #empty>
+          <div class="empty-block">
+            <el-icon :size="28"><Notebook /></el-icon>
+            <p class="empty-title">暂无新闻数据</p>
+            <p class="empty-desc">{{ searchKeyword ? '换个关键词试试' : '后端新闻接口接入后将在此展示' }}</p>
+          </div>
+        </template>
       </el-table>
     </div>
 
-    <!-- Detail Dialog -->
-    <el-dialog v-model="dialogVisible" :title="currentNews?.title" width="700px">
+    <!-- 详情 -->
+    <el-dialog v-model="dialogVisible" :title="currentNews?.title" width="720px">
       <div v-if="currentNews" class="news-detail">
         <div class="detail-meta">
-          <el-tag type="info" size="small">{{ currentNews.source }}</el-tag>
+          <el-tag type="info" size="small" effect="plain">{{ currentNews.source }}</el-tag>
           <span class="detail-time">{{ currentNews.time }}</span>
         </div>
-        <div class="detail-summary">{{ currentNews.summary }}</div>
-        <div class="detail-body">
-          <p>{{ currentNews.summary }}</p>
-          <p style="margin-top: 12px">新闻详情后端接口待接入。</p>
-        </div>
+        <p class="detail-summary">{{ currentNews.summary }}</p>
+        <p class="detail-note">新闻详情后端接口待接入。</p>
       </div>
     </el-dialog>
   </div>
@@ -67,6 +81,8 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { Refresh, Search } from '@element-plus/icons-vue'
+import PageHeader from '@/components/PageHeader.vue'
 import { getTodayNewsCount, getNewsList } from '@/api/news'
 
 const todayCount = ref(0)
@@ -76,21 +92,38 @@ const searchKeyword = ref('')
 const dialogVisible = ref(false)
 const currentNews = ref(null)
 
+const sourceCount = computed(
+  () => new Set(newsList.value.map((n) => n.source).filter(Boolean)).size
+)
+
+const stats = computed(() => [
+  { label: '今日新闻', value: todayCount.value, icon: 'Sunny', tone: '#b45309' },
+  { label: '列表总数', value: newsList.value.length, icon: 'Files', tone: '#2447d8' },
+  { label: '信息来源', value: sourceCount.value, icon: 'Connection', tone: '#0f766e' },
+])
+
 const filteredNews = computed(() => {
-  if (!searchKeyword.value) return newsList.value
-  const keyword = searchKeyword.value.toLowerCase()
+  const keyword = searchKeyword.value.trim().toLowerCase()
+  if (!keyword) return newsList.value
   return newsList.value.filter(
-    (n) => n.title.toLowerCase().includes(keyword) || n.source.toLowerCase().includes(keyword)
+    (n) =>
+      (n.title || '').toLowerCase().includes(keyword) ||
+      (n.source || '').toLowerCase().includes(keyword)
   )
 })
 
-onMounted(async () => {
+onMounted(load)
+
+async function load() {
   loading.value = true
-  const [countRes, listRes] = await Promise.all([getTodayNewsCount(), getNewsList()])
-  if (countRes.code === 200) todayCount.value = countRes.data.count
-  if (listRes.code === 200) newsList.value = listRes.data
-  loading.value = false
-})
+  try {
+    const [countRes, listRes] = await Promise.all([getTodayNewsCount(), getNewsList()])
+    if (countRes.code === 200) todayCount.value = countRes.data.count
+    if (listRes.code === 200) newsList.value = listRes.data
+  } finally {
+    loading.value = false
+  }
+}
 
 function handleDetail(row) {
   currentNews.value = row
@@ -99,52 +132,113 @@ function handleDetail(row) {
 </script>
 
 <style scoped>
-.stats-bar {
+/* 概览指标 */
+.overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.overview-item {
   display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 18px 20px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
 }
 
-.stat-item {
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  padding: 20px 32px;
-  text-align: center;
-  min-width: 160px;
+.overview-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--tone, var(--color-primary));
+  background: color-mix(in srgb, var(--tone, #2447d8) 10%, #fff);
+  border-radius: var(--radius-md);
 }
 
-.stat-num {
-  font-size: 36px;
+.overview-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.overview-value {
+  font-size: 24px;
   font-weight: 700;
-  color: var(--color-primary);
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
 }
 
-.stat-txt {
-  font-size: 14px;
+.overview-label {
+  font-size: 12.5px;
   color: var(--text-secondary);
-  margin-top: 4px;
 }
 
-.table-header {
-  margin-bottom: 16px;
+/* 列表 */
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.search-input {
+  width: 260px;
 }
 
 .news-title {
-  color: var(--text-primary);
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--text-primary);
+  text-align: left;
+  background: none;
+  border: none;
   cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
 }
 
 .news-title:hover {
   color: var(--color-primary);
 }
 
-.news-detail .detail-meta {
+/* 空状态 */
+.empty-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 46px 0;
+  color: var(--text-placeholder);
+}
+
+.empty-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-regular);
+}
+
+.empty-desc {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+/* 详情 */
+.detail-meta {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 }
 
 .detail-time {
@@ -153,18 +247,29 @@ function handleDetail(row) {
 }
 
 .detail-summary {
-  font-size: 15px;
-  color: var(--text-primary);
-  line-height: 1.8;
-  padding: 12px;
-  background: #f5f7fa;
-  border-radius: 6px;
-  margin-bottom: 16px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-regular);
+  background: var(--color-bg-sunken);
+  border-left: 3px solid var(--brand-300);
+  border-radius: var(--radius-sm);
 }
 
-.detail-body {
-  font-size: 14px;
-  color: var(--text-regular);
-  line-height: 1.8;
+.detail-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 720px) {
+  .card-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    width: 100%;
+  }
 }
 </style>

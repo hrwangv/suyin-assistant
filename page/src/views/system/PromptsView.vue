@@ -1,51 +1,69 @@
 <template>
   <div class="prompts-page">
-    <div class="page-header">
-      <h2 class="page-title">Prompt管理</h2>
-    </div>
+    <PageHeader
+      title="Prompt 管理"
+      description="维护助手各链路的提示词模板，保存后对后续请求生效"
+    />
 
-    <el-row :gutter="24">
-      <!-- Prompt List -->
-      <el-col :span="8">
-        <div class="content-card">
-          <h3 class="section-title">Prompt列表</h3>
-          <div class="prompt-list">
-            <div
+    <el-row :gutter="20">
+      <!-- 列表 -->
+      <el-col :xs="24" :lg="8">
+        <div class="content-card list-card">
+          <div class="list-head">
+            <h3 class="section-title">Prompt 列表</h3>
+            <span class="list-count">{{ promptList.length }} 项</span>
+          </div>
+
+          <div v-if="promptList.length" class="prompt-list">
+            <button
               v-for="prompt in promptList"
               :key="prompt.id"
-              :class="['prompt-item', { active: selectedId === prompt.id }]"
+              type="button"
+              class="prompt-item"
+              :class="{ 'is-active': selectedId === prompt.id }"
               @click="handleSelect(prompt)"
             >
-              <div class="prompt-name">{{ prompt.name }}</div>
-              <div class="prompt-time">{{ prompt.updatedAt }}</div>
-            </div>
+              <span class="prompt-name">{{ prompt.name }}</span>
+              <span class="prompt-time">{{ prompt.updatedAt }}</span>
+            </button>
+          </div>
+
+          <div v-else class="empty-block">
+            <el-icon :size="26"><Edit /></el-icon>
+            <p class="empty-title">暂无 Prompt</p>
+            <p class="empty-desc">后端 Prompt 接口接入后，模板将在此列出</p>
           </div>
         </div>
       </el-col>
 
-      <!-- Editor -->
-      <el-col :span="16">
+      <!-- 编辑器 -->
+      <el-col :xs="24" :lg="16">
         <div class="content-card editor-card">
-          <h3 class="section-title">编辑Prompt</h3>
-          <div v-if="!selectedPrompt" class="editor-empty">
-            <el-empty description="请从左侧选择一个Prompt" :image-size="80" />
+          <div class="list-head">
+            <h3 class="section-title">编辑 Prompt</h3>
+            <span v-if="selectedPrompt" class="list-count">
+              最后更新：{{ selectedPrompt.updatedAt }}
+            </span>
           </div>
+
+          <div v-if="!selectedPrompt" class="empty-block is-tall">
+            <span class="empty-icon"><el-icon :size="24"><EditPen /></el-icon></span>
+            <p class="empty-title">未选择 Prompt</p>
+            <p class="empty-desc">从左侧列表选择一个模板后即可编辑内容</p>
+          </div>
+
           <div v-else class="editor-content">
-            <div class="editor-header flex-between">
-              <span class="editor-title">{{ selectedPrompt.name }}</span>
-              <span class="editor-time">最后更新：{{ selectedPrompt.updatedAt }}</span>
-            </div>
             <el-input
               v-model="content"
               type="textarea"
-              :rows="14"
-              placeholder="请输入Prompt内容"
+              :rows="16"
+              resize="vertical"
+              placeholder="请输入 Prompt 内容"
               class="editor-textarea"
             />
-            <div class="editor-actions">
-              <el-button type="primary" :loading="saving" @click="handleSave">
-                保存
-              </el-button>
+            <div class="editor-foot">
+              <span class="editor-count">{{ content.length }} 字符</span>
+              <el-button type="primary" :loading="saving" @click="handleSave">保存</el-button>
             </div>
           </div>
         </div>
@@ -57,6 +75,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
+import PageHeader from '@/components/PageHeader.vue'
 import { getPromptList, getPromptDetail, updatePrompt } from '@/api/system'
 
 const promptList = ref([])
@@ -89,7 +108,7 @@ async function handleSave() {
     const item = promptList.value.find((p) => p.id === selectedPrompt.value.id)
     if (item) item.updatedAt = selectedPrompt.value.updatedAt
   } catch (e) {
-    ElMessage.error('保存失败')
+    ElMessage.error(e?.message || '保存失败')
   } finally {
     saving.value = false
   }
@@ -97,73 +116,103 @@ async function handleSave() {
 </script>
 
 <style scoped>
+.list-card,
+.editor-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 420px;
+}
+
+.list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.list-count {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
 .prompt-list {
-  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 460px;
   overflow-y: auto;
 }
 
 .prompt-item {
-  padding: 14px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  font-family: inherit;
+  text-align: left;
+  background: transparent;
   border: 1px solid transparent;
-  transition: all 0.2s;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
 }
 
 .prompt-item:hover {
-  background: #f5f7fa;
+  background: var(--color-bg-sunken);
 }
 
-.prompt-item.active {
-  background: #ecf5ff;
-  border-color: var(--color-primary);
+.prompt-item.is-active {
+  background: var(--brand-50);
+  border-color: var(--brand-200);
 }
 
 .prompt-name {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--text-primary);
 }
 
+.prompt-item.is-active .prompt-name {
+  color: var(--brand-700);
+}
+
 .prompt-time {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--text-placeholder);
 }
 
-.editor-card {
-  min-height: 400px;
-}
-
-.editor-empty {
-  display: flex;
-  align-items: center;
+.empty-block.is-tall {
+  flex: 1;
   justify-content: center;
-  min-height: 300px;
 }
 
-.editor-header {
-  margin-bottom: 16px;
-}
-
-.editor-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.editor-time {
-  font-size: 13px;
-  color: var(--text-secondary);
+.editor-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .editor-textarea {
-  margin-bottom: 16px;
+  flex: 1;
 }
 
-.editor-actions {
+.editor-textarea :deep(.el-textarea__inner) {
+  font-family: 'IBM Plex Mono', Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.editor-foot {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-4);
+}
+
+.editor-count {
+  font-size: 12px;
+  color: var(--text-placeholder);
 }
 </style>

@@ -1,10 +1,7 @@
 <template>
-  <el-tag
-    :type="tagType"
-    :size="size"
-    :effect="effect"
-    :round="round"
-  >
+  <el-tag :type="tagType" :size="size" :effect="effect" :round="round" class="status-tag">
+    <!-- 颜色之外再给一个形状提示，避免只靠颜色传达状态 -->
+    <span class="status-tag__dot" aria-hidden="true" />
     <slot>{{ label }}</slot>
   </el-tag>
 </template>
@@ -44,3 +41,18 @@ const statusMap = {
 const tagType = computed(() => statusMap[props.status]?.type || 'info')
 const label = computed(() => statusMap[props.status]?.label || props.status)
 </script>
+
+<style scoped>
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-tag__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+</style>

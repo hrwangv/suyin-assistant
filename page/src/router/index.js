@@ -23,7 +23,8 @@ const routes = [
         path: 'ai/chat',
         name: 'AIChat',
         component: () => import('@/views/ai/ChatView.vue'),
-        meta: { title: '苏银AI问答助手', icon: 'ChatDotRound' },
+        // flush：整页沉浸式布局，内容区不额外留白（对话页自行控制内边距）
+        meta: { title: '苏银AI问答助手', icon: 'ChatDotRound', flush: true },
       },
       {
         path: 'ai/application',

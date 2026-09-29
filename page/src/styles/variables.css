@@ -1,31 +1,212 @@
+/**
+ * 苏银助手 · 设计令牌
+ * ---------------------------------------------------------------
+ * 设计方向：Trust & Authority（银行业可信赖感）+ Swiss Minimalism
+ *  - 主色取「苏银蓝」，用于导航、主操作、链接
+ *  - 强调色取低饱和「鎏金」，仅用于身份标识 / 少量高亮，不抢主色
+ *  - 中性色统一走 slate 灰阶，正文对比度 ≥ 4.5:1
+ *  - 间距遵循 4pt 栅格，圆角 / 阴影分层收敛，避免样式发散
+ */
+
 :root {
-  /* Brand colors */
-  --color-primary: #409eff;
-  --color-primary-light: #66b1ff;
-  --color-primary-dark: #337ecc;
+  /* ============ 品牌色阶 ============ */
+  --brand-50: #eef3ff;
+  --brand-100: #dce7ff;
+  --brand-200: #becffe;
+  --brand-300: #92b2ff;
+  --brand-400: #608cff;
+  --brand-500: #3a66f5;
+  --brand-600: #2447d8;
+  --brand-700: #1d38b0;
+  --brand-800: #1c3190;
+  --brand-900: #1b2e74;
+  --brand-950: #111e4a;
 
-  /* Sidebar */
-  --sidebar-width: 220px;
-  --sidebar-collapsed-width: 64px;
-  --sidebar-bg: #304156;
-  --sidebar-text: #bfcbd9;
-  --sidebar-active-text: #409eff;
-  --sidebar-hover-bg: #263445;
+  --color-primary: var(--brand-600);
+  --color-primary-hover: var(--brand-500);
+  --color-primary-active: var(--brand-700);
+  --color-primary-soft: var(--brand-50);
+  --color-primary-border: var(--brand-200);
+  --color-on-primary: #ffffff;
 
-  /* Topbar */
-  --topbar-height: 56px;
-  --topbar-bg: #fff;
-  --topbar-border: #e6e6e6;
+  /* 强调色（管理员标识 / 关键指标点缀） */
+  --color-accent: #b0791f;
+  --color-accent-soft: #fbf4e4;
+  --color-accent-border: #eddcb4;
 
-  /* Content */
-  --content-bg: #f0f2f5;
-  --card-bg: #fff;
-  --card-radius: 8px;
-  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  /* ============ 语义色 ============ */
+  --color-success: #16a34a;
+  --color-success-soft: #e8f7ee;
+  --color-warning: #d97706;
+  --color-warning-soft: #fdf3e6;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fdeceb;
+  --color-info: #64748b;
+  --color-info-soft: #eef1f5;
 
-  /* Text */
-  --text-primary: #303133;
-  --text-regular: #606266;
-  --text-secondary: #909399;
-  --text-placeholder: #c0c4cc;
+  /* ============ 中性 / 文本 ============ */
+  --color-bg-app: #f4f6fb;
+  --color-bg-elevated: #ffffff;
+  --color-bg-sunken: #f7f9fc;
+  --color-border: #e3e8f0;
+  --color-border-light: #edf1f7;
+  --color-divider: #eef1f6;
+
+  --text-primary: #0f172a;
+  --text-regular: #475569;
+  --text-secondary: #64748b;
+  --text-placeholder: #94a3b8;
+  --text-inverse: #ffffff;
+
+  /* ============ 侧边栏 ============ */
+  --sidebar-width: 244px;
+  --sidebar-collapsed-width: 76px;
+  --sidebar-bg: linear-gradient(180deg, #16294a 0%, #0d1b33 100%);
+  --sidebar-text: rgba(226, 234, 248, 0.72);
+  --sidebar-text-strong: #ffffff;
+  --sidebar-group-label: rgba(160, 178, 210, 0.62);
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.07);
+  --sidebar-active-bg: linear-gradient(90deg, rgba(58, 102, 245, 0.34) 0%, rgba(58, 102, 245, 0.08) 100%);
+  --sidebar-active-bar: #6d95ff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* ============ 顶栏 ============ */
+  --topbar-height: 64px;
+  --topbar-bg: rgba(255, 255, 255, 0.86);
+  --topbar-border: var(--color-border);
+
+  /* ============ 间距（4pt 栅格） ============ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ============ 圆角 ============ */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* ============ 阴影（分层收敛） ============ */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 18px 44px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.05);
+  --shadow-brand: 0 10px 26px rgba(36, 71, 216, 0.24);
+
+  /* ============ 动效 ============ */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 320ms;
+
+  /* ============ 兼容旧代码的别名 ============ */
+  --content-bg: var(--color-bg-app);
+  --card-bg: var(--color-bg-elevated);
+  --card-radius: var(--radius-md);
+  --card-shadow: var(--shadow-sm);
+  --sidebar-active-text: #ffffff;
+}
+
+/* =====================================================================
+ * Element Plus 主题覆盖
+ * 说明：element-plus 的样式在 main.js 中先于本文件引入，
+ *       同优先级下这里会覆盖默认的 :root 变量，实现全组件统一换肤。
+ * ===================================================================== */
+:root {
+  --el-color-primary: var(--brand-600);
+  --el-color-primary-light-3: #667ee4;
+  --el-color-primary-light-5: #92a3ec;
+  --el-color-primary-light-7: #bdc8f3;
+  --el-color-primary-light-8: #d3daf7;
+  --el-color-primary-light-9: #e9edfb;
+  --el-color-primary-dark-2: #1d39ad;
+
+  --el-color-success: var(--color-success);
+  --el-color-success-light-3: #5cbf80;
+  --el-color-success-light-5: #8bd1a5;
+  --el-color-success-light-7: #b9e3c9;
+  --el-color-success-light-8: #d0eddb;
+  --el-color-success-light-9: #e8f6ed;
+  --el-color-success-dark-2: #118234;
+
+  --el-color-warning: var(--color-warning);
+  --el-color-warning-light-3: #e4a051;
+  --el-color-warning-light-5: #ecbb83;
+  --el-color-warning-light-7: #f4d6b4;
+  --el-color-warning-light-8: #f7e4cd;
+  --el-color-warning-light-9: #fbf1e6;
+  --el-color-warning-dark-2: #ae5f05;
+
+  --el-color-danger: var(--color-danger);
+  --el-color-danger-light-3: #e76767;
+  --el-color-danger-light-5: #ee9393;
+  --el-color-danger-light-7: #f5bebe;
+  --el-color-danger-light-8: #f8d4d4;
+  --el-color-danger-light-9: #fce9e9;
+  --el-color-danger-dark-2: #b01e1e;
+
+  --el-color-error: var(--color-danger);
+  --el-color-error-light-3: #e76767;
+  --el-color-error-light-5: #ee9393;
+  --el-color-error-light-7: #f5bebe;
+  --el-color-error-light-8: #f8d4d4;
+  --el-color-error-light-9: #fce9e9;
+  --el-color-error-dark-2: #b01e1e;
+
+  --el-color-info: var(--color-info);
+  --el-color-info-light-3: #939eae;
+  --el-color-info-light-5: #b2bac5;
+  --el-color-info-light-7: #d1d5dc;
+  --el-color-info-light-8: #e0e3e8;
+  --el-color-info-light-9: #f0f1f3;
+  --el-color-info-dark-2: #505d6f;
+
+  --el-text-color-primary: var(--text-primary);
+  --el-text-color-regular: var(--text-regular);
+  --el-text-color-secondary: var(--text-secondary);
+  --el-text-color-placeholder: var(--text-placeholder);
+  --el-text-color-disabled: #a8b2c1;
+
+  --el-border-color: #dbe2ec;
+  --el-border-color-light: var(--color-border);
+  --el-border-color-lighter: var(--color-border-light);
+  --el-border-color-extra-light: #f2f5fa;
+  --el-border-color-hover: #b9c4d6;
+
+  --el-fill-color: #eef2f8;
+  --el-fill-color-light: #f4f7fb;
+  --el-fill-color-lighter: #f8fafd;
+  --el-fill-color-extra-light: #fbfcfe;
+  --el-fill-color-blank: #ffffff;
+
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: var(--color-bg-app);
+  --el-bg-color-overlay: #ffffff;
+
+  --el-border-radius-base: 10px;
+  --el-border-radius-small: 8px;
+  --el-border-radius-round: 999px;
+
+  --el-box-shadow: var(--shadow-md);
+  --el-box-shadow-light: var(--shadow-sm);
+  --el-box-shadow-lighter: var(--shadow-xs);
+  --el-box-shadow-dark: var(--shadow-lg);
+
+  --el-font-size-base: 14px;
+  --el-font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial,
+    sans-serif;
+
+  --el-disabled-bg-color: #f2f4f8;
+  --el-disabled-text-color: #a8b2c1;
+  --el-disabled-border-color: #e3e8f0;
 }

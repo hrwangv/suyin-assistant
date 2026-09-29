@@ -1,38 +1,66 @@
 <template>
-  <div class="page-header" :class="{ 'flex-between': showExtra }">
-    <div class="header-left">
-      <h2 class="page-title">{{ title }}</h2>
-      <p v-if="description" class="page-description">{{ description }}</p>
+  <div class="page-header" :class="{ 'has-icon': !!icon }">
+    <div class="page-header__main">
+      <span v-if="icon" class="page-header__icon">
+        <el-icon :size="20"><component :is="icon" /></el-icon>
+      </span>
+      <div class="page-header__text">
+        <h1 class="page-title">{{ title }}</h1>
+        <p v-if="description" class="page-description">{{ description }}</p>
+      </div>
     </div>
-    <div v-if="showExtra" class="header-extra">
+    <div v-if="hasExtra" class="page-header__extra">
       <slot name="extra" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { useSlots } from 'vue'
+
 defineProps({
   title: { type: String, required: true },
   description: { type: String, default: '' },
+  icon: { type: String, default: '' },
 })
 
-const showExtra = defineSlots().extra
+const hasExtra = !!useSlots().extra
 </script>
 
 <style scoped>
-.page-header {
-  margin-bottom: 20px;
+.page-header__main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
 }
 
-.page-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text-primary);
+.page-header__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary);
+  background: var(--brand-50);
+  border: 1px solid var(--brand-100);
+  border-radius: var(--radius-md);
 }
 
-.page-description {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-top: 4px;
+.page-header__text {
+  min-width: 0;
+}
+
+/* 有图标时不再显示标题左侧的品牌色竖条 */
+.has-icon :deep(.page-title::before) {
+  display: none;
+}
+
+.page-header__extra {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
 }
 </style>
